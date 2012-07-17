@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="ftp://miasin.somee.com/www.miasin.somee.com" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FTP" replaceMatchingFiles="True" userName="mikejan" savePWD="True" userPWD="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAGJzmafWUx0+DLQgxmhFfkgAAAAACAAAAAAAQZgAAAAEAACAAAABVPo85SSqQ3Lez8wz48G5eOqxhQmp6X0I0u8Psw4JUdgAAAAAOgAAAAAIAACAAAABj/Nv9i3BkGMDkvHxx8eS6f0pD0eokdKOts+u5tICEtSAAAAACj/F49JdIVbKRfghSRUTWinjBC5GsVPN91b98+5SvLkAAAABMQVYW/98h/B7GjH3kf0SS4k36SzQBz05L3OW0ED5dxTFoR3x6tSnjH5ifaPY0dwQHrCvl4ZDa39PdmAx3rywG" SelectedForPublish="True">
+    <file relUrl="MyPushService.svc" publishTime="07/04/2012 02:23:48" />
+    <file relUrl="bin/MyPushService.pdb" publishTime="07/13/2012 02:24:33" />
+    <file relUrl="bin/MyPushService.dll" publishTime="07/13/2012 02:24:33" />
+    <file relUrl="Web.config" publishTime="07/13/2012 02:01:07" />
+  </publishProfile>
+</publishData>

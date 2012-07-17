@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EmergencyDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="EmergencyDBModelStoreContainer">
+          <EntitySet Name="Clients" EntityType="EmergencyDBModel.Store.Clients" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Devices" EntityType="EmergencyDBModel.Store.Devices" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Friendship" EntityType="EmergencyDBModel.Store.Friendship" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Devices_Clients" Association="EmergencyDBModel.Store.FK_Devices_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Devices" EntitySet="Devices" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Password" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Email" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="FirstName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Age" Type="int" />
+        </EntityType>
+        <EntityType Name="Devices">
+          <Key>
+            <PropertyRef Name="DeviceID" />
+          </Key>
+          <Property Name="DeviceID" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="DeviceName" Type="varchar" MaxLength="50" />
+          <Property Name="DeviceUrl" Type="varchar" Nullable="false" MaxLength="150" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Friendship">
+          <Key>
+            <PropertyRef Name="FriendshipID" />
+          </Key>
+          <Property Name="FriendshipID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="FriendID" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Devices_Clients">
+          <End Role="Clients" Type="EmergencyDBModel.Store.Clients" Multiplicity="1" />
+          <End Role="Devices" Type="EmergencyDBModel.Store.Devices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Devices">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EmergencyDBModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="EmergencyDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clients" EntityType="EmergencyDBModel.Client" />
+          <EntitySet Name="Devices" EntityType="EmergencyDBModel.Device" />
+          <AssociationSet Name="FK_Devices_Clients" Association="EmergencyDBModel.FK_Devices_Clients">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Devices" EntitySet="Devices" />
+          </AssociationSet>
+          <EntitySet Name="Friendships" EntityType="EmergencyDBModel.Friendship" />
+        </EntityContainer>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientID" />
+          </Key>
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Age" Type="Int32" />
+          <NavigationProperty Name="Devices" Relationship="EmergencyDBModel.FK_Devices_Clients" FromRole="Clients" ToRole="Devices" />
+        </EntityType>
+        <EntityType Name="Device">
+          <Key>
+            <PropertyRef Name="DeviceID" />
+          </Key>
+          <Property Name="DeviceID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="DeviceName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="DeviceUrl" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="EmergencyDBModel.FK_Devices_Clients" FromRole="Devices" ToRole="Clients" />
+        </EntityType>
+        <Association Name="FK_Devices_Clients">
+          <End Role="Clients" Type="EmergencyDBModel.Client" Multiplicity="1" />
+          <End Role="Devices" Type="EmergencyDBModel.Device" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="Devices">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Friendship">
+          <Key>
+            <PropertyRef Name="FriendshipID" />
+          </Key>
+          <Property Type="Int32" Name="FriendshipID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ClientID" Nullable="false" />
+          <Property Type="Int32" Name="FriendID" Nullable="false" />
+          <Property Type="Boolean" Name="Status" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EmergencyDBModelStoreContainer" CdmEntityContainer="EmergencyDBEntities">
+          <EntitySetMapping Name="Clients"><EntityTypeMapping TypeName="EmergencyDBModel.Client"><MappingFragment StoreEntitySet="Clients">
+            <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+            <ScalarProperty Name="Username" ColumnName="Username" />
+            <ScalarProperty Name="Password" ColumnName="Password" />
+            <ScalarProperty Name="Email" ColumnName="Email" />
+            <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+            <ScalarProperty Name="LastName" ColumnName="LastName" />
+            <ScalarProperty Name="Age" ColumnName="Age" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Devices"><EntityTypeMapping TypeName="EmergencyDBModel.Device"><MappingFragment StoreEntitySet="Devices">
+            <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
+            <ScalarProperty Name="DeviceName" ColumnName="DeviceName" />
+            <ScalarProperty Name="DeviceUrl" ColumnName="DeviceUrl" />
+            <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Friendships">
+            <EntityTypeMapping TypeName="EmergencyDBModel.Friendship">
+              <MappingFragment StoreEntitySet="Friendship">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="FriendID" ColumnName="FriendID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="FriendshipID" ColumnName="FriendshipID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="EmergencyDB">
+        <EntityTypeShape EntityType="EmergencyDBModel.Client" Width="1.5" PointX="0.75" PointY="1" Height="2.5571907552083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="EmergencyDBModel.Device" Width="1.5" PointX="3" PointY="1" Height="1.9802864583333335" IsExpanded="true" />
+        <AssociationConnector Association="EmergencyDBModel.FK_Devices_Clients" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.9901432291666668" />
+          <ConnectorPoint PointX="3" PointY="1.9901432291666668" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="EmergencyDBModel.Friendship" Width="1.5" PointX="5.5" PointY="1.125" Height="1.7879850260416657" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

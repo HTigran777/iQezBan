@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WP7App1", "WP7App1\WP7App1.csproj", "{017CD3E4-148F-480C-826D-769D9407B8F3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C82BAC9F-6FA9-416E-902A-B0D33C4FF242} = {C82BAC9F-6FA9-416E-902A-B0D33C4FF242}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPushService", "MyPushService\MyPushService.csproj", "{C82BAC9F-6FA9-416E-902A-B0D33C4FF242}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{017CD3E4-148F-480C-826D-769D9407B8F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{017CD3E4-148F-480C-826D-769D9407B8F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{017CD3E4-148F-480C-826D-769D9407B8F3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{017CD3E4-148F-480C-826D-769D9407B8F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{017CD3E4-148F-480C-826D-769D9407B8F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{017CD3E4-148F-480C-826D-769D9407B8F3}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{C82BAC9F-6FA9-416E-902A-B0D33C4FF242}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C82BAC9F-6FA9-416E-902A-B0D33C4FF242}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C82BAC9F-6FA9-416E-902A-B0D33C4FF242}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C82BAC9F-6FA9-416E-902A-B0D33C4FF242}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
