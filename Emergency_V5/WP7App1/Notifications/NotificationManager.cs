@@ -104,7 +104,7 @@ namespace Notifications
 
         void channel_ShellToastNotificationReceived(object sender, NotificationEventArgs e)
         {
-            MessageBox.Show("Toast Received");
+            //MessageBox.Show("Toast Received");
         }
     }
 }

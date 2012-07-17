@@ -466,43 +466,46 @@
                                 <!--  My Date of Birth (DOB) Block #**********************# END #**********************#  -->
 
                                 <!--  My Password Block #**********************# START #**********************#  -->
-                                <StackPanel Orientation="Horizontal">
+                                <!--
+                                    <StackPanel Orientation="Horizontal">
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock Margin="20, 0, 0, -20" Text="Password" />
-                                        <TextBox x:Name="profPass"
-                                                 Width="330"
-                                                 Margin="10, 10, 0, 0"
-                                                 FontSize="30"
-                                                 Foreground="Black"
-                                                 IsReadOnly="True"
-                                                 Text="{Binding ProfilePassword,
-                                                                Mode=TwoWay}" />
+                                    <TextBlock Margin="20, 0, 0, -20" Text="Password" />
+                                    <TextBox x:Name="profPass"
+                                    Width="330"
+                                    Margin="10, 10, 0, 0"
+                                    FontSize="30"
+                                    Foreground="Black"
+                                    IsReadOnly="True"
+                                    Text="{Binding ProfilePassword,
+                                    Mode=TwoWay}" />
                                     </StackPanel>
-
+                                    
                                     <Button x:Name="editProfPass"
-                                            Width="90"
-                                            Height="80"
-                                            Margin="-23, 16, 0, 0"
-                                            Background="{StaticResource editBrush}"
-                                            Click="editProfPass_Click" />
-
+                                    Width="90"
+                                    Height="80"
+                                    Margin="-23, 16, 0, 0"
+                                    Background="{StaticResource editBrush}"
+                                    Click="editProfPass_Click" />
+                                    
                                     <Button x:Name="acceptPass"
-                                            Width="90"
-                                            Height="80"
-                                            Margin="-23, 16, 0, 0"
-                                            Background="{StaticResource acceptBrush}"
-                                            Click="acceptPass_Click"
-                                            Visibility="Collapsed" />
-
+                                    Width="90"
+                                    Height="80"
+                                    Margin="-23, 16, 0, 0"
+                                    Background="{StaticResource acceptBrush}"
+                                    Click="acceptPass_Click"
+                                    Visibility="Collapsed" />
+                                    
                                     <Button x:Name="cancelPass"
-                                            Width="90"
-                                            Height="80"
-                                            Margin="-20, 16, 0, 0"
-                                            Background="{StaticResource cancelBrush}"
-                                            Click="cancelPass_Click"
-                                            Visibility="Collapsed" />
-                                </StackPanel>
+                                    Width="90"
+                                    Height="80"
+                                    Margin="-20, 16, 0, 0"
+                                    Background="{StaticResource cancelBrush}"
+                                    Click="cancelPass_Click"
+                                    Visibility="Collapsed" />
+                                    </StackPanel>
+                                -->
                                 <!--  My Password Block #**********************# END #**********************#  -->
+
                             </StackPanel>
                         </ScrollViewer>
                     </StackPanel>
@@ -737,7 +740,7 @@
                                                  To="0" />
                             </Storyboard>
 
-                            <Storyboard x:Name="DispandAnimation_2" Completed="DispandAnimation_2_Completed">
+                            <Storyboard x:Name="DispandAnimation_2">
                                 <DoubleAnimation BeginTime="0:0:0.0"
                                                  Duration="0:0:0.20"
                                                  From="340"

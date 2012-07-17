@@ -29,6 +29,17 @@ namespace WP7App1
         private CountDown ButtonTimer = new CountDown(60);
         private bool isRegistrationOK = false;
         public ObservableCollection<ItemViewModel> myRequests = new ObservableCollection<ItemViewModel>();
+        private bool alarmMode = false; 
+
+        public bool AlarmMode
+        {
+            get { return alarmMode; }
+            set 
+            { 
+                alarmMode = value;
+                if (alarmMode) AlarmBlock.Visibility = System.Windows.Visibility.Visible; else AlarmBlock.Visibility = System.Windows.Visibility.Collapsed;
+            }
+        }
 
         #region MENU
 
@@ -68,10 +79,8 @@ namespace WP7App1
             }
 
             LoadSettings();
-
-            Requests.ItemsSource = myRequests;
+            
             myRequests.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(myRequests_CollectionChanged);
-            AlarmBlock.Visibility = System.Windows.Visibility.Collapsed;
 
             client.SendSosNotificationsCompleted += new EventHandler<SendSosNotificationsCompletedEventArgs>(client_SendSosNotificationsCompleted);
             client.SearchFriendsCompleted += new EventHandler<SearchFriendsCompletedEventArgs>(client_SearchFriendsCompleted);
@@ -82,7 +91,6 @@ namespace WP7App1
             client.CompleteFriendshipRequestCompleted += new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(client_CompleteFriendshipRequestCompleted);
             client.GetFriendsListCompleted += new EventHandler<GetFriendsListCompletedEventArgs>(client_GetFriendsListCompleted);
             client.ClientRegistrationCompleted += new EventHandler<ClientRegistrationCompletedEventArgs>(client_ClientRegistrationCompleted);
-            //MessageBox.Show(Resources["ProfileFirstName"].ToString());
         }
 
         /// <summary>
@@ -90,8 +98,8 @@ namespace WP7App1
         /// </summary>
         void myRequests_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (myRequests.Count > 0) Requests.Visibility = System.Windows.Visibility.Visible; else Requests.Visibility = System.Windows.Visibility.Collapsed;
             Requests.ItemsSource = myRequests;
+            if (myRequests.Count > 0) requestBlock.Visibility = System.Windows.Visibility.Visible; else requestBlock.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         /// <summary>
@@ -99,6 +107,9 @@ namespace WP7App1
         /// </summary>
         void LoadSettings()
         {
+            Requests.ItemsSource = myRequests;
+            if (myRequests.Count > 0) requestBlock.Visibility = System.Windows.Visibility.Visible; else requestBlock.Visibility = System.Windows.Visibility.Collapsed;
+            AlarmMode = false;
             sosTime.Text = xbtn;
         }
 
@@ -383,15 +394,7 @@ namespace WP7App1
         {
             LoginBlock.Visibility = System.Windows.Visibility.Collapsed;
         }
-
-        /// <summary>
-        /// Hide Login/Register back-GRID
-        /// </summary>
-        private void DispandAnimation_2_Completed(object sender, EventArgs e)
-        {
-            //blackBG.Visibility = System.Windows.Visibility.Collapsed;
-        }
-
+        
         /// <summary>
         /// Cancel Settings->Sos button release timer textbox changes
         /// </summary>
@@ -692,48 +695,50 @@ namespace WP7App1
         }
         #endregion
 
-        #region Profile Password
-        string _profpass = string.Empty;
+        //#region Profile Password
 
-        /// <summary>
-        /// Make profile Password editable
-        /// </summary>
-        private void editProfPass_Click(object sender, RoutedEventArgs e)
-        {
-            profPass.Width = 260;
-            editProfPass.Visibility = System.Windows.Visibility.Collapsed;
-            acceptPass.Visibility = System.Windows.Visibility.Visible;
-            cancelPass.Visibility = System.Windows.Visibility.Visible;
-            _profpass = profPass.Text;
-            profPass.IsReadOnly = false;
-            profPass.Focus();
-        }
+        //string _profpass = string.Empty;
 
-        /// <summary>
-        /// Accept changes to profile Password
-        /// </summary>
-        private void acceptPass_Click(object sender, RoutedEventArgs e)
-        {
-            profPass.Width = 330;
-            editProfPass.Visibility = System.Windows.Visibility.Visible;
-            acceptPass.Visibility = System.Windows.Visibility.Collapsed;
-            cancelPass.Visibility = System.Windows.Visibility.Collapsed;
-            profPass.IsReadOnly = true;
-        }
+        ///// <summary>
+        ///// Make profile Password editable
+        ///// </summary>
+        //private void editProfPass_Click(object sender, RoutedEventArgs e)
+        //{
+        //    profPass.Width = 260;
+        //    editProfPass.Visibility = System.Windows.Visibility.Collapsed;
+        //    acceptPass.Visibility = System.Windows.Visibility.Visible;
+        //    cancelPass.Visibility = System.Windows.Visibility.Visible;
+        //    _profpass = profPass.Text;
+        //    profPass.IsReadOnly = false;
+        //    profPass.Focus();
+        //}
 
-        /// <summary>
-        /// Cancel changes to profile Password
-        /// </summary>
-        private void cancelPass_Click(object sender, RoutedEventArgs e)
-        {
-            profPass.Width = 330;
-            editProfPass.Visibility = System.Windows.Visibility.Visible;
-            acceptPass.Visibility = System.Windows.Visibility.Collapsed;
-            cancelPass.Visibility = System.Windows.Visibility.Collapsed;
-            profPass.IsReadOnly = true;
-            profPass.Text = _profpass;
-        }
-        #endregion
+        ///// <summary>
+        ///// Accept changes to profile Password
+        ///// </summary>
+        //private void acceptPass_Click(object sender, RoutedEventArgs e)
+        //{
+        //    profPass.Width = 330;
+        //    editProfPass.Visibility = System.Windows.Visibility.Visible;
+        //    acceptPass.Visibility = System.Windows.Visibility.Collapsed;
+        //    cancelPass.Visibility = System.Windows.Visibility.Collapsed;
+        //    profPass.IsReadOnly = true;
+        //}
+
+        ///// <summary>
+        ///// Cancel changes to profile Password
+        ///// </summary>
+        //private void cancelPass_Click(object sender, RoutedEventArgs e)
+        //{
+        //    profPass.Width = 330;
+        //    editProfPass.Visibility = System.Windows.Visibility.Visible;
+        //    acceptPass.Visibility = System.Windows.Visibility.Collapsed;
+        //    cancelPass.Visibility = System.Windows.Visibility.Collapsed;
+        //    profPass.IsReadOnly = true;
+        //    profPass.Text = _profpass;
+        //}
+
+        //#endregion
 
         #endregion
 
@@ -1009,13 +1014,10 @@ namespace WP7App1
                     s += fr.FirstName + " " + fr.LastName + '\n';
                 MessageBox.Show(s);
 
-                MainPageViewModel contacts = new MainPageViewModel();
                 foreach (var result in e.Result)
                 {
-                    contacts.RequestsList.Add(new ItemViewModel() { FirstName = result.FirstName, LastName = result.LastName, EMail = result.Email, UserName = result.Username, DateOfBirth = result.Age.ToString() });
+                    myRequests.Add(new ItemViewModel() { FirstName = result.FirstName, LastName = result.LastName, EMail = result.Email, UserName = result.Username, DateOfBirth = result.Age.ToString() });
                 }
-                requestBlock.Visibility = System.Windows.Visibility.Visible;
-                Requests.ItemsSource = contacts.RequestsList;
             }
         }
 
