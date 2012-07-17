@@ -16,9 +16,9 @@
                             Foreground="{StaticResource PhoneForegroundBrush}"
                             Orientation="Portrait"
                             shell:SystemTray.IsVisible="False"
-                            SizeChanged="UserControl_SizeChanged"
                             SupportedOrientations="Portrait"
                             mc:Ignorable="d">
+    <!--  SizeChanged="UserControl_SizeChanged"  -->
 
     <phone:PhoneApplicationPage.Resources>
         <Style x:Key="ButtonStyle_Round" TargetType="Button">
@@ -609,8 +609,7 @@
                     </StackPanel>
                 </controls:PanoramaItem>
 
-                <controls:PanoramaItem x:Name="requestBlock"
-                                       Header="Requests">
+                <controls:PanoramaItem x:Name="requestBlock" Header="Requests">
                     <StackPanel Orientation="Vertical">
                         <ListBox x:Name="Requests"
                                  Margin="0,0,-12,0"
@@ -849,17 +848,26 @@
 
                         <StackPanel Width="400" Orientation="Vertical">
                             <TextBlock Margin="10, 0, 0, -10" Text="Username" />
-                            <TextBox Name="regUName" Width="400" Background="#AAFFFFFF" LostFocus="username_LostFocus" />
+                            <TextBox Name="regUName"
+                                     Width="400"
+                                     Background="#AAFFFFFF"
+                                     LostFocus="username_LostFocus" />
                         </StackPanel>
 
                         <StackPanel Width="400" Orientation="Vertical">
                             <TextBlock Margin="10, 0, 0, -10" Text="First name" />
-                            <TextBox Name="regFName" Width="400" Background="#AAFFFFFF" LostFocus="regFirstname_LostFocus" />
+                            <TextBox Name="regFName"
+                                     Width="400"
+                                     Background="#AAFFFFFF"
+                                     LostFocus="regFirstname_LostFocus" />
                         </StackPanel>
 
                         <StackPanel Width="400" Orientation="Vertical">
                             <TextBlock Margin="10, 0, 0, -10" Text="Last name" />
-                            <TextBox Name="regLName" Width="400" Background="#AAFFFFFF" LostFocus="regLastname_LostFocus" />
+                            <TextBox Name="regLName"
+                                     Width="400"
+                                     Background="#AAFFFFFF"
+                                     LostFocus="regLastname_LostFocus" />
                         </StackPanel>
 
                         <StackPanel Width="400" Orientation="Vertical">
@@ -867,27 +875,33 @@
                             <PasswordBox Name="regPass"
                                          Width="400"
                                          Background="#AAFFFFFF"
-                                         PasswordChar="*"
-                                         LostFocus="regPassword_LostFocus" />
+                                         LostFocus="regPassword_LostFocus"
+                                         PasswordChar="*" />
                         </StackPanel>
 
                         <StackPanel Width="400" Orientation="Vertical">
-                            <TextBlock Margin="10, 0, 0, -10" Text="Verify Password"/>
+                            <TextBlock Margin="10, 0, 0, -10" Text="Verify Password" />
                             <PasswordBox Name="regPassVerify"
                                          Width="400"
                                          Background="#AAFFFFFF"
-                                         PasswordChar="*"
-                                         LostFocus="regVerifyPassword_LostFocus" />
+                                         LostFocus="regVerifyPassword_LostFocus"
+                                         PasswordChar="*" />
                         </StackPanel>
 
                         <StackPanel Width="400" Orientation="Vertical">
-                            <TextBlock Margin="10, 0, 0, -10" Text="E-Mail"/>
-                            <TextBox Name="regEmail" Width="400" Background="#AAFFFFFF"  LostFocus="regMail_LostFocus"/>
+                            <TextBlock Margin="10, 0, 0, -10" Text="E-Mail" />
+                            <TextBox Name="regEmail"
+                                     Width="400"
+                                     Background="#AAFFFFFF"
+                                     LostFocus="regMail_LostFocus" />
                         </StackPanel>
 
                         <StackPanel Width="400" Orientation="Vertical">
                             <TextBlock Margin="10, 0, 0, -10" Text="Date of birth" />
-                            <TextBox Name="regDOB" Width="400" Background="#AAFFFFFF" LostFocus="regDateofBirth_LostFocus" />
+                            <TextBox Name="regDOB"
+                                     Width="400"
+                                     Background="#AAFFFFFF"
+                                     LostFocus="regDateofBirth_LostFocus" />
                         </StackPanel>
 
                         <StackPanel Width="400" Orientation="Horizontal">
