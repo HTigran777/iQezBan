@@ -726,7 +726,6 @@
                                 <TextBlock Margin="10, 20, 0, 0" Text="Sos button release time" />
                                 <TextBox x:Name="sosTime"
                                          Width="230"
-                                         LostFocus="sosTime_LostFocus"
                                          TextChanged="TextBox_TextChanged" />
                             </StackPanel>
 

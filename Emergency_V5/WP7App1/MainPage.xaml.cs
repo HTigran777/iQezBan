@@ -52,11 +52,7 @@ namespace WP7App1
         }
 
         #region MENU
-
-        //TO BE DELETED START
-        private string xbtn = "60";
-        //TO BE DELETED END        
-
+        
         //if user wants to save his Loggin password
         public bool LoggedIn = false;
 
@@ -96,8 +92,6 @@ namespace WP7App1
                 }
             }
 
-            LoadSettings();
-            
             myRequests.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(myRequests_CollectionChanged);
 
             client.SendSosNotificationsCompleted += new EventHandler<SendSosNotificationsCompletedEventArgs>(client_SendSosNotificationsCompleted);
@@ -109,6 +103,8 @@ namespace WP7App1
             client.CompleteFriendshipRequestCompleted += new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(client_CompleteFriendshipRequestCompleted);
             client.GetFriendsListCompleted += new EventHandler<GetFriendsListCompletedEventArgs>(client_GetFriendsListCompleted);
             client.ClientRegistrationCompleted += new EventHandler<ClientRegistrationCompletedEventArgs>(client_ClientRegistrationCompleted);
+
+            LoadSettings();
         }
 
         /// <summary>
@@ -117,7 +113,7 @@ namespace WP7App1
         void myRequests_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
             Requests.ItemsSource = myRequests;
-            if (myRequests.Count > 0) requestBlock.Visibility = System.Windows.Visibility.Visible; else requestBlock.Visibility = System.Windows.Visibility.Collapsed;
+            requestBlock.Visibility = myRequests.Count > 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
         }
 
         /// <summary>
@@ -126,10 +122,22 @@ namespace WP7App1
         void LoadSettings()
         {
             Requests.ItemsSource = myRequests;
-            if (myRequests.Count > 0) requestBlock.Visibility = System.Windows.Visibility.Visible; else requestBlock.Visibility = System.Windows.Visibility.Collapsed;
+            requestBlock.Visibility = myRequests.Count > 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
             googlemap.Visibility = Visibility.Visible;
             radioHybrid.IsChecked = true;
-            sosTime.Text = xbtn;
+
+            if (IsolatedStorageSettings.ApplicationSettings.Contains("btnReleaseTimer"))
+            {
+                ButtonTimer = new CountDown(Convert.ToDouble(IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"]));
+                sosTime.Text = IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"].ToString();
+            }
+            else
+            {
+                IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"] = "60";
+                sosTime.Text = IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"].ToString();
+            }
+
+            ButtonTimer.CountDownTimer = Convert.ToDouble(IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"]);
 
             AlarmMode = true;
         }
@@ -352,7 +360,7 @@ namespace WP7App1
         /// </summary>
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (sosTime.Text != xbtn)
+            if (sosTime.Text != IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"].ToString())
                 btnTimer.Visibility = System.Windows.Visibility.Visible;
             else
             { btnTimer.Visibility = System.Windows.Visibility.Collapsed; }
@@ -363,9 +371,8 @@ namespace WP7App1
         /// </summary>
         private void btnTimer_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Changes saved successfuly !!!");
-            xbtn = sosTime.Text;
-            ButtonTimer.CountDownTimer = Convert.ToDouble(xbtn);
+            IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"] = sosTime.Text;
+            ButtonTimer.CountDownTimer = Convert.ToDouble(sosTime.Text);
             btnTimer.Visibility = System.Windows.Visibility.Collapsed;
         }
 
@@ -409,14 +416,6 @@ namespace WP7App1
             LoginBlock.Visibility = System.Windows.Visibility.Collapsed;
         }
         
-        /// <summary>
-        /// Cancel Settings->Sos button release timer textbox changes
-        /// </summary>
-        private void sosTime_LostFocus(object sender, RoutedEventArgs e)
-        {
-            sosTime.Text = xbtn;
-        }
-
         /// <summary>
         /// Cancel Registration Button
         /// </summary>
@@ -836,6 +835,22 @@ namespace WP7App1
             ShowFriendsInformation((sender as MenuItem).Tag.ToString(), 1);
         }
 
+        /// <summary>
+        /// Changing Map view style by RadioButtons
+        /// </summary>
+        private void radio_Checked(object sender, RoutedEventArgs e)
+        {
+            hybrid.Visibility = Visibility.Collapsed;
+            street.Visibility = Visibility.Collapsed;
+            satellite.Visibility = Visibility.Collapsed;
+            switch ((sender as RadioButton).Name)
+            {
+                case "radioHybrid": hybrid.Visibility = Visibility.Visible; break;
+                case "radioStreet": street.Visibility = Visibility.Visible; break;
+                case "radioSatelite": satellite.Visibility = Visibility.Visible; break;
+            }
+        }
+
         #endregion
 
         #region Registration Events
@@ -1080,18 +1095,5 @@ namespace WP7App1
         }
 
         #endregion
-
-        private void radio_Checked(object sender, RoutedEventArgs e)
-        {
-            hybrid.Visibility = Visibility.Collapsed;
-            street.Visibility = Visibility.Collapsed;
-            satellite.Visibility = Visibility.Collapsed;
-            switch ((sender as RadioButton).Name)
-            {
-                case "radioHybrid": hybrid.Visibility = Visibility.Visible; break;
-                case "radioStreet": street.Visibility = Visibility.Visible; break;
-                case "radioSatelite": satellite.Visibility = Visibility.Visible; break;
-            }
-        }
     }
 }
