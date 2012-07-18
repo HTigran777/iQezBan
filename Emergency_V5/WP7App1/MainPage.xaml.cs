@@ -27,9 +27,10 @@ namespace WP7App1
         private StarField _starField;
         private DateTime _lastUpdate = DateTime.Now;
         private CountDown ButtonTimer = new CountDown(60);
+        private CountDown reEnable = new CountDown(100);
         private bool isRegistrationOK = false;
         public ObservableCollection<ItemViewModel> myRequests = new ObservableCollection<ItemViewModel>();
-        private bool alarmMode = false; 
+        private bool alarmMode = false;
 
         public bool AlarmMode
         {
@@ -37,7 +38,16 @@ namespace WP7App1
             set 
             { 
                 alarmMode = value;
-                if (alarmMode) AlarmBlock.Visibility = System.Windows.Visibility.Visible; else AlarmBlock.Visibility = System.Windows.Visibility.Collapsed;
+                if (alarmMode)
+                {
+                    myPano.DefaultItem = myPano.Items[5];
+                    AlarmBlock.Visibility = System.Windows.Visibility.Visible;
+                } 
+                else
+                {
+                    myPano.DefaultItem = myPano.Items[0];
+                    AlarmBlock.Visibility = System.Windows.Visibility.Collapsed;
+                }
             }
         }
 
@@ -58,6 +68,14 @@ namespace WP7App1
             InitializeComponent();
             client = new MyPushServiceClient();
             ButtonTimer.Alarm += new EventHandler(ButtonTimer_Alarm);
+            reEnable.Alarm += (sender, args) =>
+                                  {
+                                      reEnable.Stop();
+                                      reEnable.ResetTimer();
+                                      sosButton.Background = new SolidColorBrush(Colors.Cyan);
+                                      sosButton.IsEnabled = true;
+                                      ButtonTimer.ResetTimer();
+                                  };
 
             LoggedIn = Bootstrapper.loggedIn;
             username = Bootstrapper.username;
@@ -109,8 +127,11 @@ namespace WP7App1
         {
             Requests.ItemsSource = myRequests;
             if (myRequests.Count > 0) requestBlock.Visibility = System.Windows.Visibility.Visible; else requestBlock.Visibility = System.Windows.Visibility.Collapsed;
-            AlarmMode = false;
+            googlemap.Visibility = Visibility.Visible;
+            radioHybrid.IsChecked = true;
             sosTime.Text = xbtn;
+
+            AlarmMode = true;
         }
 
         /// <summary>
@@ -123,6 +144,7 @@ namespace WP7App1
                 sosButton.Background = new SolidColorBrush(Colors.Red);
                 sosButton.IsEnabled = false;
                 client.SendSosNotificationsAsync(new ClientData { Username = username });
+                reEnable.Start();
             }
             else
             {
@@ -378,15 +400,7 @@ namespace WP7App1
                 regDispandAnimation.Begin();
             }
         }
-
-        /// <summary>
-        /// Registration Block "Exit Animation" completed event: Hides Registration block
-        /// </summary>
-        private void regDispandAnimation_Completed(object sender, EventArgs e)
-        {
-            //regBlock.Visibility = System.Windows.Visibility.Collapsed;
-        }
-
+        
         /// <summary>
         /// Login Block "Exit Animation" completed event: Hides Login block
         /// </summary>
@@ -435,10 +449,6 @@ namespace WP7App1
                 ShowHideRegisterBlock(false);
                 regBlock.Visibility = System.Windows.Visibility.Collapsed;
                 ShowHideLoginBlock(true);
-            }
-            else
-            {
-                
             }
         }
 
@@ -750,6 +760,9 @@ namespace WP7App1
             ShowFriendsInformation((sender as MenuItem).Tag.ToString(), 0);
         }
 
+        /// <summary>
+        /// Shows friend information
+        /// </summary>
         private void ShowFriendsInformation(string uname, int listnum)
         {
             ObservableCollection<ItemViewModel> col = new ObservableCollection<ItemViewModel>();
@@ -1067,5 +1080,18 @@ namespace WP7App1
         }
 
         #endregion
+
+        private void radio_Checked(object sender, RoutedEventArgs e)
+        {
+            hybrid.Visibility = Visibility.Collapsed;
+            street.Visibility = Visibility.Collapsed;
+            satellite.Visibility = Visibility.Collapsed;
+            switch ((sender as RadioButton).Name)
+            {
+                case "radioHybrid": hybrid.Visibility = Visibility.Visible; break;
+                case "radioStreet": street.Visibility = Visibility.Visible; break;
+                case "radioSatelite": satellite.Visibility = Visibility.Visible; break;
+            }
+        }
     }
 }

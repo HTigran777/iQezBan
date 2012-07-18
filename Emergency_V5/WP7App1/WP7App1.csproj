@@ -77,6 +77,7 @@
     </Compile>
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="CountDown.cs" />
+    <Compile Include="GoogleTile.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -105,7 +106,6 @@
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
-    <None Include="WP7App1_2012_07_17_15_39_47.sap" />
     <Resource Include="Images\accept_img.png" />
     <Resource Include="Images\bg1.jpg" />
     <Resource Include="Images\cancel_img.png" />

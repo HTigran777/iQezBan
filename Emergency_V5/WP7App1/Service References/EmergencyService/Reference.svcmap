@@ -23,12 +23,12 @@
     <MetadataSource Address="http://miasin.somee.com/MyPushService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="MyPushService.xsd" MetadataType="Schema" ID="c3be75f4-e5ab-4e4f-ac34-690035cd0f67" SourceId="1" SourceUrl="http://miasin.somee.com/MyPushService.svc?xsd=xsd2" />
-    <MetadataFile FileName="MyPushService1.xsd" MetadataType="Schema" ID="408432f2-1611-411e-96ea-539f555e1b47" SourceId="1" SourceUrl="http://miasin.somee.com/MyPushService.svc?xsd=xsd1" />
-    <MetadataFile FileName="MyPushService2.xsd" MetadataType="Schema" ID="a143d34d-2f80-463f-80ae-2a94381db7fd" SourceId="1" SourceUrl="http://miasin.somee.com/MyPushService.svc?xsd=xsd0" />
-    <MetadataFile FileName="MyPushService3.xsd" MetadataType="Schema" ID="61071346-1a20-4370-a279-80fad95b6c3f" SourceId="1" SourceUrl="http://miasin.somee.com/MyPushService.svc?xsd=xsd3" />
-    <MetadataFile FileName="MyPushService.disco" MetadataType="Disco" ID="7537f6d3-158c-4b7c-b69e-01fc5b440d9b" SourceId="1" SourceUrl="http://miasin.somee.com/MyPushService.svc?disco" />
-    <MetadataFile FileName="MyPushService.wsdl" MetadataType="Wsdl" ID="396419dc-e559-4e6c-afff-fd2e497ac396" SourceId="1" SourceUrl="http://miasin.somee.com/MyPushService.svc?wsdl" />
+    <MetadataFile FileName="MyPushService.xsd" MetadataType="Schema" ID="fa40cd19-767d-4d4e-88de-a06102336f07" SourceId="1" SourceUrl="http://miasin.somee.com/MyPushService.svc?xsd=xsd2" />
+    <MetadataFile FileName="MyPushService1.xsd" MetadataType="Schema" ID="ef56d823-a76e-41b6-b857-1c976c9fd441" SourceId="1" SourceUrl="http://miasin.somee.com/MyPushService.svc?xsd=xsd1" />
+    <MetadataFile FileName="MyPushService2.xsd" MetadataType="Schema" ID="e260e079-c2b5-4858-9ab9-b5aab5ad761d" SourceId="1" SourceUrl="http://miasin.somee.com/MyPushService.svc?xsd=xsd0" />
+    <MetadataFile FileName="MyPushService3.xsd" MetadataType="Schema" ID="8f6032ef-1894-4fef-b575-d6ddcc411f83" SourceId="1" SourceUrl="http://miasin.somee.com/MyPushService.svc?xsd=xsd3" />
+    <MetadataFile FileName="MyPushService.disco" MetadataType="Disco" ID="7a8871ba-d1a8-4c1b-910a-b24a5572cdd3" SourceId="1" SourceUrl="http://miasin.somee.com/MyPushService.svc?disco" />
+    <MetadataFile FileName="MyPushService.wsdl" MetadataType="Wsdl" ID="83c98c85-3e23-406c-b42e-247b3a559fb5" SourceId="1" SourceUrl="http://miasin.somee.com/MyPushService.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

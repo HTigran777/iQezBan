@@ -3,7 +3,9 @@
                             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                             xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
                             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:GoogleTileSource="clr-namespace:WP7App1"
                             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:MSPCMCore="clr-namespace:Microsoft.Phone.Controls.Maps.Core;assembly=Microsoft.Phone.Controls.Maps"
                             xmlns:my="clr-namespace:Microsoft.Phone.Controls.Maps;assembly=Microsoft.Phone.Controls.Maps"
                             xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
                             xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
@@ -211,7 +213,7 @@
 
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid>
-            <controls:Panorama x:Name="myPano" Title="SOS Caller">
+            <controls:Panorama x:Name="myPano" Title="sos caller">
                 <controls:Panorama.Background>
                     <ImageBrush ImageSource="Images/bg1.jpg" />
                 </controls:Panorama.Background>
@@ -659,6 +661,64 @@
                     </StackPanel>
                 </controls:PanoramaItem>
 
+                <controls:PanoramaItem x:Name="AlarmBlock" Header="Alarms map">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton Name="radioHybrid"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Top"
+                                         Checked="radio_Checked"
+                                         Content="Hybrid" />
+                            <RadioButton Name="radioStreet"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Top"
+                                         Checked="radio_Checked"
+                                         Content="Street" />
+                            <RadioButton Name="radioSatelite"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Top"
+                                         Checked="radio_Checked"
+                                         Content="Satelite"
+                                         IsChecked="False" />
+                        </StackPanel>
+                        <my:Map Name="googlemap"
+                                Width="420"
+                                Height="400"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Top"
+                                CopyrightVisibility="Collapsed"
+                                CredentialsProvider="AqayajnZU8FSfDGL8jpK5zMKAHmUL27Uqxv_OnpQzJQOI2PoQyxcG7dlR6_g4WWo"
+                                LogoVisibility="Collapsed"
+                                ScaleVisibility="Visible">
+                            <my:Map.Mode>
+                                <MSPCMCore:MercatorMode />
+                            </my:Map.Mode>
+                            <my:MapTileLayer Name="street"
+                                             Width="420"
+                                             Height="500"
+                                             Margin="0,0,0,32">
+                                <my:MapTileLayer.TileSources>
+                                    <GoogleTileSource:GoogleTile TileTypes="Street" />
+                                </my:MapTileLayer.TileSources>
+                            </my:MapTileLayer>
+                            <my:MapTileLayer Name="hybrid"
+                                             Margin="0,0,0,32"
+                                             Visibility="Collapsed">
+                                <my:MapTileLayer.TileSources>
+                                    <GoogleTileSource:GoogleTile TileTypes="Hybrid" />
+                                </my:MapTileLayer.TileSources>
+                            </my:MapTileLayer>
+                            <my:MapTileLayer Name="satellite"
+                                             Margin="0,0,0,32"
+                                             Visibility="Collapsed">
+                                <my:MapTileLayer.TileSources>
+                                    <GoogleTileSource:GoogleTile TileTypes="Satellite" />
+                                </my:MapTileLayer.TileSources>
+                            </my:MapTileLayer>
+                        </my:Map>
+                    </StackPanel>
+                </controls:PanoramaItem>
+
                 <controls:PanoramaItem Header="Settings">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
@@ -677,16 +737,6 @@
                                     Background="{StaticResource acceptBrush}"
                                     Click="btnTimer_Click"
                                     Visibility="Collapsed" />
-                        </StackPanel>
-                    </StackPanel>
-                </controls:PanoramaItem>
-                <controls:PanoramaItem x:Name="AlarmBlock" Header="Alarm position">
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal">
-                            <my:Map x:Name="myMap"
-                                    Width="420"
-                                    Height="490"
-                                    ZoomBarVisibility="Visible" />
                         </StackPanel>
                     </StackPanel>
                 </controls:PanoramaItem>
@@ -826,7 +876,7 @@
                                                  Storyboard.TargetProperty="Height"
                                                  To="730" />
                             </Storyboard>
-                            <Storyboard x:Name="regDispandAnimation" Completed="regDispandAnimation_Completed">
+                            <Storyboard x:Name="regDispandAnimation">
                                 <DoubleAnimation BeginTime="0:0:0.0"
                                                  Duration="0:0:0.20"
                                                  From="420"
