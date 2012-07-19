@@ -155,6 +155,7 @@ namespace WP7App1
             {
                 sosButton.Background = new SolidColorBrush(Colors.Red);
                 sosButton.IsEnabled = false;
+                location = new LocationManager();
                 location.StartLocationCapturing();
                 location.username = username;
                 //client.SendSosNotificationsAsync(new ClientData { Username = username });
@@ -189,6 +190,12 @@ namespace WP7App1
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             panelStarfield.UpdateLayout();
+            if (NavigationContext.QueryString.ContainsKey("receivedLatitude"))
+            {
+                string receivedLatitude = NavigationContext.QueryString["receivedLatitude"];
+                string receivedLongitude = NavigationContext.QueryString["receivedLongitude"];
+                MessageBox.Show("Latitude:" + receivedLatitude + "\nLongitude:" + receivedLongitude);
+            }
         }
 
         private static bool _initializedAfterScreenSizeChanged = false;

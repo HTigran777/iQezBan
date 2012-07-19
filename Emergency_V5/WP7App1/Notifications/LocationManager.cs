@@ -35,6 +35,7 @@ namespace Notifications
 
         public LocationManager()
         {
+            client = new MyPushServiceClient();
             StartLocationCapturing();
         }
 
