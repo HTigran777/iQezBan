@@ -53,4 +53,5 @@
   <Module PersistentId="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" ModuleId="Microsoft.Phone.Controls_1" />
   <Module PersistentId="Microsoft.Phone.Controls.Maps, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" ModuleId="Microsoft.Phone.Controls.Maps_1" />
   <Module PersistentId="Microsoft.Phone.Controls.Toolkit, Version=7.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604" ModuleId="Microsoft.Phone.Controls.Toolkit_1" />
+  <Module PersistentId="System.Device, Version=2.0.5.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e" ModuleId="System.Device" />
 </Modules>

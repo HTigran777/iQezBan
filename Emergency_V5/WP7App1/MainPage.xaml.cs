@@ -16,6 +16,7 @@ using Notifications;
 using System.IO.IsolatedStorage;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
+using System.Device.Location;
 
 
 namespace WP7App1
@@ -139,7 +140,9 @@ namespace WP7App1
 
             ButtonTimer.CountDownTimer = Convert.ToDouble(IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"]);
 
-            AlarmMode = false;
+            AlarmMode = true;
+            googlemap.Center = new GeoCoordinate(40.123661, 44.477149);
+            googlemap.ZoomLevel = 16;
         }
 
         /// <summary>
