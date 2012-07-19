@@ -28,7 +28,7 @@ namespace EmergencyService
         List<ClientData> SearchFriends(ClientData client);
 
         [OperationContract]
-        List<string> SendSosNotifications(ClientData client);
+        List<string> SendSosNotifications(ClientData client, double latitude, double longitude);
         
         [OperationContract]
         string AddFriend(string clientUsername, string friendUsername);

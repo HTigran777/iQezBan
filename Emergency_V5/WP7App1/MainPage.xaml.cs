@@ -24,6 +24,7 @@ namespace WP7App1
     public partial class MainPage : PhoneApplicationPage
     {
         private MyPushServiceClient client;
+        private LocationManager location;
         private string username, password;
         private StarField _starField;
         private DateTime _lastUpdate = DateTime.Now;
@@ -154,7 +155,9 @@ namespace WP7App1
             {
                 sosButton.Background = new SolidColorBrush(Colors.Red);
                 sosButton.IsEnabled = false;
-                client.SendSosNotificationsAsync(new ClientData { Username = username });
+                location.StartLocationCapturing();
+                location.username = username;
+                //client.SendSosNotificationsAsync(new ClientData { Username = username });
                 reEnable.Start();
             }
             else

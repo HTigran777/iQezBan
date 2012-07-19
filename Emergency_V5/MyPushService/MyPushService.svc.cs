@@ -64,7 +64,7 @@ namespace EmergencyService
 
                         if (data.PushType == "toast")
                         {
-                            payload = GetToastPayload(data.Title, data.PersonName);
+                            payload = GetToastPayload(data.Title, data.PersonName, "");
                             request.Headers.Add("X-WindowsPhone-Target", "toast");
                             request.Headers.Add("X-NotificationClass", "2");
                         }
@@ -101,7 +101,7 @@ namespace EmergencyService
             return new List<string> { data.NotificationStatus, data.NotificationChannelStatus, data.DeviceConnectionStatus };
         }
 
-        private byte[] GetToastPayload(string title, string personName)
+        private byte[] GetToastPayload(string title, string personName, string param)
         {
             string payload = string.Format(
                 "<?xml version=\"1.0\" encoding=\"utf-8\"?>" +
@@ -109,10 +109,10 @@ namespace EmergencyService
                 "<wp:Toast>" +
                 "<wp:Text1>{0}</wp:Text1>" +
                 "<wp:Text2>{1}</wp:Text2>" +
-                "<wp:Param></wp:Param>" +
+                "<wp:Param>{2}</wp:Param>" +
                 "</wp:Toast>" +
                 "</wp:Notification>",
-                title, personName);//, "/MainPage.xaml");//?id=" + personId.ToString());
+                title, personName, param);//, "/MainPage.xaml");//?id=" + personId.ToString());
 
             return Encoding.UTF8.GetBytes(payload);
         }
@@ -137,7 +137,7 @@ namespace EmergencyService
             return Encoding.UTF8.GetBytes(payload);
         }
 
-        public List<string> SendSosNotifications(ClientData client)
+        public List<string> SendSosNotifications(ClientData client, double latitude, double longitude)
         {
             using (EmergencyDBEntities context = new EmergencyDBEntities())
             {
@@ -173,7 +173,7 @@ namespace EmergencyService
                             request.Method = "POST";
                             request.ContentType = "text/xml";
 
-                            payload = GetToastPayload("Emergency", sender.FirstName + " " + sender.LastName);
+                            payload = GetToastPayload("Emergency", sender.FirstName + " " + sender.LastName, "?receivedLatitude=" + latitude + "&amp;receivedLongitude=" + longitude);
                             request.Headers.Add("X-WindowsPhone-Target", "toast");
                             request.Headers.Add("X-NotificationClass", "2");
 
@@ -281,7 +281,7 @@ namespace EmergencyService
                         requestToast.Method = "POST";
                         requestToast.ContentType = "text/xml";
 
-                        payload = GetToastPayload("Friend request:", clientDB.FirstName + " " + clientDB.LastName);
+                        payload = GetToastPayload("Friend request:", clientDB.FirstName + " " + clientDB.LastName, "");
                         requestToast.Headers.Add("X-WindowsPhone-Target", "toast");
                         requestToast.Headers.Add("X-NotificationClass", "2");
 
@@ -395,7 +395,7 @@ namespace EmergencyService
                     context.Friendships.AddObject(new Friendship() { ClientID = clientDB.ClientID, FriendID = friendDB.ClientID, Status = true });
                     context.SaveChanges();
 
-                    payload = GetToastPayload("Friend request confirmed by:", clientDB.FirstName + " " + clientDB.LastName);
+                    payload = GetToastPayload("Friend request confirmed by:", clientDB.FirstName + " " + clientDB.LastName, "");
 
                 }
                 else
@@ -405,7 +405,7 @@ namespace EmergencyService
                                                       select f).FirstOrDefault());
                     context.SaveChanges();
 
-                    payload = GetToastPayload("Friend request disconfirmed by:", clientDB.FirstName + " " + clientDB.LastName);
+                    payload = GetToastPayload("Friend request disconfirmed by:", clientDB.FirstName + " " + clientDB.LastName, "");
 
                 }
 
@@ -499,7 +499,7 @@ namespace EmergencyService
                     requestToast.Method = "POST";
                     requestToast.ContentType = "text/xml";
 
-                    payload = GetToastPayload("Friend request:", clientDB.FirstName + " " + clientDB.LastName);
+                    payload = GetToastPayload("Friend request:", clientDB.FirstName + " " + clientDB.LastName, "");
                     requestToast.Headers.Add("X-WindowsPhone-Target", "toast");
                     requestToast.Headers.Add("X-NotificationClass", "2");
 
