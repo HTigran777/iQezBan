@@ -4,12 +4,15 @@ using WP7App1.EmergencyService;
 using System.Windows;
 using WP7App1;
 using System.Net.NetworkInformation;
+using System.Text;
+using System.Diagnostics;
 
 namespace Notifications
 {
     public class NotificationManager
     {
         const string channelName = "EmergencyChannel";
+        static public StringBuilder message;
         HttpNotificationChannel channel;
         MyPushServiceClient pushClient = new MyPushServiceClient();
         private string username;
@@ -61,6 +64,10 @@ namespace Notifications
 
             channel.ErrorOccurred += new EventHandler<NotificationChannelErrorEventArgs>(channel_ErrorOccurred);
             pushClient.RegisterPhoneCompleted += new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(pushCLient_RegisterPhoneCompleted);
+
+            channel.ShellToastNotificationReceived += new EventHandler<NotificationEventArgs>(channel_ShellToastNotificationReceived);
+            channel.HttpNotificationReceived += new EventHandler<HttpNotificationEventArgs>(channel_HttpNotificationReceived);
+        
         }
 
         void pushCLient_RegisterPhoneCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
@@ -83,8 +90,6 @@ namespace Notifications
 
             if (!channel.IsShellToastBound)
                 channel.BindToShellToast();
-            channel.ShellToastNotificationReceived += new EventHandler<NotificationEventArgs>(channel_ShellToastNotificationReceived);
-            channel.HttpNotificationReceived += new EventHandler<HttpNotificationEventArgs>(channel_HttpNotificationReceived);
 
             try
             {
@@ -105,6 +110,25 @@ namespace Notifications
         void channel_ShellToastNotificationReceived(object sender, NotificationEventArgs e)
         {
             //MessageBox.Show("Toast Received");
+            message = new StringBuilder();
+            string relativeUri = string.Empty;
+
+            message.AppendFormat("Received Toast {0}:\n", DateTime.Now.ToShortTimeString());
+
+            // Parse out the information that was part of the message.
+            foreach (string key in e.Collection.Keys)
+            {
+                message.AppendFormat("{0}: {1}\n", key, e.Collection[key]);
+
+                if (string.Compare(
+                    key,
+                    "wp:Param",
+                    System.Globalization.CultureInfo.InvariantCulture,
+                    System.Globalization.CompareOptions.IgnoreCase) == 0)
+                {
+                    relativeUri = e.Collection[key];
+                }
+            }
         }
     }
 }
