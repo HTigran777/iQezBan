@@ -26,6 +26,7 @@ namespace WP7App1
         private MyPushServiceClient client;
         private LocationManager location;
         private string username, password;
+        double receivedLatitude, receivedLongitude;
         private StarField _starField;
         private DateTime _lastUpdate = DateTime.Now;
         private CountDown ButtonTimer = new CountDown(60);
@@ -142,7 +143,7 @@ namespace WP7App1
             ButtonTimer.CountDownTimer = Convert.ToDouble(IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"]);
 
             AlarmMode = true;
-            googlemap.Center = new GeoCoordinate(40.123661, 44.477149);
+            googlemap.Center = new GeoCoordinate(receivedLatitude, receivedLongitude);
             googlemap.ZoomLevel = 16;
         }
 
@@ -192,9 +193,12 @@ namespace WP7App1
             panelStarfield.UpdateLayout();
             if (NavigationContext.QueryString.ContainsKey("receivedLatitude"))
             {
-                string receivedLatitude = NavigationContext.QueryString["receivedLatitude"];
-                string receivedLongitude = NavigationContext.QueryString["receivedLongitude"];
-                MessageBox.Show("Latitude:" + receivedLatitude + "\nLongitude:" + receivedLongitude);
+                string receivedLatitudeSting = NavigationContext.QueryString["receivedLatitude"];
+                string receivedLongitudeSting = NavigationContext.QueryString["receivedLongitude"];
+                //MessageBox.Show("Latitude:" + receivedLatitudeSting + "\nLongitude:" + receivedLongitudeSting);
+                receivedLatitude = Convert.ToDouble(receivedLatitudeSting);
+                receivedLongitude = Convert.ToDouble(receivedLongitudeSting);
+                
             }
         }
 
