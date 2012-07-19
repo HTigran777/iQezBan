@@ -340,7 +340,7 @@ namespace WP7App1.EmergencyService {
         System.Collections.Generic.List<string> EndPushToSubscribedPhones(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMyPushService/SearchFriends", ReplyAction="http://tempuri.org/IMyPushService/SearchFriendsResponse")]
-        System.IAsyncResult BeginSearchFriends(WP7App1.EmergencyService.ClientData client, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginSearchFriends(WP7App1.EmergencyService.ClientData client, string username, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WP7App1.EmergencyService.ClientData> EndSearchFriends(System.IAsyncResult result);
         
@@ -891,8 +891,8 @@ namespace WP7App1.EmergencyService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult WP7App1.EmergencyService.IMyPushService.BeginSearchFriends(WP7App1.EmergencyService.ClientData client, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginSearchFriends(client, callback, asyncState);
+        System.IAsyncResult WP7App1.EmergencyService.IMyPushService.BeginSearchFriends(WP7App1.EmergencyService.ClientData client, string username, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginSearchFriends(client, username, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -902,7 +902,8 @@ namespace WP7App1.EmergencyService {
         
         private System.IAsyncResult OnBeginSearchFriends(object[] inValues, System.AsyncCallback callback, object asyncState) {
             WP7App1.EmergencyService.ClientData client = ((WP7App1.EmergencyService.ClientData)(inValues[0]));
-            return ((WP7App1.EmergencyService.IMyPushService)(this)).BeginSearchFriends(client, callback, asyncState);
+            string username = ((string)(inValues[1]));
+            return ((WP7App1.EmergencyService.IMyPushService)(this)).BeginSearchFriends(client, username, callback, asyncState);
         }
         
         private object[] OnEndSearchFriends(System.IAsyncResult result) {
@@ -918,11 +919,11 @@ namespace WP7App1.EmergencyService {
             }
         }
         
-        public void SearchFriendsAsync(WP7App1.EmergencyService.ClientData client) {
-            this.SearchFriendsAsync(client, null);
+        public void SearchFriendsAsync(WP7App1.EmergencyService.ClientData client, string username) {
+            this.SearchFriendsAsync(client, username, null);
         }
         
-        public void SearchFriendsAsync(WP7App1.EmergencyService.ClientData client, object userState) {
+        public void SearchFriendsAsync(WP7App1.EmergencyService.ClientData client, string username, object userState) {
             if ((this.onBeginSearchFriendsDelegate == null)) {
                 this.onBeginSearchFriendsDelegate = new BeginOperationDelegate(this.OnBeginSearchFriends);
             }
@@ -933,7 +934,8 @@ namespace WP7App1.EmergencyService {
                 this.onSearchFriendsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnSearchFriendsCompleted);
             }
             base.InvokeAsync(this.onBeginSearchFriendsDelegate, new object[] {
-                        client}, this.onEndSearchFriendsDelegate, this.onSearchFriendsCompletedDelegate, userState);
+                        client,
+                        username}, this.onEndSearchFriendsDelegate, this.onSearchFriendsCompletedDelegate, userState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -1354,9 +1356,10 @@ namespace WP7App1.EmergencyService {
                 return _result;
             }
             
-            public System.IAsyncResult BeginSearchFriends(WP7App1.EmergencyService.ClientData client, System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[1];
+            public System.IAsyncResult BeginSearchFriends(WP7App1.EmergencyService.ClientData client, string username, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[2];
                 _args[0] = client;
+                _args[1] = username;
                 System.IAsyncResult _result = base.BeginInvoke("SearchFriends", _args, callback, asyncState);
                 return _result;
             }

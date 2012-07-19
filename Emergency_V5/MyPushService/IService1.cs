@@ -25,7 +25,7 @@ namespace EmergencyService
         List<string> PushToSubscribedPhones(NotificationData data);
 
         [OperationContract]
-        List<ClientData> SearchFriends(ClientData client);
+        List<ClientData> SearchFriends(ClientData client, string username);
 
         [OperationContract]
         List<string> SendSosNotifications(ClientData client, double latitude, double longitude);

@@ -185,6 +185,11 @@ namespace WP7App1
             }
             #endregion
 
+<<<<<<< HEAD
+            AlarmMode = true;
+            googlemap.Center = new GeoCoordinate(receivedLatitude, receivedLongitude);
+            googlemap.ZoomLevel = 16;
+=======
             #region Load Location button state
             if (IsolatedStorageSettings.ApplicationSettings.Contains("toggleNotific"))
             {
@@ -199,6 +204,7 @@ namespace WP7App1
             #endregion
 
             ButtonTimer.CountDownTimer = Convert.ToDouble(IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"]);
+>>>>>>> f17c9c8b1dbaa35f5a44bd90849b47b5bcf3ce8d
         }
 
         /// <summary>
@@ -263,7 +269,7 @@ namespace WP7App1
                 //MessageBox.Show("Latitude:" + receivedLatitudeSting + "\nLongitude:" + receivedLongitudeSting);
                 receivedLatitude = Convert.ToDouble(receivedLatitudeSting);
                 receivedLongitude = Convert.ToDouble(receivedLongitudeSting);
-                TurnONAlarm(new Point(receivedLatitude, receivedLongitude));
+                
             }
         }
 
@@ -342,7 +348,7 @@ namespace WP7App1
             if (searchBox.Text.Length > 0)
             {
                 if (NotificationManager.InternetIsAvailable())
-                    client.SearchFriendsAsync(new ClientData { FirstName = searchBox.Text }, username);
+                    client.SearchFriendsAsync(new ClientData { FirstName = searchBox.Text });
                 else
                     MessageBox.Show("No internet connection is available.  Try again later.");
             }

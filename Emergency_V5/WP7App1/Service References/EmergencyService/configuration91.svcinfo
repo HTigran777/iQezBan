@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="6E6xViOf30bhl2tBVw0OGMcoVKk=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="j3fIfgWMVWO2PSSPkjlOK35QYeg=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="BasicHttpBinding_IMyPushService">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="BasicHttpBinding_IMyPushService" contract="EmergencyService.IMyPushService" bindingType="basicHttpBinding" address="http://172.16.1.54/MyPushService/MyPushService.svc" bindingConfiguration="BasicHttpBinding_IMyPushService">
+    <endpoint name="BasicHttpBinding_IMyPushService" contract="EmergencyService.IMyPushService" bindingType="basicHttpBinding" address="http://miasin.somee.com/MyPushService.svc" bindingConfiguration="BasicHttpBinding_IMyPushService">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://172.16.1.54/MyPushService/MyPushService.svc</serializedValue>
+          <serializedValue>http://miasin.somee.com/MyPushService.svc</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

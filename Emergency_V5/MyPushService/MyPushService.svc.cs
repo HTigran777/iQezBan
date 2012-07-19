@@ -200,13 +200,13 @@ namespace EmergencyService
             }
         }
 
-        public List<ClientData> SearchFriends(ClientData client)
+        public List<ClientData> SearchFriends(ClientData client, string username)
         {
             List<ClientData> friend;
             using (EmergencyDBEntities context = new EmergencyDBEntities())
             {
                 friend = (from c in context.Clients
-                          where c.FirstName.StartsWith(client.FirstName)
+                          where (c.FirstName.StartsWith(client.FirstName) || c.LastName.StartsWith(client.FirstName)) && c.Username != username
                           select new ClientData { Username = c.Username, FirstName = c.FirstName, LastName = c.LastName, Age = c.Age.Value, Email = c.Email }).ToList<ClientData>();
             }
             return friend;
