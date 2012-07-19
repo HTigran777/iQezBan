@@ -128,7 +128,7 @@ namespace WP7App1
 
             if (IsolatedStorageSettings.ApplicationSettings.Contains("btnReleaseTimer"))
             {
-                ButtonTimer = new CountDown(Convert.ToDouble(IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"]));
+                ButtonTimer.CountDownTimer = Convert.ToDouble(IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"]);
                 sosTime.Text = IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"].ToString();
             }
             else
@@ -139,7 +139,7 @@ namespace WP7App1
 
             ButtonTimer.CountDownTimer = Convert.ToDouble(IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"]);
 
-            AlarmMode = true;
+            AlarmMode = false;
         }
 
         /// <summary>

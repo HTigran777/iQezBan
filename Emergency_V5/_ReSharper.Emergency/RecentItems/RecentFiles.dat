@@ -1,39 +1,44 @@
 ﻿<RecentFiles>
   <RecentFiles>
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/d:Notifications/f:NotificationManager.cs" caret="3585" fromTop="24" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="52431" fromTop="29" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="4541" fromTop="20" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:GoogleTile.cs" caret="1105" fromTop="15" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/d:Notifications/f:NotificationManager.cs" caret="2321" fromTop="24" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/d:Service References/d:EmergencyService/f:Reference.cs" caret="70269" fromTop="24" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:App.xaml" caret="0" fromTop="0" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:Bootstrapper.cs" caret="1645" fromTop="29" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="40248" fromTop="29" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:CountDown.cs" caret="2806" fromTop="24" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="3881" fromTop="8" />
   </RecentFiles>
   <RecentEdits>
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="31192" fromTop="32" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="2686" fromTop="52" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="63740" fromTop="43" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="4095" fromTop="27" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/d:Notifications/f:NotificationManager.cs" caret="3585" fromTop="24" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="4945" fromTop="44" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="4652" fromTop="39" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="4095" fromTop="27" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="37813" fromTop="36" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="63740" fromTop="18" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="14796" fromTop="31" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="63740" fromTop="36" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="63740" fromTop="39" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="63562" fromTop="24" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="4528" fromTop="35" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="63562" fromTop="36" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="63562" fromTop="48" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="2847" fromTop="17" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="1375" fromTop="18" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="4911" fromTop="41" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="17486" fromTop="18" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="63562" fromTop="22" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="63562" fromTop="53" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="26190" fromTop="11" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="27908" fromTop="53" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="28293" fromTop="12" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="16485" fromTop="27" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="14487" fromTop="15" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="63562" fromTop="29" />
-    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="52431" fromTop="29" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="66686" fromTop="29" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="41739" fromTop="41" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="41739" fromTop="37" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="66686" fromTop="28" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="66686" fromTop="33" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="41739" fromTop="41" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="1204" fromTop="19" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="1686" fromTop="28" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="1385" fromTop="25" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="1122" fromTop="14" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="66686" fromTop="29" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="66686" fromTop="29" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="41739" fromTop="29" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="33123" fromTop="36" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="32501" fromTop="26" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="6341" fromTop="47" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="5300" fromTop="35" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="5300" fromTop="17" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="3341" fromTop="16" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="14532" fromTop="26" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="4723" fromTop="22" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="1746" fromTop="20" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="66686" fromTop="35" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml" caret="47362" fromTop="29" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="16299" fromTop="25" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="14897" fromTop="38" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="5362" fromTop="29" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="5044" fromTop="20" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:CountDown.cs" caret="976" fromTop="30" />
+    <File id="017CD3E4-148F-480C-826D-769D9407B8F3/f:MainPage.xaml.cs" caret="6198" fromTop="30" />
   </RecentEdits>
 </RecentFiles>

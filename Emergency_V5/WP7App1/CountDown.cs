@@ -35,7 +35,7 @@ namespace WP7App1
         public CountDown()
         {
             _alarmed = false;
-            _localTimer.Interval = TimeSpan.FromMilliseconds(1);
+            _localTimer.Interval = TimeSpan.FromMilliseconds(0.1);
             _localTimer.Start();
             _localTimer.Tick += new EventHandler(_localTimer_Tick);
         }
@@ -43,7 +43,7 @@ namespace WP7App1
         /// <summary>
         /// Initializes a timer and sets its count in milliseconds
         /// </summary>
-        /// <param name="timer">Countdown Timer</param>
+        /// <param name="milliseconds">Countdown Timer</param>
         public CountDown(double milliseconds)
         {
             CountDownTimer = milliseconds;
@@ -61,7 +61,7 @@ namespace WP7App1
         {
             CountDownTimer = timer.TotalMilliseconds;
             _alarmed = false;
-            _localTimer.Interval = TimeSpan.FromMilliseconds(1);
+            _localTimer.Interval = TimeSpan.FromMilliseconds(0.1);
             _localTimer.Start();
             _localTimer.Tick += new EventHandler(_localTimer_Tick);
         }
