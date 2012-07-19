@@ -857,7 +857,21 @@ namespace WP7App1
 
         private void username_LostFocus(object sender, RoutedEventArgs e)
         {
-            isRegistrationOK = true;
+            if (regUName.Text.Length > 0)
+            {
+                if (regUName.Text.Length > 4 && regUName.Text.Length <= 15)
+                {
+                    isRegistrationOK = true;
+                    errTextBlock.Text = "";
+                }
+                else
+                {
+                    isRegistrationOK = false;
+                    errTextBlock.Text = "Username lenght must be more than 4 and less than 15";
+                }
+            }
+            else
+                errTextBlock.Text = "";
         }
 
         public bool IsValid(string emailaddress)
@@ -877,76 +891,123 @@ namespace WP7App1
 
         private void regFirstname_LostFocus(object sender, RoutedEventArgs e)
         {
-            isRegistrationOK = true;
+            if (regFName.Text.Length > 0)
+            {
+                if (Regex.IsMatch(regFName.Text, @"^[a-zA-Z]+(([\'\- ][a-zA-Z ])?[a-zA-Z]*)*$"))
+                {
+                    isRegistrationOK = true;
+                    errTextBlock.Text = "";
+                }
+                else
+                {
+                    errTextBlock.Text = "Firstname can't contain digits or some special simbols.";
+                    isRegistrationOK = false;
+                }
+            }
+            else
+                errTextBlock.Text = "";
         }
 
         private void regLastname_LostFocus(object sender, RoutedEventArgs e)
         {
-            isRegistrationOK = true;
+            if (regLName.Text.Length > 0)
+            {
+                if (Regex.IsMatch(regLName.Text, @"^[a-zA-Z]+(([\'\- ][a-zA-Z ])?[a-zA-Z]*)*$"))
+                {
+                    errTextBlock.Text = "";
+                    isRegistrationOK = true;
+                }
+                else
+                {
+                    errTextBlock.Text = "Lastname can't contain digits or some special simbols.";
+                    isRegistrationOK = false;
+                }
+            }
+            else
+                errTextBlock.Text = "";            
         }
 
         private void regVerifyPassword_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (regPass.Password == regPassVerify.Password)
+            if (regPassVerify.Password.Length > 0)
             {
-                //MessageBox.Show("Right");
-                errTextBlock.Text = "";
-                isRegistrationOK = true;
+                if (regPass.Password == regPassVerify.Password)
+                {
+                    errTextBlock.Text = "";
+                    isRegistrationOK = true;
+                }
+                else
+                {
+                    errTextBlock.Text = "Verify password doesn't match password.";
+                    isRegistrationOK = false;
+                }
             }
             else
-            {
-                //MessageBox.Show("False");
-                errTextBlock.Text = "Verify password doesn't match password.";
-                isRegistrationOK = false;
-            }
+                errTextBlock.Text = "";
         }
 
         private void regPassword_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (IsPasswordStrong(regPass.Password))
+            if (regPass.Password.Length > 0)
             {
-                //MessageBox.Show("pass is strong");
-                errTextBlock.Text = "";
-                isRegistrationOK = true;
-            }
-            else
-            {
-                //MessageBox.Show("pass is weak");
-                errTextBlock.Text = "Your password is weak.";
-                isRegistrationOK = false;
+                if (IsPasswordStrong(regPass.Password))
+                {
+                    errTextBlock.Text = "";
+                    isRegistrationOK = true;
+                }
+                else
+                {
+                    errTextBlock.Text = "password must contain at least one lowercase, one uppercase letter and one digit";
+                    isRegistrationOK = false;
+                }
             }
         }
 
         private void regMail_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (IsValid(regEmail.Text))
+            if (regEmail.Text.Length > 0)
             {
-                //MessageBox.Show("Right mail");
-                errTextBlock.Text = "";
-                isRegistrationOK = true;
+                if (IsValid(regEmail.Text))
+                {
+                    errTextBlock.Text = "";
+                    isRegistrationOK = true;
+                }
+                else
+                {
+                    errTextBlock.Text = "Email format is wrong.";
+                    isRegistrationOK = false;
+                }
             }
             else
-            {
-                //MessageBox.Show("Wrong mail format");
-                errTextBlock.Text = "Email format is wrong.";
-                isRegistrationOK = false;
-            }
+                errTextBlock.Text = "";
         }
 
         private void regDateofBirth_LostFocus(object sender, RoutedEventArgs e)
         {
-            try
+            if (regDOB.Text.Length > 0)
             {
-                int.Parse(regDOB.Text);
+                try
+                {
+                    int age = int.Parse(regDOB.Text);
+                    if (age > 100)
+                    {
+                        errTextBlock.Text = "Age must be more than 100.";
+                        isRegistrationOK = false;
+                    }
+                    else
+                    {
+                        errTextBlock.Text = "";
+                        isRegistrationOK = true;
+                    }
+                }
+                catch
+                {
+                    errTextBlock.Text = "Date of birth format is wrong.";
+                    isRegistrationOK = false;
+                }
+            }
+            else
                 errTextBlock.Text = "";
-                isRegistrationOK = true;
-            }
-            catch
-            {
-                //MessageBox.Show("Age is in wrong format.");
-                errTextBlock.Text = "Date of birth format is wrong.";
-                isRegistrationOK = false;
-            }
         }
 
         #endregion
