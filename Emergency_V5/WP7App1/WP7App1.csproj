@@ -91,10 +91,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Star.cs" />
     <Compile Include="StarField.cs" />
-    <Compile Include="TapSlideToggle.xaml.cs">
-      <DependentUpon>TapSlideToggle.xaml</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
   </ItemGroup>
@@ -106,11 +102,6 @@
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="TapSlideToggle.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +154,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Resource Include="SOS_Button\alarmDisabled.png" />
+    <Resource Include="SOS_Button\alarmNormal.png" />
+    <Resource Include="SOS_Button\alarmPressed.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>

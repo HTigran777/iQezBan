@@ -104,7 +104,7 @@ namespace WP7App1
         /// </summary>
         private void tgNotific_Checked(object sender, RoutedEventArgs e)
         {
-            IsolatedStorageSettings.ApplicationSettings["toggleNotific"] = tgNotific.IsChecked ? "ON" : "OFF";
+            IsolatedStorageSettings.ApplicationSettings["toggleNotific"] = tgNotific.IsChecked == true ? "ON" : "OFF";
         }
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace WP7App1
         /// </summary>
         private void tgLocation_Checked(object sender, RoutedEventArgs e)
         {
-            IsolatedStorageSettings.ApplicationSettings["toggleLocation"] = tgLocation.IsChecked ? "ON" : "OFF";
+            IsolatedStorageSettings.ApplicationSettings["toggleLocation"] = tgLocation.IsChecked == true ? "ON" : "OFF";
         }
 
         /// <summary>

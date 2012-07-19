@@ -690,15 +690,15 @@
                         </StackPanel>
 
                         <StackPanel Margin="0, 20, 0, 0" Orientation="Horizontal">
-                            <TextBlock FontSize="30" Text="Allow to get my location" />
-                            <GoogleTileSource:TapSlideToggle x:Name="tgLocation" Checked="tgLocation_Checked" />
+                            <toolkit:ToggleSwitch x:Name="tgLocation"
+                                                  Checked="tgLocation_Checked"
+                                                  Header="Use my location                           " />
                         </StackPanel>
 
-                        <StackPanel Margin="0, 20, 0, 0" Orientation="Horizontal">
-                            <TextBlock FontSize="30" Text="Recieve notifications" />
-                            <GoogleTileSource:TapSlideToggle x:Name="tgNotific"
-                                                             Margin="53, 0, 0, 0"
-                                                             Checked="tgNotific_Checked" />
+                        <StackPanel Orientation="Horizontal">
+                            <toolkit:ToggleSwitch x:Name="tgNotific"
+                                                  Checked="tgNotific_Checked"
+                                                  Header="Recieve notifications                    " />
                         </StackPanel>
                     </StackPanel>
                 </controls:PanoramaItem>
