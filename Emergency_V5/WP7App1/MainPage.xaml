@@ -209,6 +209,14 @@
         <ImageBrush x:Key="acceptBrush" ImageSource="Images/accept_img.png" />
         <ImageBrush x:Key="cancelBrush" ImageSource="Images/cancel_img.png" />
 
+        <ControlTemplate x:Key="PushPinTemplate">
+            <Grid>
+                <Ellipse Width="30"
+                         Height="30"
+                         Fill="Red" />
+            </Grid>
+        </ControlTemplate>
+
     </phone:PhoneApplicationPage.Resources>
 
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -263,7 +271,8 @@
                                         Click="Button_Click_3"
                                         Content="Change photo"
                                         FontSize="22"
-                                        FontWeight="Bold" />
+                                        FontWeight="Bold"
+                                        Visibility="Collapsed" />
                             </StackPanel>
                         </StackPanel>
 
@@ -661,64 +670,6 @@
                     </StackPanel>
                 </controls:PanoramaItem>
 
-                <controls:PanoramaItem x:Name="AlarmBlock" Header="Alarms map">
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal">
-                            <RadioButton Name="radioHybrid"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Top"
-                                         Checked="radio_Checked"
-                                         Content="Hybrid" />
-                            <RadioButton Name="radioStreet"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Top"
-                                         Checked="radio_Checked"
-                                         Content="Street" />
-                            <RadioButton Name="radioSatelite"
-                                         HorizontalAlignment="Left"
-                                         VerticalAlignment="Top"
-                                         Checked="radio_Checked"
-                                         Content="Satelite"
-                                         IsChecked="False" />
-                        </StackPanel>
-                        <my:Map Name="googlemap"
-                                Width="420"
-                                Height="400"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top"
-                                CopyrightVisibility="Collapsed"
-                                CredentialsProvider="AqayajnZU8FSfDGL8jpK5zMKAHmUL27Uqxv_OnpQzJQOI2PoQyxcG7dlR6_g4WWo"
-                                LogoVisibility="Collapsed"
-                                ScaleVisibility="Visible">
-                            <my:Map.Mode>
-                                <MSPCMCore:MercatorMode />
-                            </my:Map.Mode>
-                            <my:MapTileLayer Name="street"
-                                             Width="420"
-                                             Height="500"
-                                             Margin="0,0,0,32">
-                                <my:MapTileLayer.TileSources>
-                                    <GoogleTileSource:GoogleTile TileTypes="Street" />
-                                </my:MapTileLayer.TileSources>
-                            </my:MapTileLayer>
-                            <my:MapTileLayer Name="hybrid"
-                                             Margin="0,0,0,32"
-                                             Visibility="Collapsed">
-                                <my:MapTileLayer.TileSources>
-                                    <GoogleTileSource:GoogleTile TileTypes="Hybrid" />
-                                </my:MapTileLayer.TileSources>
-                            </my:MapTileLayer>
-                            <my:MapTileLayer Name="satellite"
-                                             Margin="0,0,0,32"
-                                             Visibility="Collapsed">
-                                <my:MapTileLayer.TileSources>
-                                    <GoogleTileSource:GoogleTile TileTypes="Satellite" />
-                                </my:MapTileLayer.TileSources>
-                            </my:MapTileLayer>
-                        </my:Map>
-                    </StackPanel>
-                </controls:PanoramaItem>
-
                 <controls:PanoramaItem Header="Settings">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
@@ -737,11 +688,95 @@
                                     Click="btnTimer_Click"
                                     Visibility="Collapsed" />
                         </StackPanel>
+
+                        <StackPanel Margin="0, 20, 0, 0" Orientation="Horizontal">
+                            <TextBlock FontSize="30" Text="Allow to get my location" />
+                            <GoogleTileSource:TapSlideToggle x:Name="tgLocation" Checked="tgLocation_Checked" />
+                        </StackPanel>
+
+                        <StackPanel Margin="0, 20, 0, 0" Orientation="Horizontal">
+                            <TextBlock FontSize="30" Text="Recieve notifications" />
+                            <GoogleTileSource:TapSlideToggle x:Name="tgNotific"
+                                                             Margin="53, 0, 0, 0"
+                                                             Checked="tgNotific_Checked" />
+                        </StackPanel>
                     </StackPanel>
                 </controls:PanoramaItem>
             </controls:Panorama>
 
             <Canvas x:Name="panelStarfield" Width="1000" />
+        </Grid>
+
+        <Grid x:Name="AlarmBlock"
+              Background="#55000000"
+              Visibility="Collapsed">
+            <Border HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    BorderBrush="White"
+                    BorderThickness="3"
+                    CornerRadius="30"
+                    Padding="10">
+                <Border.Background>
+                    <SolidColorBrush x:Name="myBrush" Color="#88000000" />
+                </Border.Background>
+                <Border.Resources>
+                    <Storyboard x:Name="alarmAnimation" RepeatBehavior="Forever">
+                        <ColorAnimation BeginTime="0:0:0.0"
+                                        Duration="0:0:0.50"
+                                        From="#88000000"
+                                        Storyboard.TargetName="myBrush"
+                                        Storyboard.TargetProperty="Color"
+                                        To="#FF0000" />
+                    </Storyboard>
+                </Border.Resources>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
+                        <RadioButton Name="radioHybrid"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Top"
+                                     Checked="radio_Checked"
+                                     Content="Hybrid" />
+                        <RadioButton Name="radioStreet"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Top"
+                                     Checked="radio_Checked"
+                                     Content="Street" />
+                        <RadioButton Name="radioSatelite"
+                                     HorizontalAlignment="Left"
+                                     VerticalAlignment="Top"
+                                     Checked="radio_Checked"
+                                     Content="Satelite" />
+                    </StackPanel>
+                    <my:Map Name="googlemap"
+                            Width="420"
+                            Height="690"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            CopyrightVisibility="Collapsed"
+                            CredentialsProvider="AqayajnZU8FSfDGL8jpK5zMKAHmUL27Uqxv_OnpQzJQOI2PoQyxcG7dlR6_g4WWo"
+                            LogoVisibility="Collapsed"
+                            ScaleVisibility="Visible">
+                        <my:Map.Mode>
+                            <MSPCMCore:MercatorMode />
+                        </my:Map.Mode>
+                        <my:MapTileLayer Name="street">
+                            <my:MapTileLayer.TileSources>
+                                <GoogleTileSource:GoogleTile TileTypes="Street" />
+                            </my:MapTileLayer.TileSources>
+                        </my:MapTileLayer>
+                        <my:MapTileLayer Name="hybrid" Visibility="Collapsed">
+                            <my:MapTileLayer.TileSources>
+                                <GoogleTileSource:GoogleTile TileTypes="Hybrid" />
+                            </my:MapTileLayer.TileSources>
+                        </my:MapTileLayer>
+                        <my:MapTileLayer Name="satellite" Visibility="Collapsed">
+                            <my:MapTileLayer.TileSources>
+                                <GoogleTileSource:GoogleTile TileTypes="Satellite" />
+                            </my:MapTileLayer.TileSources>
+                        </my:MapTileLayer>
+                    </my:Map>
+                </StackPanel>
+            </Border>
         </Grid>
 
         <Grid x:Name="blackBG" Background="#88000000">

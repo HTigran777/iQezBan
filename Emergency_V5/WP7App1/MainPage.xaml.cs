@@ -17,7 +17,7 @@ using System.IO.IsolatedStorage;
 using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Device.Location;
-
+using Microsoft.Phone.Controls.Maps;
 
 namespace WP7App1
 {
@@ -38,19 +38,10 @@ namespace WP7App1
         public bool AlarmMode
         {
             get { return alarmMode; }
-            set 
-            { 
+            set
+            {
                 alarmMode = value;
-                if (alarmMode)
-                {
-                    myPano.DefaultItem = myPano.Items[5];
-                    AlarmBlock.Visibility = System.Windows.Visibility.Visible;
-                } 
-                else
-                {
-                    myPano.DefaultItem = myPano.Items[0];
-                    AlarmBlock.Visibility = System.Windows.Visibility.Collapsed;
-                }
+                AlarmBlock.Visibility = alarmMode ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
             }
         }
 
@@ -111,6 +102,45 @@ namespace WP7App1
         }
 
         /// <summary>
+        /// Save Notification button state
+        /// </summary>
+        private void tgNotific_Checked(object sender, RoutedEventArgs e)
+        {
+            IsolatedStorageSettings.ApplicationSettings["toggleNotific"] = tgNotific.IsChecked ? "ON" : "OFF";
+        }
+
+        /// <summary>
+        /// Save Location button state
+        /// </summary>
+        private void tgLocation_Checked(object sender, RoutedEventArgs e)
+        {
+            IsolatedStorageSettings.ApplicationSettings["toggleLocation"] = tgLocation.IsChecked ? "ON" : "OFF";
+        }
+
+        /// <summary>
+        /// Turns off alarm mode: hides map
+        /// </summary>
+        void TurnOffAlarm()
+        {
+            AlarmMode = false;
+            googlemap.Children.Clear();
+            alarmAnimation.Stop();
+        }
+
+        /// <summary>
+        /// Turns on alarm mode: showes map; pin to location
+        /// </summary>
+        void TurnONAlarm(Point alarmPos)
+        {
+            //40.123661, 44.477149 my home
+            AlarmMode = true;
+            googlemap.Center = new GeoCoordinate(alarmPos.X, alarmPos.Y);
+            googlemap.ZoomLevel = 16;
+            googlemap.Children.Add(new Pushpin { Location = new GeoCoordinate(alarmPos.X, alarmPos.Y), Template = Resources["PushPinTemplate"] as ControlTemplate });
+            alarmAnimation.Begin();
+        }
+
+        /// <summary>
         /// Requests Vis/InVis
         /// </summary>
         void myRequests_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -127,8 +157,9 @@ namespace WP7App1
             Requests.ItemsSource = myRequests;
             requestBlock.Visibility = myRequests.Count > 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
             googlemap.Visibility = Visibility.Visible;
-            radioHybrid.IsChecked = true;
+            radioStreet.IsChecked = true;
 
+            #region Load SOS Button release timer settings
             if (IsolatedStorageSettings.ApplicationSettings.Contains("btnReleaseTimer"))
             {
                 ButtonTimer.CountDownTimer = Convert.ToDouble(IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"]);
@@ -139,12 +170,35 @@ namespace WP7App1
                 IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"] = "60";
                 sosTime.Text = IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"].ToString();
             }
+            #endregion
+
+            #region Load Location button state
+            if (IsolatedStorageSettings.ApplicationSettings.Contains("toggleLocation"))
+            {
+                tgLocation.IsChecked = IsolatedStorageSettings.ApplicationSettings["toggleLocation"].ToString() == "ON"
+                                           ? true
+                                           : false;
+            }
+            else
+            {
+                tgLocation.IsChecked = false;
+            }
+            #endregion
+
+            #region Load Location button state
+            if (IsolatedStorageSettings.ApplicationSettings.Contains("toggleNotific"))
+            {
+                tgNotific.IsChecked = IsolatedStorageSettings.ApplicationSettings["toggleNotific"].ToString() == "ON"
+                                           ? true
+                                           : false;
+            }
+            else
+            {
+                tgNotific.IsChecked = false;
+            }
+            #endregion
 
             ButtonTimer.CountDownTimer = Convert.ToDouble(IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"]);
-
-            AlarmMode = true;
-            googlemap.Center = new GeoCoordinate(receivedLatitude, receivedLongitude);
-            googlemap.ZoomLevel = 16;
         }
 
         /// <summary>
@@ -174,13 +228,24 @@ namespace WP7App1
         /// </summary>
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to exit SOS Caller ?", "Exit", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            e.Cancel = true;
+            if (AlarmMode)
             {
-                Game m = new Game();
-                m.Exit();
+                if (MessageBox.Show("Are you sure you want to Turn off alarm ?", "Exit", MessageBoxButton.OKCancel) ==
+                    MessageBoxResult.OK)
+                {
+                    TurnOffAlarm();
+                }
             }
             else
-            { e.Cancel = true; }
+            {
+                if (MessageBox.Show("Are you sure you want to exit SOS Caller ?", "Exit", MessageBoxButton.OKCancel) ==
+                    MessageBoxResult.OK)
+                {
+                    var m = new Game();
+                    m.Exit();
+                }
+            }
         }
 
         /// <summary>
