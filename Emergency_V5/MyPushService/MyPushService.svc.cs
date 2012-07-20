@@ -449,8 +449,7 @@ namespace EmergencyService
                 }
             }
         }
-
-
+        
         public string DeleteFriend(string clientUsername, string friendUsername)
         {
             string notificationStatusToast = "";

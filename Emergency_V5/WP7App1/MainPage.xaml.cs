@@ -8,6 +8,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Xna.Framework;
@@ -62,8 +63,7 @@ namespace WP7App1
                                   {
                                       reEnable.Stop();
                                       reEnable.ResetTimer();
-                                      sosButton.Background = new SolidColorBrush(Colors.Cyan);
-                                      sosButton.IsEnabled = true;
+                                      sosButton.Source = new BitmapImage(new Uri("SOS_Button/alarmNormal.png", UriKind.Relative));
                                       ButtonTimer.ResetTimer();
                                   };
 
@@ -124,7 +124,6 @@ namespace WP7App1
         {
             AlarmMode = false;
             googlemap.Children.Clear();
-            alarmAnimation.Stop();
         }
 
         /// <summary>
@@ -136,8 +135,16 @@ namespace WP7App1
             AlarmMode = true;
             googlemap.Center = new GeoCoordinate(alarmPos.X, alarmPos.Y);
             googlemap.ZoomLevel = 16;
-            googlemap.Children.Add(new Pushpin { Location = new GeoCoordinate(alarmPos.X, alarmPos.Y), Template = Resources["PushPinTemplate"] as ControlTemplate });
-            alarmAnimation.Begin();
+            alarmPin.Location = googlemap.Center;
+            alarmPin.Visibility = Visibility.Visible;
+        }
+
+        /// <summary>
+        /// PinPush OnTap function
+        /// </summary>
+        private void alarmPin_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            MessageBox.Show("Some Information");
         }
 
         /// <summary>
@@ -160,16 +167,11 @@ namespace WP7App1
             radioStreet.IsChecked = true;
 
             #region Load SOS Button release timer settings
-            if (IsolatedStorageSettings.ApplicationSettings.Contains("btnReleaseTimer"))
-            {
-                ButtonTimer.CountDownTimer = Convert.ToDouble(IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"]);
-                sosTime.Text = IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"].ToString();
-            }
-            else
-            {
-                IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"] = "60";
-                sosTime.Text = IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"].ToString();
-            }
+
+            if (!IsolatedStorageSettings.ApplicationSettings.Contains("btnReleaseTimer")) IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"] = "1";
+            timePick.SelectedIndex = Convert.ToInt32(IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"]);
+            initButtonTimer(timePick.SelectedIndex);
+
             #endregion
 
             #region Load Location button state
@@ -198,7 +200,73 @@ namespace WP7App1
             }
             #endregion
 
-            ButtonTimer.CountDownTimer = Convert.ToDouble(IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"]);
+            //TurnONAlarm(new Point(40.123661, 44.477149));
+        }
+
+        /// <summary>
+        /// Save SOS Button timer
+        /// </summary>
+        private void ListPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (timePick != null)
+            {
+                IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"] = timePick.SelectedIndex;
+                initButtonTimer(timePick.SelectedIndex);
+            }
+        }
+
+        /// <summary>
+        /// Showes change password dialog
+        /// </summary>
+        private void Button_Click_8(object sender, RoutedEventArgs e)
+        {
+            oldPassText.Password = string.Empty;
+            newPassText.Password = string.Empty;
+            retyprPassText.Password = string.Empty;
+            changePass.Visibility = Visibility.Visible;
+            ChangePassExpandAnimation.Begin();
+        }
+
+        /// <summary>
+        /// Hides change password dialog
+        /// </summary>
+        private void ChangePassword_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePassDispandAnimation_Hide.Begin();
+        }
+
+        /// <summary>
+        /// Hides change password dialog black background on AnimationCompleted
+        /// </summary>
+        private void ChangePassDispandAnimation_Hide_Completed(object sender, EventArgs e)
+        {
+            changePass.Visibility = Visibility.Collapsed;
+        }
+
+        /// <summary>
+        /// Hides change password dialog but black background
+        /// </summary>
+        private void ChangePassDispandAnimation_Black_Completed(object sender, EventArgs e)
+        {
+            ChangePassExpandAnimation.Begin();
+        }
+
+        /// <summary>
+        /// Initializes Button Timer
+        /// </summary>
+        void initButtonTimer(int choice)
+        {
+            switch (choice)
+            {
+                case 0:
+                    ButtonTimer.CountDownTimer = 10; break;
+                case 1:
+                    ButtonTimer.CountDownTimer = 60; break;
+                case 2:
+                    ButtonTimer.CountDownTimer = 100; break;
+                default:
+                    ButtonTimer.CountDownTimer = 60; break;
+            }
         }
 
         /// <summary>
@@ -208,8 +276,8 @@ namespace WP7App1
         {
             if (NotificationManager.InternetIsAvailable())
             {
-                sosButton.Background = new SolidColorBrush(Colors.Red);
-                sosButton.IsEnabled = false;
+                //sosButton.Background = new SolidColorBrush(Colors.Red);
+                sosButton.Source = new BitmapImage(new Uri("SOS_Button/alarmDisabled.png", UriKind.Relative));
                 location = new LocationManager();
                 location.StartLocationCapturing();
                 location.username = username;
@@ -399,8 +467,7 @@ namespace WP7App1
                 ShowHideLoginBlock(true);
             }
 
-            sosButton.IsEnabled = true;
-            sosButton.Background = new SolidColorBrush(Colors.Cyan);
+            sosButton.Source = new BitmapImage(new Uri("SOS_Button/alarmNormal.png", UriKind.Relative));
             ButtonTimer.ResetTimer();
         }
 
@@ -418,6 +485,7 @@ namespace WP7App1
         private void sosButton_MouseEnter(object sender, MouseEventArgs e)
         {
             ButtonTimer.Start();
+            sosButton.Source = new BitmapImage(new Uri("SOS_Button/alarmPressed.png", UriKind.Relative));
         }
 
         /// <summary>
@@ -426,6 +494,7 @@ namespace WP7App1
         private void sosButton_MouseLeave(object sender, MouseEventArgs e)
         {
             ButtonTimer.Stop();
+            sosButton.Source = new BitmapImage(new Uri("SOS_Button/alarmNormal.png", UriKind.Relative));
         }
 
         /// <summary>
@@ -436,28 +505,7 @@ namespace WP7App1
             //Here goes code that changes user photo
             MessageBox.Show("Here must be \"choose photo\" dialog.");
         }
-
-        /// <summary>
-        /// TextBox in Settings menu; TextChanged event function
-        /// </summary>
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (sosTime.Text != IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"].ToString())
-                btnTimer.Visibility = System.Windows.Visibility.Visible;
-            else
-            { btnTimer.Visibility = System.Windows.Visibility.Collapsed; }
-        }
-
-        /// <summary>
-        /// SOS button settings save button function
-        /// </summary>
-        private void btnTimer_Click(object sender, RoutedEventArgs e)
-        {
-            IsolatedStorageSettings.ApplicationSettings["btnReleaseTimer"] = sosTime.Text;
-            ButtonTimer.CountDownTimer = Convert.ToDouble(sosTime.Text);
-            btnTimer.Visibility = System.Windows.Visibility.Collapsed;
-        }
-
+        
         /// <summary>
         /// Hides Login block
         /// </summary>
@@ -658,46 +706,46 @@ namespace WP7App1
         #endregion
 
         #region Profile Username
-        string _profuname = string.Empty;
+        //string _profuname = string.Empty;
 
-        /// <summary>
-        /// Make profile Username editable
-        /// </summary>
-        private void editProfUName_Click(object sender, RoutedEventArgs e)
-        {
-            profUName.Width = 260;
-            editProfUName.Visibility = System.Windows.Visibility.Collapsed;
-            acceptUName.Visibility = System.Windows.Visibility.Visible;
-            cancelUName.Visibility = System.Windows.Visibility.Visible;
-            _profuname = profUName.Text;
-            profUName.IsReadOnly = false;
-            profUName.Focus();
-        }
+        ///// <summary>
+        ///// Make profile Username editable
+        ///// </summary>
+        //private void editProfUName_Click(object sender, RoutedEventArgs e)
+        //{
+        //    profUName.Width = 260;
+        //    editProfUName.Visibility = System.Windows.Visibility.Collapsed;
+        //    acceptUName.Visibility = System.Windows.Visibility.Visible;
+        //    cancelUName.Visibility = System.Windows.Visibility.Visible;
+        //    _profuname = profUName.Text;
+        //    profUName.IsReadOnly = false;
+        //    profUName.Focus();
+        //}
 
-        /// <summary>
-        /// Accept changes to profile Username
-        /// </summary>
-        private void acceptUName_Click(object sender, RoutedEventArgs e)
-        {
-            profUName.Width = 330;
-            editProfUName.Visibility = System.Windows.Visibility.Visible;
-            acceptUName.Visibility = System.Windows.Visibility.Collapsed;
-            cancelUName.Visibility = System.Windows.Visibility.Collapsed;
-            profUName.IsReadOnly = true;
-        }
+        ///// <summary>
+        ///// Accept changes to profile Username
+        ///// </summary>
+        //private void acceptUName_Click(object sender, RoutedEventArgs e)
+        //{
+        //    profUName.Width = 330;
+        //    editProfUName.Visibility = System.Windows.Visibility.Visible;
+        //    acceptUName.Visibility = System.Windows.Visibility.Collapsed;
+        //    cancelUName.Visibility = System.Windows.Visibility.Collapsed;
+        //    profUName.IsReadOnly = true;
+        //}
 
-        /// <summary>
-        /// Cancel changes to profile Username
-        /// </summary>
-        private void cancelUName_Click(object sender, RoutedEventArgs e)
-        {
-            profUName.Width = 330;
-            editProfUName.Visibility = System.Windows.Visibility.Visible;
-            acceptUName.Visibility = System.Windows.Visibility.Collapsed;
-            cancelUName.Visibility = System.Windows.Visibility.Collapsed;
-            profUName.IsReadOnly = true;
-            profUName.Text = _profuname;
-        }
+        ///// <summary>
+        ///// Cancel changes to profile Username
+        ///// </summary>
+        //private void cancelUName_Click(object sender, RoutedEventArgs e)
+        //{
+        //    profUName.Width = 330;
+        //    editProfUName.Visibility = System.Windows.Visibility.Visible;
+        //    acceptUName.Visibility = System.Windows.Visibility.Collapsed;
+        //    cancelUName.Visibility = System.Windows.Visibility.Collapsed;
+        //    profUName.IsReadOnly = true;
+        //    profUName.Text = _profuname;
+        //}
         #endregion
 
         #region Profile EMail
@@ -1135,7 +1183,7 @@ namespace WP7App1
                 profFName.Text = e.Result.FirstName;
                 profLName.Text = e.Result.LastName;
                 profEMail.Text = e.Result.Email;
-                profUName.Text = e.Result.Username;
+                //profUName.Text = e.Result.Username;
                 profDOB.Text = e.Result.Age.ToString();
 
 
@@ -1238,5 +1286,10 @@ namespace WP7App1
         }
 
         #endregion
+
+        private void sosButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            sosButton.Source = new BitmapImage(new Uri("SOS_Button/alarmPressed.png", UriKind.Relative));
+        }
     }
 }

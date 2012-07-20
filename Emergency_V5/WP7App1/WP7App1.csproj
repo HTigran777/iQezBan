@@ -84,6 +84,9 @@
     </Compile>
     <Compile Include="Notifications\LocationManager.cs" />
     <Compile Include="Notifications\NotificationManager.cs" />
+    <Compile Include="RoundRedButton.xaml.cs">
+      <DependentUpon>RoundRedButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Service References\EmergencyService\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -101,6 +104,10 @@
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
     <Page Include="MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RoundRedButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -155,9 +162,15 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Resource Include="SOS_Button\alarmDisabled.png" />
-    <Resource Include="SOS_Button\alarmNormal.png" />
-    <Resource Include="SOS_Button\alarmPressed.png" />
+    <Resource Include="SOS_Button\alarmDisabled.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="SOS_Button\alarmNormal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="SOS_Button\alarmPressed.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>

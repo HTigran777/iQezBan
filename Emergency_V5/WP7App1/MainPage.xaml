@@ -203,19 +203,16 @@
             </Setter>
         </Style>
 
+        <ImageBrush x:Key="sosNormal" ImageSource="SOS_Button/alarmNormal.png" />
+        <ImageBrush x:Key="sosDisabled" ImageSource="SOS_Button/alarmDisabled.png" />
+        <ImageBrush x:Key="sosPressed" ImageSource="SOS_Button/alarmPressed.png" />
+
         <SolidColorBrush x:Key="AeroWhite5" Color="#55FFFFFF" />
         <ImageBrush x:Key="searchBrush" ImageSource="Images/SearchBtn.png" />
         <ImageBrush x:Key="editBrush" ImageSource="Images/edit_img.png" />
         <ImageBrush x:Key="acceptBrush" ImageSource="Images/accept_img.png" />
         <ImageBrush x:Key="cancelBrush" ImageSource="Images/cancel_img.png" />
-
-        <ControlTemplate x:Key="PushPinTemplate">
-            <Grid>
-                <Ellipse Width="30"
-                         Height="30"
-                         Fill="Red" />
-            </Grid>
-        </ControlTemplate>
+        <SolidColorBrush x:Key="elBrush" Color="#88000000" />
 
     </phone:PhoneApplicationPage.Resources>
 
@@ -227,26 +224,23 @@
                 </controls:Panorama.Background>
 
                 <controls:PanoramaItem Header="SOS">
-                    <Button x:Name="sosButton"
-                            Width="300"
-                            Height="300"
-                            Margin="0, -100, 0, 0"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="Cyan"
-                            BorderBrush="#FF00AAFF"
-                            Content="SOS"
-                            FontSize="70"
-                            MouseEnter="sosButton_MouseEnter"
-                            MouseLeave="sosButton_MouseLeave"
-                            Style="{StaticResource ButtonStyle_Round}" />
+                    <Image x:Name="sosButton"
+                           Width="300"
+                           Height="300"
+                           Margin="0, -100, 0, 0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           MouseEnter="sosButton_MouseEnter"
+                           MouseLeave="sosButton_MouseLeave"
+                           MouseLeftButtonDown="sosButton_MouseLeftButtonDown"
+                           Source="SOS_Button/alarmNormal.png" />
                 </controls:PanoramaItem>
 
                 <controls:PanoramaItem Header="Profile">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
-                            <Image Width="200"
-                                   Height="200"
+                            <Image Width="150"
+                                   Height="150"
                                    Margin="20, 20, 0, 0"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
@@ -254,17 +248,26 @@
 
                             <StackPanel Orientation="Vertical">
                                 <Button Width="200"
-                                        Height="100"
+                                        Height="70"
                                         Margin="0, 9, 0, 0"
                                         VerticalAlignment="Top"
                                         Background="Black"
                                         Click="Button_Click_1"
                                         Content="Log Out"
-                                        FontSize="32"
+                                        FontSize="25"
                                         FontWeight="Bold" />
 
                                 <Button Width="200"
-                                        Height="100"
+                                        Height="70"
+                                        VerticalAlignment="Top"
+                                        Background="Black"
+                                        Click="Button_Click_8"
+                                        Content="Change password"
+                                        FontSize="18"
+                                        FontWeight="Bold" />
+
+                                <Button Width="200"
+                                        Height="70"
                                         Margin="0, 9, 0, 0"
                                         VerticalAlignment="Top"
                                         Background="Black"
@@ -276,7 +279,7 @@
                             </StackPanel>
                         </StackPanel>
 
-                        <ScrollViewer Height="260"
+                        <ScrollViewer Height="320"
                                       HorizontalScrollBarVisibility="Disabled"
                                       VerticalScrollBarVisibility="Auto">
                             <StackPanel Orientation="Vertical">
@@ -360,42 +363,44 @@
                                 <!--  My Last-Name Block #**********************# END #**********************#  -->
 
                                 <!--  My UserName Block #**********************# START #**********************#  -->
-                                <StackPanel Orientation="Horizontal">
+                                <!--
+                                    <StackPanel Orientation="Horizontal">
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock Margin="20, 0, 0, -20" Text="Username" />
-                                        <TextBox x:Name="profUName"
-                                                 Width="330"
-                                                 Margin="10, 10, 0, 0"
-                                                 FontSize="30"
-                                                 Foreground="Black"
-                                                 IsReadOnly="True"
-                                                 Text="{Binding ProfileUserName,
-                                                                Mode=TwoWay}" />
+                                    <TextBlock Margin="20, 0, 0, -20" Text="Username" />
+                                    <TextBox x:Name="profUName"
+                                    Width="330"
+                                    Margin="10, 10, 0, 0"
+                                    FontSize="30"
+                                    Foreground="Black"
+                                    IsReadOnly="True"
+                                    Text="{Binding ProfileUserName,
+                                    Mode=TwoWay}" />
                                     </StackPanel>
-
+                                    
                                     <Button x:Name="editProfUName"
-                                            Width="90"
-                                            Height="80"
-                                            Margin="-23, 16, 0, 0"
-                                            Background="{StaticResource editBrush}"
-                                            Click="editProfUName_Click" />
-
+                                    Width="90"
+                                    Height="80"
+                                    Margin="-23, 16, 0, 0"
+                                    Background="{StaticResource editBrush}"
+                                    Click="editProfUName_Click" />
+                                    
                                     <Button x:Name="acceptUName"
-                                            Width="90"
-                                            Height="80"
-                                            Margin="-23, 16, 0, 0"
-                                            Background="{StaticResource acceptBrush}"
-                                            Click="acceptUName_Click"
-                                            Visibility="Collapsed" />
-
+                                    Width="90"
+                                    Height="80"
+                                    Margin="-23, 16, 0, 0"
+                                    Background="{StaticResource acceptBrush}"
+                                    Click="acceptUName_Click"
+                                    Visibility="Collapsed" />
+                                    
                                     <Button x:Name="cancelUName"
-                                            Width="90"
-                                            Height="80"
-                                            Margin="-20, 16, 0, 0"
-                                            Background="{StaticResource cancelBrush}"
-                                            Click="cancelUName_Click"
-                                            Visibility="Collapsed" />
-                                </StackPanel>
+                                    Width="90"
+                                    Height="80"
+                                    Margin="-20, 16, 0, 0"
+                                    Background="{StaticResource cancelBrush}"
+                                    Click="cancelUName_Click"
+                                    Visibility="Collapsed" />
+                                    </StackPanel>
+                                -->
                                 <!--  My UserName Block #**********************# END #**********************#  -->
 
                                 <!--  My EMail Block #**********************# START #**********************#  -->
@@ -475,47 +480,6 @@
                                             Visibility="Collapsed" />
                                 </StackPanel>
                                 <!--  My Date of Birth (DOB) Block #**********************# END #**********************#  -->
-
-                                <!--  My Password Block #**********************# START #**********************#  -->
-                                <!--
-                                    <StackPanel Orientation="Horizontal">
-                                    <StackPanel Orientation="Vertical">
-                                    <TextBlock Margin="20, 0, 0, -20" Text="Password" />
-                                    <TextBox x:Name="profPass"
-                                    Width="330"
-                                    Margin="10, 10, 0, 0"
-                                    FontSize="30"
-                                    Foreground="Black"
-                                    IsReadOnly="True"
-                                    Text="{Binding ProfilePassword,
-                                    Mode=TwoWay}" />
-                                    </StackPanel>
-                                    
-                                    <Button x:Name="editProfPass"
-                                    Width="90"
-                                    Height="80"
-                                    Margin="-23, 16, 0, 0"
-                                    Background="{StaticResource editBrush}"
-                                    Click="editProfPass_Click" />
-                                    
-                                    <Button x:Name="acceptPass"
-                                    Width="90"
-                                    Height="80"
-                                    Margin="-23, 16, 0, 0"
-                                    Background="{StaticResource acceptBrush}"
-                                    Click="acceptPass_Click"
-                                    Visibility="Collapsed" />
-                                    
-                                    <Button x:Name="cancelPass"
-                                    Width="90"
-                                    Height="80"
-                                    Margin="-20, 16, 0, 0"
-                                    Background="{StaticResource cancelBrush}"
-                                    Click="cancelPass_Click"
-                                    Visibility="Collapsed" />
-                                    </StackPanel>
-                                -->
-                                <!--  My Password Block #**********************# END #**********************#  -->
 
                             </StackPanel>
                         </ScrollViewer>
@@ -672,23 +636,6 @@
 
                 <controls:PanoramaItem Header="Settings">
                     <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Margin="10, 20, 0, 0" Text="Sos button release time" />
-                                <TextBox x:Name="sosTime"
-                                         Width="230"
-                                         TextChanged="TextBox_TextChanged" />
-                            </StackPanel>
-
-                            <Button x:Name="btnTimer"
-                                    Width="70"
-                                    Height="70"
-                                    Margin="-20, 47, 0, 0"
-                                    Background="{StaticResource acceptBrush}"
-                                    Click="btnTimer_Click"
-                                    Visibility="Collapsed" />
-                        </StackPanel>
-
                         <StackPanel Margin="0, 20, 0, 0" Orientation="Horizontal">
                             <toolkit:ToggleSwitch x:Name="tgLocation"
                                                   Checked="tgLocation_Checked"
@@ -699,6 +646,20 @@
                             <toolkit:ToggleSwitch x:Name="tgNotific"
                                                   Checked="tgNotific_Checked"
                                                   Header="Recieve notifications                    " />
+                        </StackPanel>
+
+                        <StackPanel Margin="0, 20, 0, 0" Orientation="Horizontal">
+                            <TextBlock Margin="10, 5, 0, 0"
+                                       FontSize="35"
+                                       Text="Button timer" />
+                            <toolkit:ListPicker x:Name="timePick"
+                                                Width="100"
+                                                Margin="90, 0, 0, 0"
+                                                SelectionChanged="ListPicker_SelectionChanged">
+                                <toolkit:ListPickerItem Content="10 ms" />
+                                <toolkit:ListPickerItem Content="60 ms" />
+                                <toolkit:ListPickerItem Content="100 ms" />
+                            </toolkit:ListPicker>
                         </StackPanel>
                     </StackPanel>
                 </controls:PanoramaItem>
@@ -719,16 +680,7 @@
                 <Border.Background>
                     <SolidColorBrush x:Name="myBrush" Color="#88000000" />
                 </Border.Background>
-                <Border.Resources>
-                    <Storyboard x:Name="alarmAnimation" RepeatBehavior="Forever">
-                        <ColorAnimation BeginTime="0:0:0.0"
-                                        Duration="0:0:0.50"
-                                        From="#88000000"
-                                        Storyboard.TargetName="myBrush"
-                                        Storyboard.TargetProperty="Color"
-                                        To="#FF0000" />
-                    </Storyboard>
-                </Border.Resources>
+
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <RadioButton Name="radioHybrid"
@@ -774,7 +726,100 @@
                                 <GoogleTileSource:GoogleTile TileTypes="Satellite" />
                             </my:MapTileLayer.TileSources>
                         </my:MapTileLayer>
+
+                        <my:Pushpin x:Name="alarmPin"
+                                    Background="Red"
+                                    Tap="alarmPin_Tap" />
                     </my:Map>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Grid x:Name="changePass"
+              Background="#88000000"
+              Visibility="Collapsed">
+            <Border x:Name="changePass_Border"
+                    Width="380"
+                    Height="370"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="#88000000"
+                    BorderBrush="White"
+                    BorderThickness="3"
+                    CornerRadius="30"
+                    Padding="10">
+                <Border.Resources>
+                    <Storyboard x:Name="ChangePassExpandAnimation">
+                        <DoubleAnimation BeginTime="0:0:0.0"
+                                         Duration="0:0:0.20"
+                                         From="0"
+                                         Storyboard.TargetName="changePass_Border"
+                                         Storyboard.TargetProperty="Width"
+                                         To="380" />
+                        <DoubleAnimation BeginTime="0:0:0.0"
+                                         Duration="0:0:0.20"
+                                         From="0"
+                                         Storyboard.TargetName="changePass_Border"
+                                         Storyboard.TargetProperty="Height"
+                                         To="370" />
+                    </Storyboard>
+                    <Storyboard x:Name="ChangePassDispandAnimation_Hide" Completed="ChangePassDispandAnimation_Hide_Completed">
+                        <DoubleAnimation BeginTime="0:0:0.0"
+                                         Duration="0:0:0.20"
+                                         From="370"
+                                         Storyboard.TargetName="changePass_Border"
+                                         Storyboard.TargetProperty="Height"
+                                         To="0" />
+                        <DoubleAnimation BeginTime="0:0:0.0"
+                                         Duration="0:0:0.20"
+                                         From="380"
+                                         Storyboard.TargetName="changePass_Border"
+                                         Storyboard.TargetProperty="Width"
+                                         To="0" />
+                    </Storyboard>
+
+                    <Storyboard x:Name="ChangePassDispandAnimation_Black" Completed="ChangePassDispandAnimation_Black_Completed">
+                        <DoubleAnimation BeginTime="0:0:0.0"
+                                         Duration="0:0:0.20"
+                                         From="370"
+                                         Storyboard.TargetName="changePass_Border"
+                                         Storyboard.TargetProperty="Height"
+                                         To="0" />
+                        <DoubleAnimation BeginTime="0:0:0.0"
+                                         Duration="0:0:0.20"
+                                         From="380"
+                                         Storyboard.TargetName="changePass_Border"
+                                         Storyboard.TargetProperty="Width"
+                                         To="0" />
+                    </Storyboard>
+                </Border.Resources>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="15, 0, 0, -10" Text="Old password: " />
+                        <PasswordBox x:Name="oldPassText"
+                                     Width="350"
+                                     PasswordChar="*" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="15, 0, 0, -10" Text="New password: " />
+                        <PasswordBox x:Name="newPassText"
+                                     Width="350"
+                                     PasswordChar="*" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="15, 0, 0, -10" Text="Retype password: " />
+                        <PasswordBox x:Name="retyprPassText"
+                                     Width="350"
+                                     PasswordChar="*" />
+                    </StackPanel>
+
+                    <Button x:Name="ChangePassword_Btn"
+                            Width="200"
+                            Background="Black"
+                            Click="ChangePassword_Btn_Click"
+                            Content="Apply" />
                 </StackPanel>
             </Border>
         </Grid>
