@@ -193,7 +193,7 @@ namespace EmergencyService
                             }
                             catch (Exception ex) { }//return new List<string> { "Device is not connected!", ex.Message }; }
                         }
-                    }                   
+                    }
                 }
                 return new List<string> { notificationStatus, notificationChannelStatus, deviceConnectionStatus };
                 //return new List<string> { "You don't have any friend." };
@@ -450,7 +450,6 @@ namespace EmergencyService
             }
         }
 
-
         public string DeleteFriend(string clientUsername, string friendUsername)
         {
             string notificationStatusToast = "";
@@ -571,6 +570,39 @@ namespace EmergencyService
                     return "Your account is successfully registered.";
                 }
             }
+        }
+
+        public string ChangeProfileField(ClientData client)
+        {
+            using (EmergencyDBEntities context = new EmergencyDBEntities())
+            {
+                if ((from c in context.Clients
+                     where c.Email == client.Email
+                     select c).FirstOrDefault() != null)
+                { return "User with current email is already exist. Please enter another email address."; }
+                //context.Dispose();
+            }
+
+            using (EmergencyDBEntities context2 = new EmergencyDBEntities())
+            {
+                foreach (var clientToUpdate in context2.Clients)
+                {
+                    if (clientToUpdate.Username == client.Username)
+                    {
+                        if (client.FirstName != null)
+                            clientToUpdate.FirstName = client.FirstName;
+                        if (client.LastName != null)
+                            clientToUpdate.LastName = client.LastName;
+                        if (client.Email != null)
+                            clientToUpdate.Email = client.Email;
+                        if (client.Age != 0)
+                            clientToUpdate.Age = client.Age;
+                        break;
+                    }
+                }
+                context2.SaveChanges();
+            }
+            return "Your changes have been saved.";
         }
     }
 }

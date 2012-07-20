@@ -97,6 +97,7 @@ namespace WP7App1
             client.CompleteFriendshipRequestCompleted += new EventHandler<System.ComponentModel.AsyncCompletedEventArgs>(client_CompleteFriendshipRequestCompleted);
             client.GetFriendsListCompleted += new EventHandler<GetFriendsListCompletedEventArgs>(client_GetFriendsListCompleted);
             client.ClientRegistrationCompleted += new EventHandler<ClientRegistrationCompletedEventArgs>(client_ClientRegistrationCompleted);
+            client.ChangeProfileFieldCompleted += new EventHandler<ChangeProfileFieldCompletedEventArgs>(client_ChangeProfileFieldCompleted);
 
             LoadSettings();
         }
@@ -598,6 +599,9 @@ namespace WP7App1
             acceptFName.Visibility = System.Windows.Visibility.Collapsed;
             cancelFName.Visibility = System.Windows.Visibility.Collapsed;
             profFName.IsReadOnly = true;
+            FirstNameValidation(profFName);
+            if (isRegistrationOK)
+                client.ChangeProfileFieldAsync(new ClientData { Username = username, FirstName = profFName.Text });
         }
 
         /// <summary>
@@ -641,6 +645,9 @@ namespace WP7App1
             acceptLName.Visibility = System.Windows.Visibility.Collapsed;
             cancelLName.Visibility = System.Windows.Visibility.Collapsed;
             profLName.IsReadOnly = true;
+            LastNameValidation(profLName);
+            if (isRegistrationOK)
+                client.ChangeProfileFieldAsync(new ClientData { Username = username, LastName = profLName.Text });
         }
 
         /// <summary>
@@ -727,6 +734,9 @@ namespace WP7App1
             acceptEMail.Visibility = System.Windows.Visibility.Collapsed;
             cancelEMail.Visibility = System.Windows.Visibility.Collapsed;
             profEMail.IsReadOnly = true;
+            EmailValidation(profEMail);
+            if (isRegistrationOK)
+                client.ChangeProfileFieldAsync(new ClientData { Username = username, Email = profEMail.Text });
         }
 
         /// <summary>
@@ -770,6 +780,9 @@ namespace WP7App1
             acceptDOB.Visibility = System.Windows.Visibility.Collapsed;
             cancelDOB.Visibility = System.Windows.Visibility.Collapsed;
             profDOB.IsReadOnly = true;
+            DOBValidation(profDOB);
+            if (isRegistrationOK)
+                client.ChangeProfileFieldAsync(new ClientData { Username = username, Age = int.Parse(profDOB.Text) });
         }
 
         /// <summary>
@@ -973,6 +986,17 @@ namespace WP7App1
 
         private void regFirstname_LostFocus(object sender, RoutedEventArgs e)
         {
+            FirstNameValidation(sender as TextBox);
+        }
+
+        private void FirstNameValidation(TextBox regFName)
+        {
+            TextBlock errTextBlock;
+            if(regFName.Name.Contains("reg"))
+                errTextBlock = this.errTextBlock;
+            else
+                errTextBlock = this.profileValidationTextBlock;
+
             if (regFName.Text.Length > 0)
             {
                 if (Regex.IsMatch(regFName.Text, @"^[a-zA-Z]+(([\'\- ][a-zA-Z ])?[a-zA-Z]*)*$"))
@@ -992,6 +1016,17 @@ namespace WP7App1
 
         private void regLastname_LostFocus(object sender, RoutedEventArgs e)
         {
+            LastNameValidation(sender as TextBox);            
+        }
+
+        private void LastNameValidation(TextBox regLName)
+        {
+            TextBlock errTextBlock;
+            if (regFName.Name.Contains("reg"))
+                errTextBlock = this.errTextBlock;
+            else
+                errTextBlock = this.profileValidationTextBlock;
+
             if (regLName.Text.Length > 0)
             {
                 if (Regex.IsMatch(regLName.Text, @"^[a-zA-Z]+(([\'\- ][a-zA-Z ])?[a-zA-Z]*)*$"))
@@ -1006,7 +1041,7 @@ namespace WP7App1
                 }
             }
             else
-                errTextBlock.Text = "";            
+                errTextBlock.Text = "";
         }
 
         private void regVerifyPassword_LostFocus(object sender, RoutedEventArgs e)
@@ -1047,6 +1082,17 @@ namespace WP7App1
 
         private void regMail_LostFocus(object sender, RoutedEventArgs e)
         {
+            EmailValidation(sender as TextBox);
+        }
+
+        private void EmailValidation(TextBox regEmail)
+        {
+            TextBlock errTextBlock;
+            if (regFName.Name.Contains("reg"))
+                errTextBlock = this.errTextBlock;
+            else
+                errTextBlock = this.profileValidationTextBlock;
+
             if (regEmail.Text.Length > 0)
             {
                 if (IsValid(regEmail.Text))
@@ -1066,6 +1112,17 @@ namespace WP7App1
 
         private void regDateofBirth_LostFocus(object sender, RoutedEventArgs e)
         {
+            DOBValidation(sender as TextBox);
+        }
+
+        private void DOBValidation(TextBox regDOB)
+        {
+            TextBlock errTextBlock;
+            if (regFName.Name.Contains("reg"))
+                errTextBlock = this.errTextBlock;
+            else
+                errTextBlock = this.profileValidationTextBlock;
+
             if (regDOB.Text.Length > 0)
             {
                 try
@@ -1234,6 +1291,18 @@ namespace WP7App1
             {
                 ShowHideLoginBlock(false);
                 ShowHideRegisterBlock(true);
+            }
+        }
+
+        /// <summary>
+        /// Changing profile fields
+        /// </summary>
+        void client_ChangeProfileFieldCompleted(object sender, ChangeProfileFieldCompletedEventArgs e)
+        {
+            MessageBox.Show(e.Result);
+            if (e.Result == "User with current email is already exist. Please enter another email address.")
+            {
+                editProfEMail_Click(this, null);
             }
         }
 

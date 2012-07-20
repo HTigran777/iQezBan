@@ -373,6 +373,11 @@ namespace WP7App1.EmergencyService {
         System.IAsyncResult BeginGetFriendsList(string username, System.AsyncCallback callback, object asyncState);
         
         System.Collections.Generic.List<WP7App1.EmergencyService.ClientData> EndGetFriendsList(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMyPushService/ChangeProfileField", ReplyAction="http://tempuri.org/IMyPushService/ChangeProfileFieldResponse")]
+        System.IAsyncResult BeginChangeProfileField(WP7App1.EmergencyService.ClientData client, System.AsyncCallback callback, object asyncState);
+        
+        string EndChangeProfileField(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -552,6 +557,25 @@ namespace WP7App1.EmergencyService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ChangeProfileFieldCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ChangeProfileFieldCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class MyPushServiceClient : System.ServiceModel.ClientBase<WP7App1.EmergencyService.IMyPushService>, WP7App1.EmergencyService.IMyPushService {
         
         private BeginOperationDelegate onBeginClientRegistrationDelegate;
@@ -619,6 +643,12 @@ namespace WP7App1.EmergencyService {
         private EndOperationDelegate onEndGetFriendsListDelegate;
         
         private System.Threading.SendOrPostCallback onGetFriendsListCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginChangeProfileFieldDelegate;
+        
+        private EndOperationDelegate onEndChangeProfileFieldDelegate;
+        
+        private System.Threading.SendOrPostCallback onChangeProfileFieldCompletedDelegate;
         
         private BeginOperationDelegate onBeginOpenDelegate;
         
@@ -694,6 +724,8 @@ namespace WP7App1.EmergencyService {
         public event System.EventHandler<DeleteFriendCompletedEventArgs> DeleteFriendCompleted;
         
         public event System.EventHandler<GetFriendsListCompletedEventArgs> GetFriendsListCompleted;
+        
+        public event System.EventHandler<ChangeProfileFieldCompletedEventArgs> ChangeProfileFieldCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
@@ -1225,6 +1257,52 @@ namespace WP7App1.EmergencyService {
                         username}, this.onEndGetFriendsListDelegate, this.onGetFriendsListCompletedDelegate, userState);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult WP7App1.EmergencyService.IMyPushService.BeginChangeProfileField(WP7App1.EmergencyService.ClientData client, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginChangeProfileField(client, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        string WP7App1.EmergencyService.IMyPushService.EndChangeProfileField(System.IAsyncResult result) {
+            return base.Channel.EndChangeProfileField(result);
+        }
+        
+        private System.IAsyncResult OnBeginChangeProfileField(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            WP7App1.EmergencyService.ClientData client = ((WP7App1.EmergencyService.ClientData)(inValues[0]));
+            return ((WP7App1.EmergencyService.IMyPushService)(this)).BeginChangeProfileField(client, callback, asyncState);
+        }
+        
+        private object[] OnEndChangeProfileField(System.IAsyncResult result) {
+            string retVal = ((WP7App1.EmergencyService.IMyPushService)(this)).EndChangeProfileField(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnChangeProfileFieldCompleted(object state) {
+            if ((this.ChangeProfileFieldCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ChangeProfileFieldCompleted(this, new ChangeProfileFieldCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ChangeProfileFieldAsync(WP7App1.EmergencyService.ClientData client) {
+            this.ChangeProfileFieldAsync(client, null);
+        }
+        
+        public void ChangeProfileFieldAsync(WP7App1.EmergencyService.ClientData client, object userState) {
+            if ((this.onBeginChangeProfileFieldDelegate == null)) {
+                this.onBeginChangeProfileFieldDelegate = new BeginOperationDelegate(this.OnBeginChangeProfileField);
+            }
+            if ((this.onEndChangeProfileFieldDelegate == null)) {
+                this.onEndChangeProfileFieldDelegate = new EndOperationDelegate(this.OnEndChangeProfileField);
+            }
+            if ((this.onChangeProfileFieldCompletedDelegate == null)) {
+                this.onChangeProfileFieldCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnChangeProfileFieldCompleted);
+            }
+            base.InvokeAsync(this.onBeginChangeProfileFieldDelegate, new object[] {
+                        client}, this.onEndChangeProfileFieldDelegate, this.onChangeProfileFieldCompletedDelegate, userState);
+        }
+        
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
             return ((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(callback, asyncState);
         }
@@ -1450,6 +1528,19 @@ namespace WP7App1.EmergencyService {
             public System.Collections.Generic.List<WP7App1.EmergencyService.ClientData> EndGetFriendsList(System.IAsyncResult result) {
                 object[] _args = new object[0];
                 System.Collections.Generic.List<WP7App1.EmergencyService.ClientData> _result = ((System.Collections.Generic.List<WP7App1.EmergencyService.ClientData>)(base.EndInvoke("GetFriendsList", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BeginChangeProfileField(WP7App1.EmergencyService.ClientData client, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = client;
+                System.IAsyncResult _result = base.BeginInvoke("ChangeProfileField", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public string EndChangeProfileField(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                string _result = ((string)(base.EndInvoke("ChangeProfileField", _args, result)));
                 return _result;
             }
         }

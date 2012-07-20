@@ -45,6 +45,9 @@ namespace EmergencyService
         [OperationContract]
         List<ClientData> GetFriendsList(string username);
 
+        [OperationContract]
+        string ChangeProfileField(ClientData client);
+
         // TODO: Add your service operations here
     }
 
