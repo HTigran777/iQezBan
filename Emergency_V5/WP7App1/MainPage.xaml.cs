@@ -35,6 +35,8 @@ namespace WP7App1
         private bool isRegistrationOK = false;
         public ObservableCollection<ItemViewModel> myRequests = new ObservableCollection<ItemViewModel>();
         private bool alarmMode = false;
+        private bool? CanUseLocation = null;
+        private bool? CanRecieveNotifications = null;
 
         public bool AlarmMode
         {
@@ -107,6 +109,7 @@ namespace WP7App1
         private void tgNotific_Checked(object sender, RoutedEventArgs e)
         {
             IsolatedStorageSettings.ApplicationSettings["toggleNotific"] = tgNotific.IsChecked == true ? "ON" : "OFF";
+            CanRecieveNotifications = tgNotific.IsChecked;
         }
 
         /// <summary>
@@ -115,6 +118,7 @@ namespace WP7App1
         private void tgLocation_Checked(object sender, RoutedEventArgs e)
         {
             IsolatedStorageSettings.ApplicationSettings["toggleLocation"] = tgLocation.IsChecked == true ? "ON" : "OFF";
+            CanUseLocation = tgLocation.IsChecked;
         }
 
         /// <summary>
@@ -183,11 +187,13 @@ namespace WP7App1
             }
             else
             {
+                IsolatedStorageSettings.ApplicationSettings["toggleLocation"] = "OFF";
                 tgLocation.IsChecked = false;
             }
+            CanUseLocation = tgLocation.IsChecked;
             #endregion
 
-            #region Load Location button state
+            #region Load Notification button state
             if (IsolatedStorageSettings.ApplicationSettings.Contains("toggleNotific"))
             {
                 tgNotific.IsChecked = IsolatedStorageSettings.ApplicationSettings["toggleNotific"].ToString() == "ON"
@@ -196,8 +202,10 @@ namespace WP7App1
             }
             else
             {
+                IsolatedStorageSettings.ApplicationSettings["toggleNotific"] = "OFF";
                 tgNotific.IsChecked = false;
             }
+            CanRecieveNotifications = tgNotific.IsChecked;
             #endregion
 
             //TurnONAlarm(new Point(40.123661, 44.477149));
@@ -225,6 +233,14 @@ namespace WP7App1
             retyprPassText.Password = string.Empty;
             changePass.Visibility = Visibility.Visible;
             ChangePassExpandAnimation.Begin();
+        }
+
+        /// <summary>
+        /// Cancelchanging password button function
+        /// </summary>
+        private void CancelPass_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            ChangePassDispandAnimation_Hide.Begin();
         }
 
         /// <summary>
@@ -274,15 +290,39 @@ namespace WP7App1
         /// </summary>
         void ButtonTimer_Alarm(object sender, EventArgs e)
         {
+            var answer = false;
             if (NotificationManager.InternetIsAvailable())
             {
-                //sosButton.Background = new SolidColorBrush(Colors.Red);
                 sosButton.Source = new BitmapImage(new Uri("SOS_Button/alarmDisabled.png", UriKind.Relative));
-                location = new LocationManager();
-                location.StartLocationCapturing();
-                location.username = username;
+                if (CanUseLocation == true)
+                {
+                    location = new LocationManager();
+                    location.StartLocationCapturing();
+                    location.username = username;
+                }
+                else
+                {
+                    if (MessageBox.Show("Using of your location is disabled, to help your friends easily find you we recomend to send your location, do you wish to send your location?", "Location Disabled", MessageBoxButton.OKCancel)
+                        == MessageBoxResult.OK)
+                    {
+                        location = new LocationManager();
+                        location.StartLocationCapturing();
+                        location.username = username;
+                        answer = true;
+                    }
+                }
                 //client.SendSosNotificationsAsync(new ClientData { Username = username });
                 reEnable.Start();
+
+                if (CanUseLocation != true && answer)
+                {
+                    if (MessageBox.Show("Using of your location is disabled, do you wish to enable using of your location?", "Location Disabled", MessageBoxButton.OKCancel)
+                        == MessageBoxResult.OK)
+                    {
+                        IsolatedStorageSettings.ApplicationSettings["toggleLocation"] = "ON";
+                        tgLocation.IsChecked = true;
+                    }
+                }
             }
             else
             {
@@ -495,6 +535,14 @@ namespace WP7App1
         {
             ButtonTimer.Stop();
             sosButton.Source = new BitmapImage(new Uri("SOS_Button/alarmNormal.png", UriKind.Relative));
+        }
+
+        /// <summary>
+        /// Change SOS button image to Pressed
+        /// </summary>
+        private void sosButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            sosButton.Source = new BitmapImage(new Uri("SOS_Button/alarmPressed.png", UriKind.Relative));
         }
 
         /// <summary>
@@ -1284,12 +1332,6 @@ namespace WP7App1
                 ShowHideRegisterBlock(true);
             }
         }
-
         #endregion
-
-        private void sosButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            sosButton.Source = new BitmapImage(new Uri("SOS_Button/alarmPressed.png", UriKind.Relative));
-        }
     }
 }

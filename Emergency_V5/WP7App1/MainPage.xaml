@@ -23,196 +23,11 @@
     <!--  SizeChanged="UserControl_SizeChanged"  -->
 
     <phone:PhoneApplicationPage.Resources>
-        <Style x:Key="ButtonStyle_Round" TargetType="Button">
-            <Setter Property="Background" Value="#FF1F3B53" />
-            <Setter Property="Foreground" Value="#FF000000" />
-            <Setter Property="Padding" Value="3" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="BorderBrush">
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                        <GradientStop Offset="0" Color="#FFA3AEB9" />
-                        <GradientStop Offset="0.375" Color="#FF8399A9" />
-                        <GradientStop Offset="0.375" Color="#FF718597" />
-                        <GradientStop Offset="1" Color="#FF617584" />
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Grid x:Name="grid"
-                              Cursor="Hand"
-                              RenderTransformOrigin="0.5,0.5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.15*" />
-                                <ColumnDefinition Width="0.7*" />
-                                <ColumnDefinition Width="0.15*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform />
-                                    <SkewTransform />
-                                    <RotateTransform />
-                                    <TranslateTransform />
-                                </TransformGroup>
-                            </Grid.RenderTransform>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="0.05*" />
-                                <RowDefinition Height="0.4*" />
-                                <RowDefinition Height="0.55*" />
-                            </Grid.RowDefinitions>
-                            <vsm:VisualStateManager.VisualStateGroups>
-                                <vsm:VisualStateGroup x:Name="CommonStates">
-                                    <vsm:VisualStateGroup.Transitions>
-                                        <vsm:VisualTransition From="MouseOver" GeneratedDuration="00:00:00.5000000" />
-                                        <vsm:VisualTransition GeneratedDuration="00:00:00.2000000" To="MouseOver" />
-                                        <vsm:VisualTransition GeneratedDuration="00:00:00" To="Pressed" />
-                                        <vsm:VisualTransition From="Pressed" GeneratedDuration="00:00:00.3000000" />
-                                    </vsm:VisualStateGroup.Transitions>
-                                    <vsm:VisualState x:Name="Normal" />
-                                    <vsm:VisualState x:Name="MouseOver">
-                                        <Storyboard>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                                           Duration="00:00:00.0010000"
-                                                                           Storyboard.TargetName="ellipse"
-                                                                           Storyboard.TargetProperty="(UIElement.Opacity)">
-                                                <SplineDoubleKeyFrame KeySpline="0,1,1,1"
-                                                                      KeyTime="00:00:00"
-                                                                      Value="1" />
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </vsm:VisualState>
-                                    <vsm:VisualState x:Name="Pressed">
-                                        <Storyboard>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                                           Duration="00:00:00.0010000"
-                                                                           Storyboard.TargetName="grid"
-                                                                           Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1.1" />
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                                           Duration="00:00:00.0010000"
-                                                                           Storyboard.TargetName="grid"
-                                                                           Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1.1" />
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                                           Duration="00:00:00.0010000"
-                                                                           Storyboard.TargetName="ellipse"
-                                                                           Storyboard.TargetProperty="(UIElement.Opacity)">
-                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1" />
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </vsm:VisualState>
-                                    <vsm:VisualState x:Name="Disabled">
-                                        <Storyboard>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                                           Duration="00:00:00.0010000"
-                                                                           Storyboard.TargetName="grid"
-                                                                           Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.8" />
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                                           Duration="00:00:00.0010000"
-                                                                           Storyboard.TargetName="grid"
-                                                                           Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.8" />
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </vsm:VisualState>
-                                </vsm:VisualStateGroup>
-                                <vsm:VisualStateGroup x:Name="FocusStates">
-                                    <vsm:VisualState x:Name="Focused">
-                                        <Storyboard />
-                                    </vsm:VisualState>
-                                    <vsm:VisualState x:Name="Unfocused" />
-                                </vsm:VisualStateGroup>
-                            </vsm:VisualStateManager.VisualStateGroups>
-                            <Ellipse Grid.RowSpan="3"
-                                     Grid.ColumnSpan="3"
-                                     Fill="{TemplateBinding Background}"
-                                     Stroke="{TemplateBinding BorderBrush}" />
-                            <Ellipse x:Name="ellipse2"
-                                     Grid.RowSpan="3"
-                                     Grid.ColumnSpan="3"
-                                     Stroke="#7F000000">
-                                <Ellipse.Fill>
-                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                        <GradientStop Color="#3FFFFFFF" />
-                                        <GradientStop Offset="1" Color="#A0000000" />
-                                        <GradientStop Offset="0.518" Color="#008A8A8A" />
-                                    </LinearGradientBrush>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <Ellipse Grid.RowSpan="3" Grid.ColumnSpan="3">
-                                <Ellipse.Fill>
-                                    <RadialGradientBrush>
-                                        <GradientStop Offset="1" Color="#99000000" />
-                                        <GradientStop Offset="0" Color="#66FFFFFF" />
-                                    </RadialGradientBrush>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <Ellipse x:Name="ellipse"
-                                     Grid.Row="1"
-                                     Grid.RowSpan="3"
-                                     Grid.Column="0"
-                                     Grid.ColumnSpan="3"
-                                     Margin="5,13,5,3"
-                                     Opacity="0">
-                                <Ellipse.Fill>
-                                    <RadialGradientBrush>
-                                        <RadialGradientBrush.RelativeTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform CenterX="0.5"
-                                                                CenterY="0.5"
-                                                                ScaleX="1.48"
-                                                                ScaleY="1.48" />
-                                                <SkewTransform CenterX="0.5" CenterY="0.5" />
-                                                <RotateTransform CenterX="0.5" CenterY="0.5" />
-                                                <TranslateTransform X="0.0099999997764825821" Y="0.29600000381469727" />
-                                            </TransformGroup>
-                                        </RadialGradientBrush.RelativeTransform>
-                                        <GradientStop Color="Lime" />
-                                        <GradientStop Offset="1" Color="#00FFD200" />
-                                    </RadialGradientBrush>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <ContentPresenter x:Name="contentPresenter"
-                                              Grid.Row="1"
-                                              Grid.RowSpan="3"
-                                              Grid.Column="1"
-                                              HorizontalAlignment="Center"
-                                              VerticalAlignment="Center" />
-                            <Ellipse x:Name="ellipse1"
-                                     Grid.Row="1"
-                                     Grid.Column="1"
-                                     HorizontalAlignment="Stretch"
-                                     VerticalAlignment="Stretch"
-                                     Opacity="1">
-                                <Ellipse.Fill>
-                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                        <GradientStop Color="#BBFFFFFF" />
-                                        <GradientStop Offset="1" Color="#00FFFFFF" />
-                                    </LinearGradientBrush>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
-        <ImageBrush x:Key="sosNormal" ImageSource="SOS_Button/alarmNormal.png" />
-        <ImageBrush x:Key="sosDisabled" ImageSource="SOS_Button/alarmDisabled.png" />
-        <ImageBrush x:Key="sosPressed" ImageSource="SOS_Button/alarmPressed.png" />
-
         <SolidColorBrush x:Key="AeroWhite5" Color="#55FFFFFF" />
         <ImageBrush x:Key="searchBrush" ImageSource="Images/SearchBtn.png" />
         <ImageBrush x:Key="editBrush" ImageSource="Images/edit_img.png" />
         <ImageBrush x:Key="acceptBrush" ImageSource="Images/accept_img.png" />
         <ImageBrush x:Key="cancelBrush" ImageSource="Images/cancel_img.png" />
-        <SolidColorBrush x:Key="elBrush" Color="#88000000" />
 
     </phone:PhoneApplicationPage.Resources>
 
@@ -639,13 +454,15 @@
                         <StackPanel Margin="0, 20, 0, 0" Orientation="Horizontal">
                             <toolkit:ToggleSwitch x:Name="tgLocation"
                                                   Checked="tgLocation_Checked"
-                                                  Header="Use my location                           " />
+                                                  Header="Use my location                           "
+                                                  Unchecked="tgLocation_Checked" />
                         </StackPanel>
 
                         <StackPanel Orientation="Horizontal">
                             <toolkit:ToggleSwitch x:Name="tgNotific"
                                                   Checked="tgNotific_Checked"
-                                                  Header="Recieve notifications                    " />
+                                                  Header="Recieve notifications                    "
+                                                  Unchecked="tgNotific_Checked" />
                         </StackPanel>
 
                         <StackPanel Margin="0, 20, 0, 0" Orientation="Horizontal">
@@ -815,11 +632,19 @@
                                      PasswordChar="*" />
                     </StackPanel>
 
-                    <Button x:Name="ChangePassword_Btn"
-                            Width="200"
-                            Background="Black"
-                            Click="ChangePassword_Btn_Click"
-                            Content="Apply" />
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="ChangePassword_Btn"
+                                Width="180"
+                                Background="Black"
+                                Click="ChangePassword_Btn_Click"
+                                Content="Apply" />
+
+                        <Button x:Name="CancelPass_Btn"
+                                Width="170"
+                                Background="Black"
+                                Click="CancelPass_Btn_Click"
+                                Content="Cancel" />
+                    </StackPanel>
                 </StackPanel>
             </Border>
         </Grid>
