@@ -6,6 +6,7 @@ using WP7App1;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Diagnostics;
+using System.IO.IsolatedStorage;
 
 namespace Notifications
 {
@@ -109,24 +110,29 @@ namespace Notifications
 
         void channel_ShellToastNotificationReceived(object sender, NotificationEventArgs e)
         {
-            //MessageBox.Show("Toast Received");
-            message = new StringBuilder();
-            string relativeUri = string.Empty;
+            if (!IsolatedStorageSettings.ApplicationSettings.Contains("toggleNotific"))
+                IsolatedStorageSettings.ApplicationSettings["toggleNotific"] = "OFF";
 
-            message.AppendFormat("Received Toast {0}:\n", DateTime.Now.ToShortTimeString());
-
-            // Parse out the information that was part of the message.
-            foreach (string key in e.Collection.Keys)
+            if (IsolatedStorageSettings.ApplicationSettings["toggleNotific"].ToString() == "ON")
             {
-                message.AppendFormat("{0}: {1}\n", key, e.Collection[key]);
+                message = new StringBuilder();
+                string relativeUri = string.Empty;
 
-                if (string.Compare(
-                    key,
-                    "wp:Param",
-                    System.Globalization.CultureInfo.InvariantCulture,
-                    System.Globalization.CompareOptions.IgnoreCase) == 0)
+                message.AppendFormat("Received Toast {0}:\n", DateTime.Now.ToShortTimeString());
+
+                // Parse out the information that was part of the message.
+                foreach (string key in e.Collection.Keys)
                 {
-                    relativeUri = e.Collection[key];
+                    message.AppendFormat("{0}: {1}\n", key, e.Collection[key]);
+
+                    if (string.Compare(
+                        key,
+                        "wp:Param",
+                        System.Globalization.CultureInfo.InvariantCulture,
+                        System.Globalization.CompareOptions.IgnoreCase) == 0)
+                    {
+                        relativeUri = e.Collection[key];
+                    }
                 }
             }
         }

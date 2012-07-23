@@ -23,199 +23,11 @@
     <!--  SizeChanged="UserControl_SizeChanged"  -->
 
     <phone:PhoneApplicationPage.Resources>
-        <Style x:Key="ButtonStyle_Round" TargetType="Button">
-            <Setter Property="Background" Value="#FF1F3B53" />
-            <Setter Property="Foreground" Value="#FF000000" />
-            <Setter Property="Padding" Value="3" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="BorderBrush">
-                <Setter.Value>
-                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                        <GradientStop Offset="0" Color="#FFA3AEB9" />
-                        <GradientStop Offset="0.375" Color="#FF8399A9" />
-                        <GradientStop Offset="0.375" Color="#FF718597" />
-                        <GradientStop Offset="1" Color="#FF617584" />
-                    </LinearGradientBrush>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Grid x:Name="grid"
-                              Cursor="Hand"
-                              RenderTransformOrigin="0.5,0.5">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.15*" />
-                                <ColumnDefinition Width="0.7*" />
-                                <ColumnDefinition Width="0.15*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform />
-                                    <SkewTransform />
-                                    <RotateTransform />
-                                    <TranslateTransform />
-                                </TransformGroup>
-                            </Grid.RenderTransform>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="0.05*" />
-                                <RowDefinition Height="0.4*" />
-                                <RowDefinition Height="0.55*" />
-                            </Grid.RowDefinitions>
-                            <vsm:VisualStateManager.VisualStateGroups>
-                                <vsm:VisualStateGroup x:Name="CommonStates">
-                                    <vsm:VisualStateGroup.Transitions>
-                                        <vsm:VisualTransition From="MouseOver" GeneratedDuration="00:00:00.5000000" />
-                                        <vsm:VisualTransition GeneratedDuration="00:00:00.2000000" To="MouseOver" />
-                                        <vsm:VisualTransition GeneratedDuration="00:00:00" To="Pressed" />
-                                        <vsm:VisualTransition From="Pressed" GeneratedDuration="00:00:00.3000000" />
-                                    </vsm:VisualStateGroup.Transitions>
-                                    <vsm:VisualState x:Name="Normal" />
-                                    <vsm:VisualState x:Name="MouseOver">
-                                        <Storyboard>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                                           Duration="00:00:00.0010000"
-                                                                           Storyboard.TargetName="ellipse"
-                                                                           Storyboard.TargetProperty="(UIElement.Opacity)">
-                                                <SplineDoubleKeyFrame KeySpline="0,1,1,1"
-                                                                      KeyTime="00:00:00"
-                                                                      Value="1" />
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </vsm:VisualState>
-                                    <vsm:VisualState x:Name="Pressed">
-                                        <Storyboard>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                                           Duration="00:00:00.0010000"
-                                                                           Storyboard.TargetName="grid"
-                                                                           Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1.1" />
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                                           Duration="00:00:00.0010000"
-                                                                           Storyboard.TargetName="grid"
-                                                                           Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1.1" />
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                                           Duration="00:00:00.0010000"
-                                                                           Storyboard.TargetName="ellipse"
-                                                                           Storyboard.TargetProperty="(UIElement.Opacity)">
-                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1" />
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </vsm:VisualState>
-                                    <vsm:VisualState x:Name="Disabled">
-                                        <Storyboard>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                                           Duration="00:00:00.0010000"
-                                                                           Storyboard.TargetName="grid"
-                                                                           Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.8" />
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
-                                                                           Duration="00:00:00.0010000"
-                                                                           Storyboard.TargetName="grid"
-                                                                           Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                                                <SplineDoubleKeyFrame KeyTime="00:00:00" Value="0.8" />
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </vsm:VisualState>
-                                </vsm:VisualStateGroup>
-                                <vsm:VisualStateGroup x:Name="FocusStates">
-                                    <vsm:VisualState x:Name="Focused">
-                                        <Storyboard />
-                                    </vsm:VisualState>
-                                    <vsm:VisualState x:Name="Unfocused" />
-                                </vsm:VisualStateGroup>
-                            </vsm:VisualStateManager.VisualStateGroups>
-                            <Ellipse Grid.RowSpan="3"
-                                     Grid.ColumnSpan="3"
-                                     Fill="{TemplateBinding Background}"
-                                     Stroke="{TemplateBinding BorderBrush}" />
-                            <Ellipse x:Name="ellipse2"
-                                     Grid.RowSpan="3"
-                                     Grid.ColumnSpan="3"
-                                     Stroke="#7F000000">
-                                <Ellipse.Fill>
-                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                        <GradientStop Color="#3FFFFFFF" />
-                                        <GradientStop Offset="1" Color="#A0000000" />
-                                        <GradientStop Offset="0.518" Color="#008A8A8A" />
-                                    </LinearGradientBrush>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <Ellipse Grid.RowSpan="3" Grid.ColumnSpan="3">
-                                <Ellipse.Fill>
-                                    <RadialGradientBrush>
-                                        <GradientStop Offset="1" Color="#99000000" />
-                                        <GradientStop Offset="0" Color="#66FFFFFF" />
-                                    </RadialGradientBrush>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <Ellipse x:Name="ellipse"
-                                     Grid.Row="1"
-                                     Grid.RowSpan="3"
-                                     Grid.Column="0"
-                                     Grid.ColumnSpan="3"
-                                     Margin="5,13,5,3"
-                                     Opacity="0">
-                                <Ellipse.Fill>
-                                    <RadialGradientBrush>
-                                        <RadialGradientBrush.RelativeTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform CenterX="0.5"
-                                                                CenterY="0.5"
-                                                                ScaleX="1.48"
-                                                                ScaleY="1.48" />
-                                                <SkewTransform CenterX="0.5" CenterY="0.5" />
-                                                <RotateTransform CenterX="0.5" CenterY="0.5" />
-                                                <TranslateTransform X="0.0099999997764825821" Y="0.29600000381469727" />
-                                            </TransformGroup>
-                                        </RadialGradientBrush.RelativeTransform>
-                                        <GradientStop Color="Lime" />
-                                        <GradientStop Offset="1" Color="#00FFD200" />
-                                    </RadialGradientBrush>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                            <ContentPresenter x:Name="contentPresenter"
-                                              Grid.Row="1"
-                                              Grid.RowSpan="3"
-                                              Grid.Column="1"
-                                              HorizontalAlignment="Center"
-                                              VerticalAlignment="Center" />
-                            <Ellipse x:Name="ellipse1"
-                                     Grid.Row="1"
-                                     Grid.Column="1"
-                                     HorizontalAlignment="Stretch"
-                                     VerticalAlignment="Stretch"
-                                     Opacity="1">
-                                <Ellipse.Fill>
-                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                        <GradientStop Color="#BBFFFFFF" />
-                                        <GradientStop Offset="1" Color="#00FFFFFF" />
-                                    </LinearGradientBrush>
-                                </Ellipse.Fill>
-                            </Ellipse>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
         <SolidColorBrush x:Key="AeroWhite5" Color="#55FFFFFF" />
         <ImageBrush x:Key="searchBrush" ImageSource="Images/SearchBtn.png" />
         <ImageBrush x:Key="editBrush" ImageSource="Images/edit_img.png" />
         <ImageBrush x:Key="acceptBrush" ImageSource="Images/accept_img.png" />
         <ImageBrush x:Key="cancelBrush" ImageSource="Images/cancel_img.png" />
-
-        <ControlTemplate x:Key="PushPinTemplate">
-            <Grid>
-                <Ellipse Width="30"
-                         Height="30"
-                         Fill="Red" />
-            </Grid>
-        </ControlTemplate>
 
     </phone:PhoneApplicationPage.Resources>
 
@@ -227,27 +39,24 @@
                 </controls:Panorama.Background>
 
                 <controls:PanoramaItem Header="SOS">
-                    <Button x:Name="sosButton"
-                            Width="300"
-                            Height="300"
-                            Margin="0, -100, 0, 0"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Background="Cyan"
-                            BorderBrush="#FF00AAFF"
-                            Content="SOS"
-                            FontSize="70"
-                            MouseEnter="sosButton_MouseEnter"
-                            MouseLeave="sosButton_MouseLeave"
-                            Style="{StaticResource ButtonStyle_Round}" />
+                    <Image x:Name="sosButton"
+                           Width="300"
+                           Height="300"
+                           Margin="0, -100, 0, 0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           MouseEnter="sosButton_MouseEnter"
+                           MouseLeave="sosButton_MouseLeave"
+                           MouseLeftButtonDown="sosButton_MouseLeftButtonDown"
+                           Source="SOS_Button/alarmNormal.png" />
                 </controls:PanoramaItem>
 
                 <controls:PanoramaItem Header="Profile">
                     <StackPanel Orientation="Vertical">
                         <TextBlock Name="profileValidationTextBlock" FontSize="22" Width="400" TextWrapping="Wrap" Foreground="Red" />
                         <StackPanel Orientation="Horizontal">
-                            <Image Width="200"
-                                   Height="200"
+                            <Image Width="150"
+                                   Height="150"
                                    Margin="20, 20, 0, 0"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Top"
@@ -255,17 +64,26 @@
 
                             <StackPanel Orientation="Vertical">
                                 <Button Width="200"
-                                        Height="100"
+                                        Height="70"
                                         Margin="0, 9, 0, 0"
                                         VerticalAlignment="Top"
                                         Background="Black"
                                         Click="Button_Click_1"
                                         Content="Log Out"
-                                        FontSize="32"
+                                        FontSize="25"
                                         FontWeight="Bold" />
 
                                 <Button Width="200"
-                                        Height="100"
+                                        Height="70"
+                                        VerticalAlignment="Top"
+                                        Background="Black"
+                                        Click="Button_Click_8"
+                                        Content="Change password"
+                                        FontSize="18"
+                                        FontWeight="Bold" />
+
+                                <Button Width="200"
+                                        Height="70"
                                         Margin="0, 9, 0, 0"
                                         VerticalAlignment="Top"
                                         Background="Black"
@@ -277,7 +95,7 @@
                             </StackPanel>
                         </StackPanel>
 
-                        <ScrollViewer Height="260"
+                        <ScrollViewer Height="320"
                                       HorizontalScrollBarVisibility="Disabled"
                                       VerticalScrollBarVisibility="Auto">
                             <StackPanel Orientation="Vertical">
@@ -361,42 +179,44 @@
                                 <!--  My Last-Name Block #**********************# END #**********************#  -->
 
                                 <!--  My UserName Block #**********************# START #**********************#  -->
-                                <StackPanel Orientation="Horizontal">
+                                <!--
+                                    <StackPanel Orientation="Horizontal">
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock Margin="20, 0, 0, -20" Text="Username" />
-                                        <TextBox x:Name="profUName"
-                                                 Width="330"
-                                                 Margin="10, 10, 0, 0"
-                                                 FontSize="30"
-                                                 Foreground="Black"
-                                                 IsReadOnly="True"
-                                                 Text="{Binding ProfileUserName,
-                                                                Mode=TwoWay}" />
+                                    <TextBlock Margin="20, 0, 0, -20" Text="Username" />
+                                    <TextBox x:Name="profUName"
+                                    Width="330"
+                                    Margin="10, 10, 0, 0"
+                                    FontSize="30"
+                                    Foreground="Black"
+                                    IsReadOnly="True"
+                                    Text="{Binding ProfileUserName,
+                                    Mode=TwoWay}" />
                                     </StackPanel>
-
+                                    
                                     <Button x:Name="editProfUName"
-                                            Width="90"
-                                            Height="80"
-                                            Margin="-23, 16, 0, 0"
-                                            Background="{StaticResource editBrush}"
-                                            Click="editProfUName_Click" />
-
+                                    Width="90"
+                                    Height="80"
+                                    Margin="-23, 16, 0, 0"
+                                    Background="{StaticResource editBrush}"
+                                    Click="editProfUName_Click" />
+                                    
                                     <Button x:Name="acceptUName"
-                                            Width="90"
-                                            Height="80"
-                                            Margin="-23, 16, 0, 0"
-                                            Background="{StaticResource acceptBrush}"
-                                            Click="acceptUName_Click"
-                                            Visibility="Collapsed" />
-
+                                    Width="90"
+                                    Height="80"
+                                    Margin="-23, 16, 0, 0"
+                                    Background="{StaticResource acceptBrush}"
+                                    Click="acceptUName_Click"
+                                    Visibility="Collapsed" />
+                                    
                                     <Button x:Name="cancelUName"
-                                            Width="90"
-                                            Height="80"
-                                            Margin="-20, 16, 0, 0"
-                                            Background="{StaticResource cancelBrush}"
-                                            Click="cancelUName_Click"
-                                            Visibility="Collapsed" />
-                                </StackPanel>
+                                    Width="90"
+                                    Height="80"
+                                    Margin="-20, 16, 0, 0"
+                                    Background="{StaticResource cancelBrush}"
+                                    Click="cancelUName_Click"
+                                    Visibility="Collapsed" />
+                                    </StackPanel>
+                                -->
                                 <!--  My UserName Block #**********************# END #**********************#  -->
 
                                 <!--  My EMail Block #**********************# START #**********************#  -->
@@ -476,47 +296,6 @@
                                             Visibility="Collapsed" />
                                 </StackPanel>
                                 <!--  My Date of Birth (DOB) Block #**********************# END #**********************#  -->
-
-                                <!--  My Password Block #**********************# START #**********************#  -->
-                                <!--
-                                    <StackPanel Orientation="Horizontal">
-                                    <StackPanel Orientation="Vertical">
-                                    <TextBlock Margin="20, 0, 0, -20" Text="Password" />
-                                    <TextBox x:Name="profPass"
-                                    Width="330"
-                                    Margin="10, 10, 0, 0"
-                                    FontSize="30"
-                                    Foreground="Black"
-                                    IsReadOnly="True"
-                                    Text="{Binding ProfilePassword,
-                                    Mode=TwoWay}" />
-                                    </StackPanel>
-                                    
-                                    <Button x:Name="editProfPass"
-                                    Width="90"
-                                    Height="80"
-                                    Margin="-23, 16, 0, 0"
-                                    Background="{StaticResource editBrush}"
-                                    Click="editProfPass_Click" />
-                                    
-                                    <Button x:Name="acceptPass"
-                                    Width="90"
-                                    Height="80"
-                                    Margin="-23, 16, 0, 0"
-                                    Background="{StaticResource acceptBrush}"
-                                    Click="acceptPass_Click"
-                                    Visibility="Collapsed" />
-                                    
-                                    <Button x:Name="cancelPass"
-                                    Width="90"
-                                    Height="80"
-                                    Margin="-20, 16, 0, 0"
-                                    Background="{StaticResource cancelBrush}"
-                                    Click="cancelPass_Click"
-                                    Visibility="Collapsed" />
-                                    </StackPanel>
-                                -->
-                                <!--  My Password Block #**********************# END #**********************#  -->
 
                             </StackPanel>
                         </ScrollViewer>
@@ -673,33 +452,32 @@
 
                 <controls:PanoramaItem Header="Settings">
                     <StackPanel Orientation="Vertical">
+                        <StackPanel Margin="0, 20, 0, 0" Orientation="Horizontal">
+                            <toolkit:ToggleSwitch x:Name="tgLocation"
+                                                  Checked="tgLocation_Checked"
+                                                  Header="Use my location                           "
+                                                  Unchecked="tgLocation_Checked" />
+                        </StackPanel>
+
                         <StackPanel Orientation="Horizontal">
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Margin="10, 20, 0, 0" Text="Sos button release time" />
-                                <TextBox x:Name="sosTime"
-                                         Width="230"
-                                         TextChanged="TextBox_TextChanged" />
-                            </StackPanel>
-
-                            <Button x:Name="btnTimer"
-                                    Width="70"
-                                    Height="70"
-                                    Margin="-20, 47, 0, 0"
-                                    Background="{StaticResource acceptBrush}"
-                                    Click="btnTimer_Click"
-                                    Visibility="Collapsed" />
+                            <toolkit:ToggleSwitch x:Name="tgNotific"
+                                                  Checked="tgNotific_Checked"
+                                                  Header="Recieve notifications                    "
+                                                  Unchecked="tgNotific_Checked" />
                         </StackPanel>
 
                         <StackPanel Margin="0, 20, 0, 0" Orientation="Horizontal">
-                            <TextBlock FontSize="30" Text="Allow to get my location" />
-                            <GoogleTileSource:TapSlideToggle x:Name="tgLocation" Checked="tgLocation_Checked" />
-                        </StackPanel>
-
-                        <StackPanel Margin="0, 20, 0, 0" Orientation="Horizontal">
-                            <TextBlock FontSize="30" Text="Recieve notifications" />
-                            <GoogleTileSource:TapSlideToggle x:Name="tgNotific"
-                                                             Margin="53, 0, 0, 0"
-                                                             Checked="tgNotific_Checked" />
+                            <TextBlock Margin="10, 5, 0, 0"
+                                       FontSize="35"
+                                       Text="Button timer" />
+                            <toolkit:ListPicker x:Name="timePick"
+                                                Width="100"
+                                                Margin="90, 0, 0, 0"
+                                                SelectionChanged="ListPicker_SelectionChanged">
+                                <toolkit:ListPickerItem Content="10 ms" />
+                                <toolkit:ListPickerItem Content="60 ms" />
+                                <toolkit:ListPickerItem Content="100 ms" />
+                            </toolkit:ListPicker>
                         </StackPanel>
                     </StackPanel>
                 </controls:PanoramaItem>
@@ -720,16 +498,7 @@
                 <Border.Background>
                     <SolidColorBrush x:Name="myBrush" Color="#88000000" />
                 </Border.Background>
-                <Border.Resources>
-                    <Storyboard x:Name="alarmAnimation" RepeatBehavior="Forever">
-                        <ColorAnimation BeginTime="0:0:0.0"
-                                        Duration="0:0:0.50"
-                                        From="#88000000"
-                                        Storyboard.TargetName="myBrush"
-                                        Storyboard.TargetProperty="Color"
-                                        To="#FF0000" />
-                    </Storyboard>
-                </Border.Resources>
+
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <RadioButton Name="radioHybrid"
@@ -775,7 +544,108 @@
                                 <GoogleTileSource:GoogleTile TileTypes="Satellite" />
                             </my:MapTileLayer.TileSources>
                         </my:MapTileLayer>
+
+                        <my:Pushpin x:Name="alarmPin"
+                                    Background="Red"
+                                    Tap="alarmPin_Tap" />
                     </my:Map>
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Grid x:Name="changePass"
+              Background="#88000000"
+              Visibility="Collapsed">
+            <Border x:Name="changePass_Border"
+                    Width="380"
+                    Height="370"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="#88000000"
+                    BorderBrush="White"
+                    BorderThickness="3"
+                    CornerRadius="30"
+                    Padding="10">
+                <Border.Resources>
+                    <Storyboard x:Name="ChangePassExpandAnimation">
+                        <DoubleAnimation BeginTime="0:0:0.0"
+                                         Duration="0:0:0.20"
+                                         From="0"
+                                         Storyboard.TargetName="changePass_Border"
+                                         Storyboard.TargetProperty="Width"
+                                         To="380" />
+                        <DoubleAnimation BeginTime="0:0:0.0"
+                                         Duration="0:0:0.20"
+                                         From="0"
+                                         Storyboard.TargetName="changePass_Border"
+                                         Storyboard.TargetProperty="Height"
+                                         To="370" />
+                    </Storyboard>
+                    <Storyboard x:Name="ChangePassDispandAnimation_Hide" Completed="ChangePassDispandAnimation_Hide_Completed">
+                        <DoubleAnimation BeginTime="0:0:0.0"
+                                         Duration="0:0:0.20"
+                                         From="370"
+                                         Storyboard.TargetName="changePass_Border"
+                                         Storyboard.TargetProperty="Height"
+                                         To="0" />
+                        <DoubleAnimation BeginTime="0:0:0.0"
+                                         Duration="0:0:0.20"
+                                         From="380"
+                                         Storyboard.TargetName="changePass_Border"
+                                         Storyboard.TargetProperty="Width"
+                                         To="0" />
+                    </Storyboard>
+
+                    <Storyboard x:Name="ChangePassDispandAnimation_Black" Completed="ChangePassDispandAnimation_Black_Completed">
+                        <DoubleAnimation BeginTime="0:0:0.0"
+                                         Duration="0:0:0.20"
+                                         From="370"
+                                         Storyboard.TargetName="changePass_Border"
+                                         Storyboard.TargetProperty="Height"
+                                         To="0" />
+                        <DoubleAnimation BeginTime="0:0:0.0"
+                                         Duration="0:0:0.20"
+                                         From="380"
+                                         Storyboard.TargetName="changePass_Border"
+                                         Storyboard.TargetProperty="Width"
+                                         To="0" />
+                    </Storyboard>
+                </Border.Resources>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="15, 0, 0, -10" Text="Old password: " />
+                        <PasswordBox x:Name="oldPassText"
+                                     Width="350"
+                                     PasswordChar="*" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="15, 0, 0, -10" Text="New password: " />
+                        <PasswordBox x:Name="newPassText"
+                                     Width="350"
+                                     PasswordChar="*" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Margin="15, 0, 0, -10" Text="Retype password: " />
+                        <PasswordBox x:Name="retyprPassText"
+                                     Width="350"
+                                     PasswordChar="*" />
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="ChangePassword_Btn"
+                                Width="180"
+                                Background="Black"
+                                Click="ChangePassword_Btn_Click"
+                                Content="Apply" />
+
+                        <Button x:Name="CancelPass_Btn"
+                                Width="170"
+                                Background="Black"
+                                Click="CancelPass_Btn_Click"
+                                Content="Cancel" />
+                    </StackPanel>
                 </StackPanel>
             </Border>
         </Grid>
