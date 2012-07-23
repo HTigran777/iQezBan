@@ -602,6 +602,8 @@ namespace WP7App1
             FirstNameValidation(profFName);
             if (isRegistrationOK)
                 client.ChangeProfileFieldAsync(new ClientData { Username = username, FirstName = profFName.Text });
+            else
+                profFName.Text = _proffname;
         }
 
         /// <summary>
@@ -648,6 +650,8 @@ namespace WP7App1
             LastNameValidation(profLName);
             if (isRegistrationOK)
                 client.ChangeProfileFieldAsync(new ClientData { Username = username, LastName = profLName.Text });
+            else
+                profLName.Text = _proflname;
         }
 
         /// <summary>
@@ -709,6 +713,7 @@ namespace WP7App1
 
         #region Profile EMail
         string _profemail = string.Empty;
+        string validatingEmailFieldtText = string.Empty;
 
         /// <summary>
         /// Make profile EMail editable
@@ -720,6 +725,7 @@ namespace WP7App1
             acceptEMail.Visibility = System.Windows.Visibility.Visible;
             cancelEMail.Visibility = System.Windows.Visibility.Visible;
             _profemail = profEMail.Text;
+            validatingEmailFieldtText = _profemail;
             profEMail.IsReadOnly = false;
             profEMail.Focus();
         }
@@ -737,6 +743,8 @@ namespace WP7App1
             EmailValidation(profEMail);
             if (isRegistrationOK)
                 client.ChangeProfileFieldAsync(new ClientData { Username = username, Email = profEMail.Text });
+            else
+                profEMail.Text = _profemail;
         }
 
         /// <summary>
@@ -783,6 +791,8 @@ namespace WP7App1
             DOBValidation(profDOB);
             if (isRegistrationOK)
                 client.ChangeProfileFieldAsync(new ClientData { Username = username, Age = int.Parse(profDOB.Text) });
+            else
+                profDOB.Text = _profdob;
         }
 
         /// <summary>
@@ -1022,7 +1032,7 @@ namespace WP7App1
         private void LastNameValidation(TextBox regLName)
         {
             TextBlock errTextBlock;
-            if (regFName.Name.Contains("reg"))
+            if (regLName.Name.Contains("reg"))
                 errTextBlock = this.errTextBlock;
             else
                 errTextBlock = this.profileValidationTextBlock;
@@ -1088,7 +1098,7 @@ namespace WP7App1
         private void EmailValidation(TextBox regEmail)
         {
             TextBlock errTextBlock;
-            if (regFName.Name.Contains("reg"))
+            if (regEmail.Name.Contains("reg"))
                 errTextBlock = this.errTextBlock;
             else
                 errTextBlock = this.profileValidationTextBlock;
@@ -1118,7 +1128,7 @@ namespace WP7App1
         private void DOBValidation(TextBox regDOB)
         {
             TextBlock errTextBlock;
-            if (regFName.Name.Contains("reg"))
+            if (regDOB.Name.Contains("reg"))
                 errTextBlock = this.errTextBlock;
             else
                 errTextBlock = this.profileValidationTextBlock;
@@ -1302,6 +1312,7 @@ namespace WP7App1
             MessageBox.Show(e.Result);
             if (e.Result == "User with current email is already exist. Please enter another email address.")
             {
+                profEMail.Text = validatingEmailFieldtText;
                 editProfEMail_Click(this, null);
             }
         }

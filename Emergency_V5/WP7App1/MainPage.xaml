@@ -244,7 +244,7 @@
 
                 <controls:PanoramaItem Header="Profile">
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Name="profileValidationTextBlock" FontSize="22" Width="400" />
+                        <TextBlock Name="profileValidationTextBlock" FontSize="22" Width="400" TextWrapping="Wrap" Foreground="Red" />
                         <StackPanel Orientation="Horizontal">
                             <Image Width="200"
                                    Height="200"
@@ -931,7 +931,8 @@
                             <TextBlock x:Name="errTextBlock"
                                        Width="400"
                                        FontSize="28"
-                                       Foreground="Red" />
+                                       Foreground="Red"
+                                       TextWrapping="Wrap"/>
                         </StackPanel>
 
                         <StackPanel Width="400" Orientation="Vertical">
