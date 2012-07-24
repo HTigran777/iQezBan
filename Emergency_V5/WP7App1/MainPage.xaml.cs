@@ -33,10 +33,18 @@ namespace WP7App1
         private CountDown ButtonTimer = new CountDown(60);
         private CountDown reEnable = new CountDown(100);
         private bool isRegistrationOK = false;
+        private bool isPassChangeOK = false;
         public ObservableCollection<ItemViewModel> myRequests = new ObservableCollection<ItemViewModel>();
         private bool alarmMode = false;
         private bool? CanUseLocation = null;
         private bool? CanRecieveNotifications = null;
+        bool rightUsername = false;
+        bool rightFirstName = false;
+        bool rightLastName = false;
+        bool rightPassword = false;
+        bool rightverifyPassword = false;
+        bool rightEmail = false;
+        bool rightDateOfBirth = false;
 
         public bool AlarmMode
         {
@@ -257,6 +265,19 @@ namespace WP7App1
         /// </summary>
         private void ChangePassDispandAnimation_Hide_Completed(object sender, EventArgs e)
         {
+            //stex
+            if (oldPassText.Password == string.Empty || newPassText.Password == string.Empty || retyprPassText.Password == string.Empty)
+            {
+                isPassChangeOK = false;
+                MessageBox.Show("Please complete all fields.");
+            }
+            else
+            {
+                //if (rightPassword && rightverifyPassword)
+                //    client.ChangeProfileFieldAsync(new ClientData { Username = username,  = profFName.Text });
+                //else
+                //    profFName.Text = _proffname;
+            }
             changePass.Visibility = Visibility.Collapsed;
         }
 
@@ -621,12 +642,69 @@ namespace WP7App1
                 isRegistrationOK = false;
                 MessageBox.Show("Please complete all fields.");
             }
-            if (isRegistrationOK)
-            {
-                client.ClientRegistrationAsync(new ClientData { Username = regUName.Text, FirstName = regFName.Text, LastName = regLName.Text, Email = regEmail.Text, Age = int.Parse(regDOB.Text) }, regPass.Password);
-                ShowHideRegisterBlock(false);
-                regBlock.Visibility = System.Windows.Visibility.Collapsed;
-                ShowHideLoginBlock(true);
+            else
+            {    
+                if (rightDateOfBirth && rightUsername && rightPassword && rightverifyPassword && rightFirstName && rightLastName && rightEmail)
+                {
+                    client.ClientRegistrationAsync(new ClientData { Username = regUName.Text, FirstName = regFName.Text, LastName = regLName.Text, Email = regEmail.Text, Age = int.Parse(regDOB.Text) }, regPass.Password);
+                    ShowHideRegisterBlock(false);
+                    regBlock.Visibility = System.Windows.Visibility.Collapsed;
+                    ShowHideLoginBlock(true);
+                    regUName.Text = "";
+                    regFName.Text = "";
+                    regLName.Text = "";
+                    regPass.Password = "";
+                    regPassVerify.Password = "";
+                    regEmail.Text = "";
+                    regDOB.Text = "";
+                }
+                else
+                {
+                    int count = 0;
+                    string s = "Please complete ";
+                    if (!rightUsername)
+                    {
+                        s += "username, ";
+                        count++;
+                    }
+                    if (!rightPassword)
+                    {
+                        s += "password, ";
+                        count++;
+                    }
+                    if (!rightverifyPassword)
+                    {
+                        s += "verifyPassword, ";
+                        count++;
+                    }
+                    if (!rightFirstName)
+                    {
+                        s += "firstname, ";
+                        count++;
+                    }
+                    if (!rightLastName)
+                    {
+                        s += "lastname, ";
+                        count++;
+                    }
+                    if (!rightEmail)
+                    {
+                        s += "Email, ";
+                        count++;
+                    }
+                    if (!rightDateOfBirth)
+                    {
+                        s += "dateOfBirth, ";
+                        count++;
+                    }
+                    s = s.Remove(s.Length - 2);
+
+                    if (count == 1)
+                        s += " field correctly.";
+                    else
+                        s += " fields correctly.";
+                    MessageBox.Show(s);
+                }
             }
         }
 
@@ -696,7 +774,7 @@ namespace WP7App1
             cancelFName.Visibility = System.Windows.Visibility.Collapsed;
             profFName.IsReadOnly = true;
             FirstNameValidation(profFName);
-            if (isRegistrationOK)
+            if (rightFirstName)
                 client.ChangeProfileFieldAsync(new ClientData { Username = username, FirstName = profFName.Text });
             else
                 profFName.Text = _proffname;
@@ -744,7 +822,7 @@ namespace WP7App1
             cancelLName.Visibility = System.Windows.Visibility.Collapsed;
             profLName.IsReadOnly = true;
             LastNameValidation(profLName);
-            if (isRegistrationOK)
+            if (rightLastName)
                 client.ChangeProfileFieldAsync(new ClientData { Username = username, LastName = profLName.Text });
             else
                 profLName.Text = _proflname;
@@ -837,7 +915,7 @@ namespace WP7App1
             cancelEMail.Visibility = System.Windows.Visibility.Collapsed;
             profEMail.IsReadOnly = true;
             EmailValidation(profEMail);
-            if (isRegistrationOK)
+            if (rightEmail)
                 client.ChangeProfileFieldAsync(new ClientData { Username = username, Email = profEMail.Text });
             else
                 profEMail.Text = _profemail;
@@ -885,7 +963,7 @@ namespace WP7App1
             cancelDOB.Visibility = System.Windows.Visibility.Collapsed;
             profDOB.IsReadOnly = true;
             DOBValidation(profDOB);
-            if (isRegistrationOK)
+            if (rightDateOfBirth)
                 client.ChangeProfileFieldAsync(new ClientData { Username = username, Age = int.Parse(profDOB.Text) });
             else
                 profDOB.Text = _profdob;
@@ -1062,12 +1140,12 @@ namespace WP7App1
             {
                 if (regUName.Text.Length > 4 && regUName.Text.Length <= 15)
                 {
-                    isRegistrationOK = true;
+                    rightUsername = true;
                     errTextBlock.Text = "";
                 }
                 else
                 {
-                    isRegistrationOK = false;
+                    rightUsername = false;
                     errTextBlock.Text = "Username lenght must be more than 4 and less than 15";
                 }
             }
@@ -1087,7 +1165,7 @@ namespace WP7App1
 
         public bool IsPasswordStrong(string password)
         {
-            return Regex.IsMatch(password, @"^(?=^.{6,15}$)(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?!.*\s).*$");
+            return Regex.IsMatch(password, @"^(?=^.{6,15}$)(?=.*\d)(?=.*[a-z])(?!.*\s).*$");
         }
 
         private void regFirstname_LostFocus(object sender, RoutedEventArgs e)
@@ -1107,13 +1185,13 @@ namespace WP7App1
             {
                 if (Regex.IsMatch(regFName.Text, @"^[a-zA-Z]+(([\'\- ][a-zA-Z ])?[a-zA-Z]*)*$"))
                 {
-                    isRegistrationOK = true;
+                    rightFirstName = true;
                     errTextBlock.Text = "";
                 }
                 else
                 {
                     errTextBlock.Text = "Firstname can't contain digits or some special simbols.";
-                    isRegistrationOK = false;
+                    rightFirstName = false;
                 }
             }
             else
@@ -1138,12 +1216,12 @@ namespace WP7App1
                 if (Regex.IsMatch(regLName.Text, @"^[a-zA-Z]+(([\'\- ][a-zA-Z ])?[a-zA-Z]*)*$"))
                 {
                     errTextBlock.Text = "";
-                    isRegistrationOK = true;
+                    rightLastName = true;
                 }
                 else
                 {
                     errTextBlock.Text = "Lastname can't contain digits or some special simbols.";
-                    isRegistrationOK = false;
+                    rightLastName = false;
                 }
             }
             else
@@ -1152,17 +1230,33 @@ namespace WP7App1
 
         private void regVerifyPassword_LostFocus(object sender, RoutedEventArgs e)
         {
+            VerifyPasswordValidation(sender as PasswordBox);
+        }
+
+        private void VerifyPasswordValidation(PasswordBox regPassVerify)
+        {
+            TextBlock errTextBlock;
+            if (regPassVerify.Name.Contains("reg"))
+            {
+                errTextBlock = this.errTextBlock;
+            }
+            else
+            {
+                errTextBlock = this.passchangeError;
+                regPass = this.newPassText;
+            }
+
             if (regPassVerify.Password.Length > 0)
             {
                 if (regPass.Password == regPassVerify.Password)
                 {
                     errTextBlock.Text = "";
-                    isRegistrationOK = true;
+                    rightverifyPassword = true;
                 }
                 else
                 {
                     errTextBlock.Text = "Verify password doesn't match password.";
-                    isRegistrationOK = false;
+                    rightverifyPassword = false;
                 }
             }
             else
@@ -1171,17 +1265,28 @@ namespace WP7App1
 
         private void regPassword_LostFocus(object sender, RoutedEventArgs e)
         {
+            PasswordValidation(sender as PasswordBox);
+        }
+
+        private void PasswordValidation(PasswordBox regPass)
+        {
+            TextBlock errTextBlock;
+            if (regPass.Name.Contains("reg"))
+                errTextBlock = this.errTextBlock;
+            else
+                errTextBlock = this.passchangeError;
+
             if (regPass.Password.Length > 0)
             {
                 if (IsPasswordStrong(regPass.Password))
                 {
                     errTextBlock.Text = "";
-                    isRegistrationOK = true;
+                    rightPassword = true;
                 }
                 else
                 {
-                    errTextBlock.Text = "password must contain at least one lowercase, one uppercase letter and one digit";
-                    isRegistrationOK = false;
+                    errTextBlock.Text = "Password must contain at least one letter and one digit";
+                    rightPassword = false;
                 }
             }
         }
@@ -1204,12 +1309,12 @@ namespace WP7App1
                 if (IsValid(regEmail.Text))
                 {
                     errTextBlock.Text = "";
-                    isRegistrationOK = true;
+                    rightEmail = true;
                 }
                 else
                 {
                     errTextBlock.Text = "Email format is wrong.";
-                    isRegistrationOK = false;
+                    rightEmail = false;
                 }
             }
             else
@@ -1237,18 +1342,18 @@ namespace WP7App1
                     if (age > 100)
                     {
                         errTextBlock.Text = "Age must be more than 100.";
-                        isRegistrationOK = false;
+                        rightDateOfBirth = false;
                     }
                     else
                     {
                         errTextBlock.Text = "";
-                        isRegistrationOK = true;
+                        rightDateOfBirth = true;
                     }
                 }
                 catch
                 {
                     errTextBlock.Text = "Date of birth format is wrong.";
-                    isRegistrationOK = false;
+                    rightDateOfBirth = false;
                 }
             }
             else
