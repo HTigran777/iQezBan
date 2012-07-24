@@ -653,6 +653,8 @@
                     </Storyboard>
                 </Border.Resources>
                 <StackPanel Orientation="Vertical">
+                    <TextBlock x:Name="passchangeError" Foreground="Red" FontSize="15" Visibility="Visible"/>
+                    
                     <StackPanel Orientation="Vertical">
                         <TextBlock Margin="15, 0, 0, -10" Text="Old password: " />
                         <PasswordBox x:Name="oldPassText"
@@ -664,6 +666,7 @@
                         <TextBlock Margin="15, 0, 0, -10" Text="New password: " />
                         <PasswordBox x:Name="newPassText"
                                      Width="350"
+                                     LostFocus="regPassword_LostFocus"
                                      PasswordChar="*" />
                     </StackPanel>
 
@@ -671,6 +674,7 @@
                         <TextBlock Margin="15, 0, 0, -10" Text="Retype password: " />
                         <PasswordBox x:Name="retyprPassText"
                                      Width="350"
+                                     LostFocus="regVerifyPassword_LostFocus"
                                      PasswordChar="*" />
                     </StackPanel>
 
@@ -842,8 +846,7 @@
                             <TextBlock x:Name="errTextBlock"
                                        Width="400"
                                        FontSize="28"
-                                       Foreground="Red"
-                                       TextWrapping="Wrap"/>
+                                       Foreground="Red" />
                         </StackPanel>
 
                         <StackPanel Width="400" Orientation="Vertical">
@@ -907,12 +910,9 @@
                         <StackPanel Width="400" Orientation="Horizontal">
                             <Button Width="200"
                                     Background="Black"
-                                    Click="Button_Click_4"
-                                    Content="Cancel" />
-                            <Button Width="200"
-                                    Background="Black"
                                     Click="Button_Click_5"
                                     Content="Register" />
+                            <Button Width="200" Background="Black" Click="Button_Click_4" Content="Cancel" />
                         </StackPanel>
                     </StackPanel>
                 </Border>
