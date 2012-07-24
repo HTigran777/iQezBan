@@ -449,6 +449,47 @@
                     </StackPanel>
                 </controls:PanoramaItem>
 
+                <controls:PanoramaItem x:Name="alarmsHistory" Header="History">
+                    <StackPanel Orientation="Vertical">
+                        <ListBox x:Name="alarms"
+                                 Margin="0,0,-12,0"
+                                 ItemsSource="{Binding alarmsList}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="0,0,0,5"
+                                                MouseLeave="StackPanel_MouseLeave"
+                                                MouseLeftButtonDown="StackPanel_MouseLeftButtonDown_1"
+                                                MouseLeftButtonUp="StackPanel_MouseLeftButtonUp"
+                                                Orientation="Horizontal"
+                                                Tag="{Binding AlarmLocation}">
+
+                                        <StackPanel Width="300" Orientation="Vertical">
+                                            <TextBlock Style="{StaticResource PhoneTextExtraLargeStyle}"
+                                                       Text="{Binding FirstName}"
+                                                       TextWrapping="Wrap" />
+                                            <TextBlock Margin="12,-6,12,0"
+                                                       Style="{StaticResource PhoneTextSubtleStyle}"
+                                                       Text="{Binding LastName}"
+                                                       TextWrapping="Wrap" />
+                                        </StackPanel>
+
+                                        <StackPanel Margin="0, 10, 0, 0" Orientation="Vertical">
+                                            <TextBlock Margin="0, 0, 5, 0"
+                                                       FontSize="22"
+                                                       Text="{Binding DateOfAlarm,
+                                                                      StringFormat=\{0:HH:mm:ss\}}" />
+                                            <TextBlock Margin="0, 0, 5, 0"
+                                                       FontSize="22"
+                                                       Text="{Binding DateOfAlarm,
+                                                                      StringFormat=\{0:dd.MM.yyyy\}}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </controls:PanoramaItem>
+
                 <controls:PanoramaItem Header="Settings">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Margin="0, 20, 0, 0" Orientation="Horizontal">

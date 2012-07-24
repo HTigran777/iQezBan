@@ -34,6 +34,7 @@ namespace WP7App1
         private CountDown reEnable = new CountDown(100);
         private bool isRegistrationOK = false;
         public ObservableCollection<ItemViewModel> myRequests = new ObservableCollection<ItemViewModel>();
+        public ObservableCollection<AlarmItem> alarmsList = new ObservableCollection<AlarmItem>();
         private bool alarmMode = false;
         private bool? CanUseLocation = null;
         private bool? CanRecieveNotifications = null;
@@ -88,7 +89,8 @@ namespace WP7App1
                 }
             }
 
-            myRequests.CollectionChanged += new System.Collections.Specialized.NotifyCollectionChangedEventHandler(myRequests_CollectionChanged);
+            myRequests.CollectionChanged += (sender, args) => { Requests.ItemsSource = myRequests; requestBlock.Visibility = myRequests.Count > 0 ? Visibility.Visible : Visibility.Collapsed; };
+            alarmsList.CollectionChanged += (sender, args) => { alarms.ItemsSource = alarmsList; alarmsHistory.Visibility = alarmsList.Count > 0 ? Visibility.Visible : Visibility.Collapsed; };
 
             client.SendSosNotificationsCompleted += new EventHandler<SendSosNotificationsCompletedEventArgs>(client_SendSosNotificationsCompleted);
             client.SearchFriendsCompleted += new EventHandler<SearchFriendsCompletedEventArgs>(client_SearchFriendsCompleted);
@@ -101,6 +103,22 @@ namespace WP7App1
             client.ClientRegistrationCompleted += new EventHandler<ClientRegistrationCompletedEventArgs>(client_ClientRegistrationCompleted);
 
             LoadSettings();
+        }
+
+        /// <summary>
+        /// Alarms History item mouse left button up
+        /// </summary>
+        private void StackPanel_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            TurnONAlarm((Point)(sender as StackPanel).Tag);
+        }
+
+        /// <summary>
+        /// Alarms History item mouse left button down
+        /// </summary>
+        private void StackPanel_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+            (sender as StackPanel).Background = Resources["AeroWhite5"] as Brush;
         }
 
         /// <summary>
@@ -127,7 +145,6 @@ namespace WP7App1
         void TurnOffAlarm()
         {
             AlarmMode = false;
-            googlemap.Children.Clear();
         }
 
         /// <summary>
@@ -139,7 +156,7 @@ namespace WP7App1
             AlarmMode = true;
             googlemap.Center = new GeoCoordinate(alarmPos.X, alarmPos.Y);
             googlemap.ZoomLevel = 16;
-            alarmPin.Location = googlemap.Center;
+            alarmPin.Location = new GeoCoordinate(alarmPos.X, alarmPos.Y);
             alarmPin.Visibility = Visibility.Visible;
         }
 
@@ -150,23 +167,15 @@ namespace WP7App1
         {
             MessageBox.Show("Some Information");
         }
-
-        /// <summary>
-        /// Requests Vis/InVis
-        /// </summary>
-        void myRequests_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            Requests.ItemsSource = myRequests;
-            requestBlock.Visibility = myRequests.Count > 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
-        }
-
+        
         /// <summary>
         /// Loading User Settings
         /// </summary>
         void LoadSettings()
         {
             Requests.ItemsSource = myRequests;
-            requestBlock.Visibility = myRequests.Count > 0 ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
+            requestBlock.Visibility = myRequests.Count > 0 ?Visibility.Visible : Visibility.Collapsed;
+            alarmsHistory.Visibility = alarmsList.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
             googlemap.Visibility = Visibility.Visible;
             radioStreet.IsChecked = true;
 

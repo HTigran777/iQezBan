@@ -25,6 +25,7 @@ namespace WP7App1
             container.RegisterPhoneServices();
             container.PerRequest<MainPageViewModel>();
             container.PerRequest<ItemViewModel>();
+            container.PerRequest<AlarmItem>();
 
             #region GUID Generation and PushNotification Channel Establishing
             if (IsolatedStorageSettings.ApplicationSettings.Contains("DeviceId"))
