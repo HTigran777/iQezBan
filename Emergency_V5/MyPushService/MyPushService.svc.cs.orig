@@ -151,7 +151,7 @@ namespace EmergencyService
                 var clients = (from f in context.Friendships
                                join c in context.Clients
                                on f.FriendID equals c.ClientID
-                               where f.ClientID == sender.ClientID && f.Status == true
+                               where f.ClientID == sender.ClientID
                                select c);
                 foreach (var cl in clients)
                 {
@@ -449,7 +449,11 @@ namespace EmergencyService
                 }
             }
         }
+<<<<<<< HEAD
+
+=======
         
+>>>>>>> ef0eb8b5ed0c2d2c45a42d32e03591ae850dc4b9
         public string DeleteFriend(string clientUsername, string friendUsername)
         {
             string notificationStatusToast = "";

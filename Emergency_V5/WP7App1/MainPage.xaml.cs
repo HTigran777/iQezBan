@@ -100,6 +100,7 @@ namespace WP7App1
             client.GetFriendsListCompleted += new EventHandler<GetFriendsListCompletedEventArgs>(client_GetFriendsListCompleted);
             client.ClientRegistrationCompleted += new EventHandler<ClientRegistrationCompletedEventArgs>(client_ClientRegistrationCompleted);
             client.ChangeProfileFieldCompleted += new EventHandler<ChangeProfileFieldCompletedEventArgs>(client_ChangeProfileFieldCompleted);
+            NotificationManager.ToastNotificationReceived += new NotificationManager.ToastEventsHandler(NotificationManager_ToastNotificationReceived);
 
             LoadSettings();
         }
@@ -1411,6 +1412,28 @@ namespace WP7App1
                 profEMail.Text = validatingEmailFieldtText;
                 editProfEMail_Click(this, null);
             }
+        }
+
+        /// <summary>
+        /// Received toast notification
+        /// </summary>
+
+        void NotificationManager_ToastNotificationReceived(List<string> message)
+        {
+            //string a = Regex.Split(message[2], @"receivedLatitude=.*.&").FirstOrDefault();
+
+            Deployment.Current.Dispatcher.BeginInvoke(() =>
+            {
+                int start = message[2].IndexOf(@"?receivedLatitude=") + 18;
+                int end = message[2].LastIndexOf(@"&receivedLongitude=");
+                string value = message[2].Substring(start, end - start);
+                double receivedLatitude = Convert.ToDouble(value);
+                start = end + 19;
+                value = message[2].Substring(start, (message[2].Length - start));
+                double receivedLongitude = Convert.ToDouble(value);
+                TurnONAlarm(new Point(receivedLatitude, receivedLongitude));
+                MessageBox.Show("Received " + message[0] + " from " + message[1]);
+            });
         }
 
         #endregion

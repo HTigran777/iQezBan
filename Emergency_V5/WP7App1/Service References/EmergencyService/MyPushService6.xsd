@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/EmergencyService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/EmergencyService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://172.16.1.54/MyPushService/MyPushService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ClientData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Age" type="xs:int" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClientData" nillable="true" type="tns:ClientData" />
+  <xs:complexType name="NotificationData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BackContent" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BackTileUri" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BackTitle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Count" type="xs:int" />
+      <xs:element minOccurs="0" name="DeviceConnectionStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NotificationChannelStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NotificationStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PersonName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PhoneId" type="ser:guid" />
+      <xs:element minOccurs="0" name="PushType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TileUri" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UpdateAppTile" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NotificationData" nillable="true" type="tns:NotificationData" />
+  <xs:complexType name="ArrayOfClientData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ClientData" nillable="true" type="tns:ClientData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfClientData" nillable="true" type="tns:ArrayOfClientData" />
+</xs:schema>

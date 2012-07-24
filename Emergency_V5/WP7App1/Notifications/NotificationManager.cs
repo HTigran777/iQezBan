@@ -7,11 +7,14 @@ using System.Net.NetworkInformation;
 using System.Text;
 using System.Diagnostics;
 using System.IO.IsolatedStorage;
+using System.Collections.Generic;
 
 namespace Notifications
 {
     public class NotificationManager
     {
+        public delegate void ToastEventsHandler(List<string> message);
+        public static event ToastEventsHandler ToastNotificationReceived;
         const string channelName = "EmergencyChannel";
         static public StringBuilder message;
         HttpNotificationChannel channel;
@@ -53,7 +56,7 @@ namespace Notifications
                 }
                 catch (Exception ex)
                 {
-                    
+
                     throw ex;
                 }
             }
@@ -68,7 +71,7 @@ namespace Notifications
 
             channel.ShellToastNotificationReceived += new EventHandler<NotificationEventArgs>(channel_ShellToastNotificationReceived);
             channel.HttpNotificationReceived += new EventHandler<HttpNotificationEventArgs>(channel_HttpNotificationReceived);
-        
+
         }
 
         void pushCLient_RegisterPhoneCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
@@ -110,31 +113,38 @@ namespace Notifications
 
         void channel_ShellToastNotificationReceived(object sender, NotificationEventArgs e)
         {
-            if (!IsolatedStorageSettings.ApplicationSettings.Contains("toggleNotific"))
-                IsolatedStorageSettings.ApplicationSettings["toggleNotific"] = "OFF";
+            List<string> message = new List<string>();
+            string relativeUri = string.Empty;
 
-            if (IsolatedStorageSettings.ApplicationSettings["toggleNotific"].ToString() == "ON")
+            // Parse out the information that was part of the message.
+            foreach (string key in e.Collection.Keys)
             {
-                message = new StringBuilder();
-                string relativeUri = string.Empty;
-
-                message.AppendFormat("Received Toast {0}:\n", DateTime.Now.ToShortTimeString());
-
-                // Parse out the information that was part of the message.
-                foreach (string key in e.Collection.Keys)
+                if (string.Compare(
+                    key,
+                    "wp:Text1",
+                    System.Globalization.CultureInfo.InvariantCulture,
+                    System.Globalization.CompareOptions.IgnoreCase) == 0)
                 {
-                    message.AppendFormat("{0}: {1}\n", key, e.Collection[key]);
-
-                    if (string.Compare(
-                        key,
-                        "wp:Param",
-                        System.Globalization.CultureInfo.InvariantCulture,
-                        System.Globalization.CompareOptions.IgnoreCase) == 0)
-                    {
-                        relativeUri = e.Collection[key];
-                    }
+                    message.Add(e.Collection[key]);
+                }
+                else if (string.Compare(
+                key,
+                "wp:Text2",
+                System.Globalization.CultureInfo.InvariantCulture,
+                System.Globalization.CompareOptions.IgnoreCase) == 0)
+                {
+                    message.Add(e.Collection[key]);
+                }
+                else if (string.Compare(
+                    key,
+                    "wp:Param",
+                    System.Globalization.CultureInfo.InvariantCulture,
+                    System.Globalization.CompareOptions.IgnoreCase) == 0)
+                {
+                    message.Add(e.Collection[key]);
                 }
             }
+            ToastNotificationReceived(message);
         }
     }
 }
