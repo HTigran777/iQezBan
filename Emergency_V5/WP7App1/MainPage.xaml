@@ -653,7 +653,7 @@
                     </Storyboard>
                 </Border.Resources>
                 <StackPanel Orientation="Vertical">
-                    <TextBlock x:Name="passchangeError" Foreground="Red" FontSize="15" Visibility="Visible"/>
+                    <TextBlock x:Name="passchangeError" Foreground="Red" FontSize="22" Visibility="Visible" TextWrapping="Wrap"/>
                     
                     <StackPanel Orientation="Vertical">
                         <TextBlock Margin="15, 0, 0, -10" Text="Old password: " />

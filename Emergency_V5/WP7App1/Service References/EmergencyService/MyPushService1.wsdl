@@ -80,6 +80,12 @@
   <wsdl:message name="IMyPushService_ChangeProfileField_OutputMessage">
     <wsdl:part name="parameters" element="tns:ChangeProfileFieldResponse" />
   </wsdl:message>
+  <wsdl:message name="IMyPushService_ChangePassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangePassword" />
+  </wsdl:message>
+  <wsdl:message name="IMyPushService_ChangePassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangePasswordResponse" />
+  </wsdl:message>
   <wsdl:portType name="IMyPushService">
     <wsdl:operation name="ClientRegistration">
       <wsdl:input wsaw:Action="http://tempuri.org/IMyPushService/ClientRegistration" message="tns:IMyPushService_ClientRegistration_InputMessage" />
@@ -128,6 +134,10 @@
     <wsdl:operation name="ChangeProfileField">
       <wsdl:input wsaw:Action="http://tempuri.org/IMyPushService/ChangeProfileField" message="tns:IMyPushService_ChangeProfileField_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IMyPushService/ChangeProfileFieldResponse" message="tns:IMyPushService_ChangeProfileField_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMyPushService/ChangePassword" message="tns:IMyPushService_ChangePassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMyPushService/ChangePasswordResponse" message="tns:IMyPushService_ChangePassword_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IMyPushService" type="tns:IMyPushService">
@@ -233,6 +243,15 @@
     </wsdl:operation>
     <wsdl:operation name="ChangeProfileField">
       <soap:operation soapAction="http://tempuri.org/IMyPushService/ChangeProfileField" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <soap:operation soapAction="http://tempuri.org/IMyPushService/ChangePassword" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

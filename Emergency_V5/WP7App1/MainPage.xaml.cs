@@ -32,8 +32,6 @@ namespace WP7App1
         private DateTime _lastUpdate = DateTime.Now;
         private CountDown ButtonTimer = new CountDown(60);
         private CountDown reEnable = new CountDown(100);
-        private bool isRegistrationOK = false;
-        private bool isPassChangeOK = false;
         public ObservableCollection<ItemViewModel> myRequests = new ObservableCollection<ItemViewModel>();
         public ObservableCollection<AlarmItem> alarmsList = new ObservableCollection<AlarmItem>();
         private bool alarmMode = false;
@@ -110,6 +108,7 @@ namespace WP7App1
             client.GetFriendsListCompleted += new EventHandler<GetFriendsListCompletedEventArgs>(client_GetFriendsListCompleted);
             client.ClientRegistrationCompleted += new EventHandler<ClientRegistrationCompletedEventArgs>(client_ClientRegistrationCompleted);
             client.ChangeProfileFieldCompleted += new EventHandler<ChangeProfileFieldCompletedEventArgs>(client_ChangeProfileFieldCompleted);
+            client.ChangePasswordCompleted += new EventHandler<ChangePasswordCompletedEventArgs>(client_ChangePasswordCompleted);
             NotificationManager.ToastNotificationReceived += new NotificationManager.ToastEventsHandler(NotificationManager_ToastNotificationReceived);
 
             LoadSettings();
@@ -267,7 +266,7 @@ namespace WP7App1
         /// </summary>
         private void ChangePassword_Btn_Click(object sender, RoutedEventArgs e)
         {
-            ChangePassDispandAnimation_Hide.Begin();
+            ChangePassDispandAnimation_Black.Begin();
         }
 
         /// <summary>
@@ -275,20 +274,7 @@ namespace WP7App1
         /// </summary>
         private void ChangePassDispandAnimation_Hide_Completed(object sender, EventArgs e)
         {
-            //stex
-            if (oldPassText.Password == string.Empty || newPassText.Password == string.Empty || retyprPassText.Password == string.Empty)
-            {
-                isPassChangeOK = false;
-                MessageBox.Show("Please complete all fields.");
-            }
-            else
-            {
-                //if (rightPassword && rightverifyPassword)
-                //    client.ChangeProfileFieldAsync(new ClientData { Username = username,  = profFName.Text });
-                //else
-                //    profFName.Text = _proffname;
-            }
-            changePass.Visibility = Visibility.Collapsed;
+            changePass.Visibility = Visibility.Collapsed;             
         }
 
         /// <summary>
@@ -296,7 +282,21 @@ namespace WP7App1
         /// </summary>
         private void ChangePassDispandAnimation_Black_Completed(object sender, EventArgs e)
         {
-            ChangePassExpandAnimation.Begin();
+            //ChangePassExpandAnimation.Begin();
+            //stex
+            if (oldPassText.Password == string.Empty || newPassText.Password == string.Empty || retyprPassText.Password == string.Empty)
+            {
+                MessageBox.Show("Please complete all fields.");
+                ChangePassExpandAnimation.Begin();
+            }
+            else
+            {
+                if (rightPassword && rightverifyPassword)
+                {
+                    client.ChangePasswordAsync(username, newPassText.Password);
+                    changePass.Visibility = Visibility.Collapsed;
+                }
+            }  
         }
 
         /// <summary>
@@ -649,7 +649,6 @@ namespace WP7App1
                 regPass.Password == string.Empty ||
                 regPassVerify.Password == string.Empty)
             {
-                isRegistrationOK = false;
                 MessageBox.Show("Please complete all fields.");
             }
             else
@@ -1525,6 +1524,19 @@ namespace WP7App1
             {
                 profEMail.Text = validatingEmailFieldtText;
                 editProfEMail_Click(this, null);
+            }
+        }
+
+        /// <summary>
+        /// Changeing password
+        /// </summary>
+        void client_ChangePasswordCompleted(object sender, ChangePasswordCompletedEventArgs e)
+        {
+            MessageBox.Show(e.Result);
+            if (e.Result == "Old password is wrong.")
+            {
+                changePass.Visibility = System.Windows.Visibility.Visible;
+                ChangePassExpandAnimation.Begin();
             }
         }
 

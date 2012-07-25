@@ -378,6 +378,11 @@ namespace WP7App1.EmergencyService {
         System.IAsyncResult BeginChangeProfileField(WP7App1.EmergencyService.ClientData client, System.AsyncCallback callback, object asyncState);
         
         string EndChangeProfileField(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMyPushService/ChangePassword", ReplyAction="http://tempuri.org/IMyPushService/ChangePasswordResponse")]
+        System.IAsyncResult BeginChangePassword(string username, string password, System.AsyncCallback callback, object asyncState);
+        
+        string EndChangePassword(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -576,6 +581,25 @@ namespace WP7App1.EmergencyService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ChangePasswordCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ChangePasswordCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class MyPushServiceClient : System.ServiceModel.ClientBase<WP7App1.EmergencyService.IMyPushService>, WP7App1.EmergencyService.IMyPushService {
         
         private BeginOperationDelegate onBeginClientRegistrationDelegate;
@@ -649,6 +673,12 @@ namespace WP7App1.EmergencyService {
         private EndOperationDelegate onEndChangeProfileFieldDelegate;
         
         private System.Threading.SendOrPostCallback onChangeProfileFieldCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginChangePasswordDelegate;
+        
+        private EndOperationDelegate onEndChangePasswordDelegate;
+        
+        private System.Threading.SendOrPostCallback onChangePasswordCompletedDelegate;
         
         private BeginOperationDelegate onBeginOpenDelegate;
         
@@ -726,6 +756,8 @@ namespace WP7App1.EmergencyService {
         public event System.EventHandler<GetFriendsListCompletedEventArgs> GetFriendsListCompleted;
         
         public event System.EventHandler<ChangeProfileFieldCompletedEventArgs> ChangeProfileFieldCompleted;
+        
+        public event System.EventHandler<ChangePasswordCompletedEventArgs> ChangePasswordCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
@@ -1303,6 +1335,54 @@ namespace WP7App1.EmergencyService {
                         client}, this.onEndChangeProfileFieldDelegate, this.onChangeProfileFieldCompletedDelegate, userState);
         }
         
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult WP7App1.EmergencyService.IMyPushService.BeginChangePassword(string username, string password, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginChangePassword(username, password, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        string WP7App1.EmergencyService.IMyPushService.EndChangePassword(System.IAsyncResult result) {
+            return base.Channel.EndChangePassword(result);
+        }
+        
+        private System.IAsyncResult OnBeginChangePassword(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string username = ((string)(inValues[0]));
+            string password = ((string)(inValues[1]));
+            return ((WP7App1.EmergencyService.IMyPushService)(this)).BeginChangePassword(username, password, callback, asyncState);
+        }
+        
+        private object[] OnEndChangePassword(System.IAsyncResult result) {
+            string retVal = ((WP7App1.EmergencyService.IMyPushService)(this)).EndChangePassword(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnChangePasswordCompleted(object state) {
+            if ((this.ChangePasswordCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ChangePasswordCompleted(this, new ChangePasswordCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ChangePasswordAsync(string username, string password) {
+            this.ChangePasswordAsync(username, password, null);
+        }
+        
+        public void ChangePasswordAsync(string username, string password, object userState) {
+            if ((this.onBeginChangePasswordDelegate == null)) {
+                this.onBeginChangePasswordDelegate = new BeginOperationDelegate(this.OnBeginChangePassword);
+            }
+            if ((this.onEndChangePasswordDelegate == null)) {
+                this.onEndChangePasswordDelegate = new EndOperationDelegate(this.OnEndChangePassword);
+            }
+            if ((this.onChangePasswordCompletedDelegate == null)) {
+                this.onChangePasswordCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnChangePasswordCompleted);
+            }
+            base.InvokeAsync(this.onBeginChangePasswordDelegate, new object[] {
+                        username,
+                        password}, this.onEndChangePasswordDelegate, this.onChangePasswordCompletedDelegate, userState);
+        }
+        
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
             return ((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(callback, asyncState);
         }
@@ -1541,6 +1621,20 @@ namespace WP7App1.EmergencyService {
             public string EndChangeProfileField(System.IAsyncResult result) {
                 object[] _args = new object[0];
                 string _result = ((string)(base.EndInvoke("ChangeProfileField", _args, result)));
+                return _result;
+            }
+            
+            public System.IAsyncResult BeginChangePassword(string username, string password, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[2];
+                _args[0] = username;
+                _args[1] = password;
+                System.IAsyncResult _result = base.BeginInvoke("ChangePassword", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public string EndChangePassword(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                string _result = ((string)(base.EndInvoke("ChangePassword", _args, result)));
                 return _result;
             }
         }

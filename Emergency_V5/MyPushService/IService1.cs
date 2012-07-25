@@ -48,6 +48,9 @@ namespace EmergencyService
         [OperationContract]
         string ChangeProfileField(ClientData client);
 
+        [OperationContract]
+        string ChangePassword(string username, string password);
+
         // TODO: Add your service operations here
     }
 

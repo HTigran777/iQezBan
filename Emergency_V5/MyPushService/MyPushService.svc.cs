@@ -604,5 +604,27 @@ namespace EmergencyService
             }
             return "Your changes have been saved.";
         }
+
+
+        public string ChangePassword(string username, string password)
+        {
+            using (EmergencyDBEntities context = new EmergencyDBEntities())
+            {
+                var client = (from c in context.Clients
+                              where c.Username == username && c.Password == password
+                              select c).FirstOrDefault();
+
+                if (client == null)
+                { return "Old password is wrong."; }
+
+                else
+                {
+                    client.Password = password;
+                    context.SaveChanges();
+                }
+
+                return "Your changes have been saved.";
+            }
+        }
     }
 }
