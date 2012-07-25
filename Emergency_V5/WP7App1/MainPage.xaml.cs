@@ -405,6 +405,7 @@ namespace WP7App1
                 //MessageBox.Show("Latitude:" + receivedLatitudeSting + "\nLongitude:" + receivedLongitudeSting);
                 receivedLatitude = Convert.ToDouble(receivedLatitudeSting);
                 receivedLongitude = Convert.ToDouble(receivedLongitudeSting);
+                client.GetNotificationHistoryAsync(username);
                 TurnONAlarm(new Point(receivedLatitude, receivedLongitude));
             }
         }
@@ -454,6 +455,12 @@ namespace WP7App1
                 //Here goes code that removes selected user from my friends list
                 //The user ID stored in MenuItem.Tag as shown below:
                 client.DeleteFriendAsync(username, (sender as MenuItem).Tag.ToString());
+                ObservableCollection<ItemViewModel> items = (Contacts.ItemsSource as ObservableCollection<ItemViewModel>);
+                var itemToDelete = (from c in items
+                                    where c.UserName == (sender as MenuItem).Tag.ToString()
+                                    select c).FirstOrDefault();
+                items.Remove(itemToDelete);
+                Contacts.ItemsSource = items;
                 MessageBox.Show("UserID:\n" + (sender as MenuItem).Tag);
             }
         }
@@ -1099,6 +1106,10 @@ namespace WP7App1
         private void MenuItem_Click_3(object sender, RoutedEventArgs e)
         {
             client.CompleteFriendshipRequestAsync(username, (sender as MenuItem).Tag.ToString(), false);
+            var itemToDelete = (from c in myRequests
+                                where c.UserName == (sender as MenuItem).Tag.ToString()
+                                select c).FirstOrDefault();
+            myRequests.Remove(itemToDelete);
         }
 
         /// <summary>
@@ -1107,6 +1118,10 @@ namespace WP7App1
         private void MenuItem_Click_4(object sender, RoutedEventArgs e)
         {
             client.CompleteFriendshipRequestAsync(username, (sender as MenuItem).Tag.ToString(), true);
+            var itemToDelete = (from c in myRequests
+                                where c.UserName == (sender as MenuItem).Tag.ToString()
+                                select c).FirstOrDefault();
+            myRequests.Remove(itemToDelete);
         }
 
         /// <summary>
@@ -1485,7 +1500,7 @@ namespace WP7App1
         /// </summary>
         void client_CompleteFriendshipRequestCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
-
+            client.GetFriendsListAsync(username);
         }
 
         /// <summary>
@@ -1562,6 +1577,7 @@ namespace WP7App1
                 double receivedLongitude = Convert.ToDouble(value);
                 TurnONAlarm(new Point(receivedLatitude, receivedLongitude));
                 MessageBox.Show("Received " + message[0] + " from " + message[1]);
+                client.GetNotificationHistoryAsync(username);
             });
         }
 
