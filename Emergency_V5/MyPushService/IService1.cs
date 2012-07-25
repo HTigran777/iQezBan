@@ -56,6 +56,9 @@ namespace EmergencyService
 
         void SaveNotificationHistory(HistoryData historyData);
 
+        [OperationContract]
+        void ClientLogOut(string deviceId);
+
         // TODO: Add your service operations here
     }
 

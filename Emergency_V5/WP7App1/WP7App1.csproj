@@ -116,17 +116,17 @@
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
-    <None Include="Service References\EmergencyService\MyPushService.wsdl" />
-    <None Include="Service References\EmergencyService\MyPushService.xsd">
+    <None Include="Service References\EmergencyService\MyPushService1.wsdl" />
+    <None Include="Service References\EmergencyService\MyPushService41.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\EmergencyService\MyPushService1.xsd">
+    <None Include="Service References\EmergencyService\MyPushService42.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\EmergencyService\MyPushService2.xsd">
+    <None Include="Service References\EmergencyService\MyPushService43.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\EmergencyService\MyPushService3.xsd">
+    <None Include="Service References\EmergencyService\MyPushService44.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Service References\EmergencyService\WP7App1.EmergencyService.HistoryData.datasource">
@@ -138,7 +138,7 @@
     <Resource Include="Images\defaultAva.jpg" />
     <Resource Include="Images\edit_img.png" />
     <Resource Include="Images\SearchBtn.png" />
-    <None Include="Service References\EmergencyService\MyPushService.disco" />
+    <None Include="Service References\EmergencyService\MyPushService11.disco" />
     <Content Include="ServiceReferences.ClientConfig" />
     <None Include="Service References\EmergencyService\WP7App1.EmergencyService.ClientData.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>

@@ -20,15 +20,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://172.16.1.54/MyPushService/MyPushService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost/MyPushService/MyPushService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="MyPushService.xsd" MetadataType="Schema" ID="185843e7-26bd-424e-94e6-bd8938af15c2" SourceId="1" SourceUrl="http://172.16.1.54/MyPushService/MyPushService.svc?xsd=xsd0" />
-    <MetadataFile FileName="MyPushService.wsdl" MetadataType="Wsdl" ID="6d164417-9ab1-44e6-8625-1a9a9c1de96c" SourceId="1" SourceUrl="http://172.16.1.54/MyPushService/MyPushService.svc?wsdl" />
-    <MetadataFile FileName="MyPushService1.xsd" MetadataType="Schema" ID="ae961a1f-5113-4945-815d-da06c1f3f270" SourceId="1" SourceUrl="http://172.16.1.54/MyPushService/MyPushService.svc?xsd=xsd1" />
-    <MetadataFile FileName="MyPushService.disco" MetadataType="Disco" ID="cf196518-8506-4c37-adcd-4d6a16359f8f" SourceId="1" SourceUrl="http://172.16.1.54/MyPushService/MyPushService.svc?disco" />
-    <MetadataFile FileName="MyPushService2.xsd" MetadataType="Schema" ID="faf7001e-574f-4d23-ba15-8757ba3529d5" SourceId="1" SourceUrl="http://172.16.1.54/MyPushService/MyPushService.svc?xsd=xsd2" />
-    <MetadataFile FileName="MyPushService3.xsd" MetadataType="Schema" ID="9d6ff009-5dd6-42c3-8952-5c922eb9b5f3" SourceId="1" SourceUrl="http://172.16.1.54/MyPushService/MyPushService.svc?xsd=xsd3" />
+    <MetadataFile FileName="MyPushService41.xsd" MetadataType="Schema" ID="7d741bae-6b01-42e8-8f8e-884bde9c7afd" SourceId="1" SourceUrl="http://localhost/MyPushService/MyPushService.svc?xsd=xsd0" />
+    <MetadataFile FileName="MyPushService42.xsd" MetadataType="Schema" ID="fce948cd-a07c-431a-b1cb-cf18c3bf80f1" SourceId="1" SourceUrl="http://localhost/MyPushService/MyPushService.svc?xsd=xsd1" />
+    <MetadataFile FileName="MyPushService43.xsd" MetadataType="Schema" ID="e0a0c500-13bb-461a-852e-3fa6164c685f" SourceId="1" SourceUrl="http://localhost/MyPushService/MyPushService.svc?xsd=xsd2" />
+    <MetadataFile FileName="MyPushService44.xsd" MetadataType="Schema" ID="b73cc940-b8cd-46fe-b6ac-7b81382699da" SourceId="1" SourceUrl="http://localhost/MyPushService/MyPushService.svc?xsd=xsd3" />
+    <MetadataFile FileName="MyPushService11.disco" MetadataType="Disco" ID="46cfde67-2a45-4e4b-b7b9-3b44284e6506" SourceId="1" SourceUrl="http://localhost/MyPushService/MyPushService.svc?disco" />
+    <MetadataFile FileName="MyPushService1.wsdl" MetadataType="Wsdl" ID="35325cd9-bf27-4f3d-b0ee-d18a56d7fd92" SourceId="1" SourceUrl="http://localhost/MyPushService/MyPushService.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

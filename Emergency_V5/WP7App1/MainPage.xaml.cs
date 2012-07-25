@@ -110,7 +110,7 @@ namespace WP7App1
             client.ChangeProfileFieldCompleted += new EventHandler<ChangeProfileFieldCompletedEventArgs>(client_ChangeProfileFieldCompleted);
             client.ChangePasswordCompleted += new EventHandler<ChangePasswordCompletedEventArgs>(client_ChangePasswordCompleted);
             client.GetNotificationHistoryCompleted += new EventHandler<GetNotificationHistoryCompletedEventArgs>(client_GetNotificationHistoryCompleted);
-            NotificationManager.ToastNotificationReceived += new NotificationManager.ToastEventsHandler(NotificationManager_ToastNotificationReceived);
+            NotificationManager.ToastNotificationReceived += new NotificationManager.ToastEventsHandler(NotificationManager_ToastNotificationReceived);            
 
             LoadSettings();
         }
@@ -523,6 +523,7 @@ namespace WP7App1
             logBox.Text = string.Empty;
             passBox.Password = string.Empty;
             //Here goes code thats logs out current profile
+            client.ClientLogOutAsync(IsolatedStorageSettings.ApplicationSettings["DeviceId"].ToString());
 
             if (IsolatedStorageSettings.ApplicationSettings.Contains("Username") && IsolatedStorageSettings.ApplicationSettings.Contains("Password"))
             {
