@@ -44,17 +44,19 @@ namespace EmergencyService
 
         [OperationContract]
         List<ClientData> GetFriendsList(string username);
-        
+
         [OperationContract]
-        string ChangePassword(string username, string password);
-   
-        [OperationContract]
+<<<<<<< HEAD
         string ChangeProfileField(ClientData client);
 
         [OperationContract]
-        Dictionary<ClientData, HistoryData> GetNotificationHistory(string UserName);
-
+        string ChangePassword(string username, string password);
+=======
         void SaveNotificationHistory(HistoryData historyData);
+
+        [OperationContract]
+        List<Notification> GetNotificationHistory(string UserName);
+>>>>>>> 825edc6f07ddf89d220305c0b4aa5b8ce556d0a0
 
         // TODO: Add your service operations here
     }
@@ -75,7 +77,6 @@ namespace EmergencyService
         [DataMember]
         public int Age { get; set; }
     }
-
     [DataContract]
     public class HistoryData
     {
@@ -97,6 +98,7 @@ namespace EmergencyService
         public string ErrorMessage { get; set; }
         [DataMember]
         public DateTime? DateTime { get; set; }
+        
     }
 
     [DataContract]

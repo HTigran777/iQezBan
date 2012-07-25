@@ -114,23 +114,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
-    <Resource Include="Images\accept_img.png" />
-    <Resource Include="Images\bg1.jpg" />
-    <Resource Include="Images\cancel_img.png" />
-    <Resource Include="Images\defaultAva.jpg" />
-    <Resource Include="Images\edit_img.png" />
-    <Resource Include="Images\SearchBtn.png" />
-    <None Include="Service References\EmergencyService\MyPushService.disco" />
-    <None Include="Service References\EmergencyService\MyPushService1.disco" />
-    <Content Include="ServiceReferences.ClientConfig" />
     <None Include="Service References\EmergencyService\MyPushService.wsdl" />
     <None Include="Service References\EmergencyService\MyPushService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\EmergencyService\MyPushService1.wsdl" />
     <None Include="Service References\EmergencyService\MyPushService1.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -140,18 +129,17 @@
     <None Include="Service References\EmergencyService\MyPushService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\EmergencyService\MyPushService4.xsd">
-      <SubType>Designer</SubType>
+    <None Include="Service References\EmergencyService\WP7App1.EmergencyService.HistoryData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\EmergencyService\MyPushService5.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\EmergencyService\MyPushService6.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\EmergencyService\MyPushService7.xsd">
-      <SubType>Designer</SubType>
-    </None>
+    <Resource Include="Images\accept_img.png" />
+    <Resource Include="Images\bg1.jpg" />
+    <Resource Include="Images\cancel_img.png" />
+    <Resource Include="Images\defaultAva.jpg" />
+    <Resource Include="Images\edit_img.png" />
+    <Resource Include="Images\SearchBtn.png" />
+    <None Include="Service References\EmergencyService\MyPushService.disco" />
+    <Content Include="ServiceReferences.ClientConfig" />
     <None Include="Service References\EmergencyService\WP7App1.EmergencyService.ClientData.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

@@ -35,4 +35,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfClientData" nillable="true" type="tns:ArrayOfClientData" />
+  <xs:complexType name="HistoryData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ClientID" type="xs:int" />
+      <xs:element minOccurs="0" name="DateTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DeviceConnectionStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ErrorMessage" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FriendID" type="xs:int" />
+      <xs:element minOccurs="0" name="Latitude" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Longitude" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NotificationChannelStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NotificationStatus" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="HistoryData" nillable="true" type="tns:HistoryData" />
 </xs:schema>

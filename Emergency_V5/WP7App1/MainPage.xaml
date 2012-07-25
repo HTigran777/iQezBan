@@ -450,7 +450,7 @@
                     </StackPanel>
                 </controls:PanoramaItem>
 
-                <controls:PanoramaItem x:Name="alarmsHistory" Header="History">
+                <controls:PanoramaItem x:Name="alarmsHistory" Header="History" Visibility="Visible">
                     <StackPanel Orientation="Vertical">
                         <ListBox x:Name="alarms"
                                  Margin="0,0,-12,0"

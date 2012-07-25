@@ -315,6 +315,156 @@ namespace WP7App1.EmergencyService {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="HistoryData", Namespace="http://schemas.datacontract.org/2004/07/EmergencyService")]
+    public partial class HistoryData : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private int ClientIDField;
+        
+        private System.Nullable<System.DateTime> DateTimeField;
+        
+        private string DeviceConnectionStatusField;
+        
+        private string ErrorMessageField;
+        
+        private int FriendIDField;
+        
+        private string LatitudeField;
+        
+        private string LongitudeField;
+        
+        private string NotificationChannelStatusField;
+        
+        private string NotificationStatusField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ClientID {
+            get {
+                return this.ClientIDField;
+            }
+            set {
+                if ((this.ClientIDField.Equals(value) != true)) {
+                    this.ClientIDField = value;
+                    this.RaisePropertyChanged("ClientID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> DateTime {
+            get {
+                return this.DateTimeField;
+            }
+            set {
+                if ((this.DateTimeField.Equals(value) != true)) {
+                    this.DateTimeField = value;
+                    this.RaisePropertyChanged("DateTime");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string DeviceConnectionStatus {
+            get {
+                return this.DeviceConnectionStatusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DeviceConnectionStatusField, value) != true)) {
+                    this.DeviceConnectionStatusField = value;
+                    this.RaisePropertyChanged("DeviceConnectionStatus");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ErrorMessage {
+            get {
+                return this.ErrorMessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ErrorMessageField, value) != true)) {
+                    this.ErrorMessageField = value;
+                    this.RaisePropertyChanged("ErrorMessage");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int FriendID {
+            get {
+                return this.FriendIDField;
+            }
+            set {
+                if ((this.FriendIDField.Equals(value) != true)) {
+                    this.FriendIDField = value;
+                    this.RaisePropertyChanged("FriendID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Latitude {
+            get {
+                return this.LatitudeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LatitudeField, value) != true)) {
+                    this.LatitudeField = value;
+                    this.RaisePropertyChanged("Latitude");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Longitude {
+            get {
+                return this.LongitudeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LongitudeField, value) != true)) {
+                    this.LongitudeField = value;
+                    this.RaisePropertyChanged("Longitude");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NotificationChannelStatus {
+            get {
+                return this.NotificationChannelStatusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NotificationChannelStatusField, value) != true)) {
+                    this.NotificationChannelStatusField = value;
+                    this.RaisePropertyChanged("NotificationChannelStatus");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string NotificationStatus {
+            get {
+                return this.NotificationStatusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NotificationStatusField, value) != true)) {
+                    this.NotificationStatusField = value;
+                    this.RaisePropertyChanged("NotificationStatus");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="EmergencyService.IMyPushService")]
     public interface IMyPushService {
@@ -374,15 +524,20 @@ namespace WP7App1.EmergencyService {
         
         System.Collections.Generic.List<WP7App1.EmergencyService.ClientData> EndGetFriendsList(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMyPushService/ChangePassword", ReplyAction="http://tempuri.org/IMyPushService/ChangePasswordResponse")]
+        System.IAsyncResult BeginChangePassword(string username, string password, System.AsyncCallback callback, object asyncState);
+        
+        string EndChangePassword(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMyPushService/ChangeProfileField", ReplyAction="http://tempuri.org/IMyPushService/ChangeProfileFieldResponse")]
         System.IAsyncResult BeginChangeProfileField(WP7App1.EmergencyService.ClientData client, System.AsyncCallback callback, object asyncState);
         
         string EndChangeProfileField(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMyPushService/ChangePassword", ReplyAction="http://tempuri.org/IMyPushService/ChangePasswordResponse")]
-        System.IAsyncResult BeginChangePassword(string username, string password, System.AsyncCallback callback, object asyncState);
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IMyPushService/GetNotificationHistory", ReplyAction="http://tempuri.org/IMyPushService/GetNotificationHistoryResponse")]
+        System.IAsyncResult BeginGetNotificationHistory(string UserName, System.AsyncCallback callback, object asyncState);
         
-        string EndChangePassword(System.IAsyncResult result);
+        System.Collections.Generic.Dictionary<WP7App1.EmergencyService.ClientData, WP7App1.EmergencyService.HistoryData> EndGetNotificationHistory(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -562,6 +717,25 @@ namespace WP7App1.EmergencyService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ChangePasswordCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public ChangePasswordCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class ChangeProfileFieldCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
@@ -581,19 +755,19 @@ namespace WP7App1.EmergencyService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ChangePasswordCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class GetNotificationHistoryCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        public ChangePasswordCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        public GetNotificationHistoryCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
         
-        public string Result {
+        public System.Collections.Generic.Dictionary<WP7App1.EmergencyService.ClientData, WP7App1.EmergencyService.HistoryData> Result {
             get {
                 base.RaiseExceptionIfNecessary();
-                return ((string)(this.results[0]));
+                return ((System.Collections.Generic.Dictionary<WP7App1.EmergencyService.ClientData, WP7App1.EmergencyService.HistoryData>)(this.results[0]));
             }
         }
     }
@@ -668,17 +842,23 @@ namespace WP7App1.EmergencyService {
         
         private System.Threading.SendOrPostCallback onGetFriendsListCompletedDelegate;
         
+        private BeginOperationDelegate onBeginChangePasswordDelegate;
+        
+        private EndOperationDelegate onEndChangePasswordDelegate;
+        
+        private System.Threading.SendOrPostCallback onChangePasswordCompletedDelegate;
+        
         private BeginOperationDelegate onBeginChangeProfileFieldDelegate;
         
         private EndOperationDelegate onEndChangeProfileFieldDelegate;
         
         private System.Threading.SendOrPostCallback onChangeProfileFieldCompletedDelegate;
         
-        private BeginOperationDelegate onBeginChangePasswordDelegate;
+        private BeginOperationDelegate onBeginGetNotificationHistoryDelegate;
         
-        private EndOperationDelegate onEndChangePasswordDelegate;
+        private EndOperationDelegate onEndGetNotificationHistoryDelegate;
         
-        private System.Threading.SendOrPostCallback onChangePasswordCompletedDelegate;
+        private System.Threading.SendOrPostCallback onGetNotificationHistoryCompletedDelegate;
         
         private BeginOperationDelegate onBeginOpenDelegate;
         
@@ -755,9 +935,11 @@ namespace WP7App1.EmergencyService {
         
         public event System.EventHandler<GetFriendsListCompletedEventArgs> GetFriendsListCompleted;
         
+        public event System.EventHandler<ChangePasswordCompletedEventArgs> ChangePasswordCompleted;
+        
         public event System.EventHandler<ChangeProfileFieldCompletedEventArgs> ChangeProfileFieldCompleted;
         
-        public event System.EventHandler<ChangePasswordCompletedEventArgs> ChangePasswordCompleted;
+        public event System.EventHandler<GetNotificationHistoryCompletedEventArgs> GetNotificationHistoryCompleted;
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> OpenCompleted;
         
@@ -1290,6 +1472,54 @@ namespace WP7App1.EmergencyService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.IAsyncResult WP7App1.EmergencyService.IMyPushService.BeginChangePassword(string username, string password, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginChangePassword(username, password, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        string WP7App1.EmergencyService.IMyPushService.EndChangePassword(System.IAsyncResult result) {
+            return base.Channel.EndChangePassword(result);
+        }
+        
+        private System.IAsyncResult OnBeginChangePassword(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string username = ((string)(inValues[0]));
+            string password = ((string)(inValues[1]));
+            return ((WP7App1.EmergencyService.IMyPushService)(this)).BeginChangePassword(username, password, callback, asyncState);
+        }
+        
+        private object[] OnEndChangePassword(System.IAsyncResult result) {
+            string retVal = ((WP7App1.EmergencyService.IMyPushService)(this)).EndChangePassword(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnChangePasswordCompleted(object state) {
+            if ((this.ChangePasswordCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.ChangePasswordCompleted(this, new ChangePasswordCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void ChangePasswordAsync(string username, string password) {
+            this.ChangePasswordAsync(username, password, null);
+        }
+        
+        public void ChangePasswordAsync(string username, string password, object userState) {
+            if ((this.onBeginChangePasswordDelegate == null)) {
+                this.onBeginChangePasswordDelegate = new BeginOperationDelegate(this.OnBeginChangePassword);
+            }
+            if ((this.onEndChangePasswordDelegate == null)) {
+                this.onEndChangePasswordDelegate = new EndOperationDelegate(this.OnEndChangePassword);
+            }
+            if ((this.onChangePasswordCompletedDelegate == null)) {
+                this.onChangePasswordCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnChangePasswordCompleted);
+            }
+            base.InvokeAsync(this.onBeginChangePasswordDelegate, new object[] {
+                        username,
+                        password}, this.onEndChangePasswordDelegate, this.onChangePasswordCompletedDelegate, userState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
         System.IAsyncResult WP7App1.EmergencyService.IMyPushService.BeginChangeProfileField(WP7App1.EmergencyService.ClientData client, System.AsyncCallback callback, object asyncState) {
             return base.Channel.BeginChangeProfileField(client, callback, asyncState);
         }
@@ -1336,51 +1566,49 @@ namespace WP7App1.EmergencyService {
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        System.IAsyncResult WP7App1.EmergencyService.IMyPushService.BeginChangePassword(string username, string password, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginChangePassword(username, password, callback, asyncState);
+        System.IAsyncResult WP7App1.EmergencyService.IMyPushService.BeginGetNotificationHistory(string UserName, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetNotificationHistory(UserName, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        string WP7App1.EmergencyService.IMyPushService.EndChangePassword(System.IAsyncResult result) {
-            return base.Channel.EndChangePassword(result);
+        System.Collections.Generic.Dictionary<WP7App1.EmergencyService.ClientData, WP7App1.EmergencyService.HistoryData> WP7App1.EmergencyService.IMyPushService.EndGetNotificationHistory(System.IAsyncResult result) {
+            return base.Channel.EndGetNotificationHistory(result);
         }
         
-        private System.IAsyncResult OnBeginChangePassword(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            string username = ((string)(inValues[0]));
-            string password = ((string)(inValues[1]));
-            return ((WP7App1.EmergencyService.IMyPushService)(this)).BeginChangePassword(username, password, callback, asyncState);
+        private System.IAsyncResult OnBeginGetNotificationHistory(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string UserName = ((string)(inValues[0]));
+            return ((WP7App1.EmergencyService.IMyPushService)(this)).BeginGetNotificationHistory(UserName, callback, asyncState);
         }
         
-        private object[] OnEndChangePassword(System.IAsyncResult result) {
-            string retVal = ((WP7App1.EmergencyService.IMyPushService)(this)).EndChangePassword(result);
+        private object[] OnEndGetNotificationHistory(System.IAsyncResult result) {
+            System.Collections.Generic.Dictionary<WP7App1.EmergencyService.ClientData, WP7App1.EmergencyService.HistoryData> retVal = ((WP7App1.EmergencyService.IMyPushService)(this)).EndGetNotificationHistory(result);
             return new object[] {
                     retVal};
         }
         
-        private void OnChangePasswordCompleted(object state) {
-            if ((this.ChangePasswordCompleted != null)) {
+        private void OnGetNotificationHistoryCompleted(object state) {
+            if ((this.GetNotificationHistoryCompleted != null)) {
                 InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.ChangePasswordCompleted(this, new ChangePasswordCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+                this.GetNotificationHistoryCompleted(this, new GetNotificationHistoryCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
             }
         }
         
-        public void ChangePasswordAsync(string username, string password) {
-            this.ChangePasswordAsync(username, password, null);
+        public void GetNotificationHistoryAsync(string UserName) {
+            this.GetNotificationHistoryAsync(UserName, null);
         }
         
-        public void ChangePasswordAsync(string username, string password, object userState) {
-            if ((this.onBeginChangePasswordDelegate == null)) {
-                this.onBeginChangePasswordDelegate = new BeginOperationDelegate(this.OnBeginChangePassword);
+        public void GetNotificationHistoryAsync(string UserName, object userState) {
+            if ((this.onBeginGetNotificationHistoryDelegate == null)) {
+                this.onBeginGetNotificationHistoryDelegate = new BeginOperationDelegate(this.OnBeginGetNotificationHistory);
             }
-            if ((this.onEndChangePasswordDelegate == null)) {
-                this.onEndChangePasswordDelegate = new EndOperationDelegate(this.OnEndChangePassword);
+            if ((this.onEndGetNotificationHistoryDelegate == null)) {
+                this.onEndGetNotificationHistoryDelegate = new EndOperationDelegate(this.OnEndGetNotificationHistory);
             }
-            if ((this.onChangePasswordCompletedDelegate == null)) {
-                this.onChangePasswordCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnChangePasswordCompleted);
+            if ((this.onGetNotificationHistoryCompletedDelegate == null)) {
+                this.onGetNotificationHistoryCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetNotificationHistoryCompleted);
             }
-            base.InvokeAsync(this.onBeginChangePasswordDelegate, new object[] {
-                        username,
-                        password}, this.onEndChangePasswordDelegate, this.onChangePasswordCompletedDelegate, userState);
+            base.InvokeAsync(this.onBeginGetNotificationHistoryDelegate, new object[] {
+                        UserName}, this.onEndGetNotificationHistoryDelegate, this.onGetNotificationHistoryCompletedDelegate, userState);
         }
         
         private System.IAsyncResult OnBeginOpen(object[] inValues, System.AsyncCallback callback, object asyncState) {
@@ -1611,6 +1839,20 @@ namespace WP7App1.EmergencyService {
                 return _result;
             }
             
+            public System.IAsyncResult BeginChangePassword(string username, string password, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[2];
+                _args[0] = username;
+                _args[1] = password;
+                System.IAsyncResult _result = base.BeginInvoke("ChangePassword", _args, callback, asyncState);
+                return _result;
+            }
+            
+            public string EndChangePassword(System.IAsyncResult result) {
+                object[] _args = new object[0];
+                string _result = ((string)(base.EndInvoke("ChangePassword", _args, result)));
+                return _result;
+            }
+            
             public System.IAsyncResult BeginChangeProfileField(WP7App1.EmergencyService.ClientData client, System.AsyncCallback callback, object asyncState) {
                 object[] _args = new object[1];
                 _args[0] = client;
@@ -1624,17 +1866,16 @@ namespace WP7App1.EmergencyService {
                 return _result;
             }
             
-            public System.IAsyncResult BeginChangePassword(string username, string password, System.AsyncCallback callback, object asyncState) {
-                object[] _args = new object[2];
-                _args[0] = username;
-                _args[1] = password;
-                System.IAsyncResult _result = base.BeginInvoke("ChangePassword", _args, callback, asyncState);
+            public System.IAsyncResult BeginGetNotificationHistory(string UserName, System.AsyncCallback callback, object asyncState) {
+                object[] _args = new object[1];
+                _args[0] = UserName;
+                System.IAsyncResult _result = base.BeginInvoke("GetNotificationHistory", _args, callback, asyncState);
                 return _result;
             }
             
-            public string EndChangePassword(System.IAsyncResult result) {
+            public System.Collections.Generic.Dictionary<WP7App1.EmergencyService.ClientData, WP7App1.EmergencyService.HistoryData> EndGetNotificationHistory(System.IAsyncResult result) {
                 object[] _args = new object[0];
-                string _result = ((string)(base.EndInvoke("ChangePassword", _args, result)));
+                System.Collections.Generic.Dictionary<WP7App1.EmergencyService.ClientData, WP7App1.EmergencyService.HistoryData> _result = ((System.Collections.Generic.Dictionary<WP7App1.EmergencyService.ClientData, WP7App1.EmergencyService.HistoryData>)(base.EndInvoke("GetNotificationHistory", _args, result)));
                 return _result;
             }
         }

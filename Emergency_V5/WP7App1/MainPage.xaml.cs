@@ -96,7 +96,7 @@ namespace WP7App1
             }
 
             myRequests.CollectionChanged += (sender, args) => { Requests.ItemsSource = myRequests; requestBlock.Visibility = myRequests.Count > 0 ? Visibility.Visible : Visibility.Collapsed; };
-            alarmsList.CollectionChanged += (sender, args) => { alarms.ItemsSource = alarmsList; alarmsHistory.Visibility = alarmsList.Count > 0 ? Visibility.Visible : Visibility.Collapsed; };
+            //alarmsList.CollectionChanged += (sender, args) => { alarms.ItemsSource = alarmsList; alarmsHistory.Visibility = alarmsList.Count > 0 ? Visibility.Visible : Visibility.Collapsed; };
 
             client.SendSosNotificationsCompleted += new EventHandler<SendSosNotificationsCompletedEventArgs>(client_SendSosNotificationsCompleted);
             client.SearchFriendsCompleted += new EventHandler<SearchFriendsCompletedEventArgs>(client_SearchFriendsCompleted);
@@ -109,6 +109,7 @@ namespace WP7App1
             client.ClientRegistrationCompleted += new EventHandler<ClientRegistrationCompletedEventArgs>(client_ClientRegistrationCompleted);
             client.ChangeProfileFieldCompleted += new EventHandler<ChangeProfileFieldCompletedEventArgs>(client_ChangeProfileFieldCompleted);
             client.ChangePasswordCompleted += new EventHandler<ChangePasswordCompletedEventArgs>(client_ChangePasswordCompleted);
+            client.GetNotificationHistoryCompleted += new EventHandler<GetNotificationHistoryCompletedEventArgs>(client_GetNotificationHistoryCompleted);
             NotificationManager.ToastNotificationReceived += new NotificationManager.ToastEventsHandler(NotificationManager_ToastNotificationReceived);
 
             LoadSettings();
@@ -183,8 +184,9 @@ namespace WP7App1
         void LoadSettings()
         {
             Requests.ItemsSource = myRequests;
+            alarms.ItemsSource = alarmsList;
             requestBlock.Visibility = myRequests.Count > 0 ?Visibility.Visible : Visibility.Collapsed;
-            alarmsHistory.Visibility = alarmsList.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+            //alarmsHistory.Visibility = alarmsList.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
             googlemap.Visibility = Visibility.Visible;
             radioStreet.IsChecked = true;
 
@@ -1429,6 +1431,7 @@ namespace WP7App1
 
                 client.CheckFriendshipsStatusAsync(username);
                 client.GetFriendsListAsync(username);
+                client.GetNotificationHistoryAsync(username);
 
                 NotificationManager manager = new NotificationManager();
                 manager.Username = e.Result.Username;
@@ -1562,6 +1565,22 @@ namespace WP7App1
             });
         }
 
+        /// <summary>
+        /// Getting notifications history data
+        /// </summary>
+        void client_GetNotificationHistoryCompleted(object sender, GetNotificationHistoryCompletedEventArgs e)
+        {
+            var resultList = e.Result.ToList();
+            foreach (var result in resultList)
+            {
+                double receivedLatitude = Convert.ToDouble(result.Value.Latitude);
+                double receivedLongitude = Convert.ToDouble(result.Value.Longitude);
+                alarmsList.Add(new AlarmItem() { FirstName = result.Key.FirstName, LastName = result.Key.LastName, AlarmLocation = new Point(receivedLatitude, receivedLongitude), DateOfAlarm = result.Value.DateTime.Value });
+            }
+            //alarms.ItemsSource = alarmsList;
+            //alarms.Visibility = System.Windows.Visibility.Visible;
+            //alarmsHistory.Visibility = System.Windows.Visibility.Visible;
+        }
         #endregion
     }
 }

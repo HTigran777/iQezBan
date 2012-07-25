@@ -164,6 +164,21 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ChangePassword">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangePasswordResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ChangePasswordResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ChangeProfileField">
     <xs:complexType>
       <xs:sequence>
@@ -175,6 +190,20 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="ChangeProfileFieldResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNotificationHistory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNotificationHistoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetNotificationHistoryResult" nillable="true" type="q13:ArrayOfKeyValueOfClientDataHistoryDataB67UGcgx" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
