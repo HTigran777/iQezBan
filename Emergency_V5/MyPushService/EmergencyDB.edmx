@@ -9,6 +9,7 @@
           <EntitySet Name="Clients" EntityType="EmergencyDBModel.Store.Clients" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Devices" EntityType="EmergencyDBModel.Store.Devices" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Friendship" EntityType="EmergencyDBModel.Store.Friendship" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Notifications" EntityType="EmergencyDBModel.Store.Notifications" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Devices_Clients" Association="EmergencyDBModel.Store.FK_Devices_Clients">
             <End Role="Clients" EntitySet="Clients" />
             <End Role="Devices" EntitySet="Devices" />
@@ -44,6 +45,21 @@
           <Property Name="FriendID" Type="int" Nullable="false" />
           <Property Name="Status" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="Notifications">
+          <Key>
+            <PropertyRef Name="NotificationID" />
+          </Key>
+          <Property Name="NotificationID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="FriendID" Type="int" Nullable="false" />
+          <Property Name="Latitude" Type="varchar" MaxLength="50" />
+          <Property Name="Longitude" Type="varchar" MaxLength="50" />
+          <Property Name="NotificationStatus" Type="varchar" MaxLength="50" />
+          <Property Name="NotificationChannelStatus" Type="varchar" MaxLength="50" />
+          <Property Name="DeviceConnectionStatus" Type="varchar" MaxLength="50" />
+          <Property Name="ErrorMessage" Type="varchar" MaxLength="50" />
+          <Property Name="Datetime" Type="datetime" />
+        </EntityType>
         <Association Name="FK_Devices_Clients">
           <End Role="Clients" Type="EmergencyDBModel.Store.Clients" Multiplicity="1" />
           <End Role="Devices" Type="EmergencyDBModel.Store.Devices" Multiplicity="*" />
@@ -68,6 +84,7 @@
             <End Role="Devices" EntitySet="Devices" />
           </AssociationSet>
           <EntitySet Name="Friendships" EntityType="EmergencyDBModel.Friendship" />
+          <EntitySet Name="Notifications" EntityType="EmergencyDBModel.Notification" />
         </EntityContainer>
         <EntityType Name="Client">
           <Key>
@@ -113,6 +130,21 @@
           <Property Type="Int32" Name="FriendID" Nullable="false" />
           <Property Type="Boolean" Name="Status" Nullable="false" />
         </EntityType>
+        <EntityType Name="Notification">
+          <Key>
+            <PropertyRef Name="NotificationID" />
+          </Key>
+          <Property Type="Int32" Name="NotificationID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ClientID" Nullable="false" />
+          <Property Type="Int32" Name="FriendID" Nullable="false" />
+          <Property Type="String" Name="Latitude" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="Longitude" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NotificationStatus" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="NotificationChannelStatus" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="DeviceConnectionStatus" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ErrorMessage" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="Datetime" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -144,6 +176,22 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Notifications">
+            <EntityTypeMapping TypeName="EmergencyDBModel.Notification">
+              <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="Datetime" ColumnName="Datetime" />
+                <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
+                <ScalarProperty Name="DeviceConnectionStatus" ColumnName="DeviceConnectionStatus" />
+                <ScalarProperty Name="NotificationChannelStatus" ColumnName="NotificationChannelStatus" />
+                <ScalarProperty Name="NotificationStatus" ColumnName="NotificationStatus" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="FriendID" ColumnName="FriendID" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -171,7 +219,8 @@
           <ConnectorPoint PointX="2.25" PointY="1.9901432291666668" />
           <ConnectorPoint PointX="3" PointY="1.9901432291666668" />
         </AssociationConnector>
-        <EntityTypeShape EntityType="EmergencyDBModel.Friendship" Width="1.5" PointX="5.5" PointY="1.125" Height="1.7879850260416657" />
+        <EntityTypeShape EntityType="EmergencyDBModel.Friendship" Width="1.5" PointX="5.5" PointY="1" Height="1.7879850260416657" />
+        <EntityTypeShape EntityType="EmergencyDBModel.Notification" Width="1.5" PointX="7.875" PointY="1" Height="2.7494921874999996" />
       </Diagram>
     </Diagrams>
   </Designer>

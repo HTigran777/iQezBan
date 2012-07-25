@@ -45,6 +45,12 @@ namespace EmergencyService
         [OperationContract]
         List<ClientData> GetFriendsList(string username);
 
+        [OperationContract]
+        void SaveNotificationHistory(HistoryData historyData);
+
+        [OperationContract]
+        List<Notification> GetNotificationHistory(string UserName);
+
         // TODO: Add your service operations here
     }
 
@@ -63,6 +69,29 @@ namespace EmergencyService
         public string Email { get; set; }
         [DataMember]
         public int Age { get; set; }
+    }
+    [DataContract]
+    public class HistoryData
+    {
+        [DataMember]
+        public int ClientID { get; set; }
+        [DataMember]
+        public int FriendID { get; set; }
+        [DataMember]
+        public string Latitude { get; set; }
+        [DataMember]
+        public string Longitude { get; set; }
+        [DataMember]
+        public string NotificationStatus { get; set; }
+        [DataMember]
+        public string NotificationChannelStatus { get; set; }
+        [DataMember]
+        public string DeviceConnectionStatus { get; set; }
+        [DataMember]
+        public string ErrorMessage { get; set; }
+        [DataMember]
+        public DateTime? DateTime { get; set; }
+        
     }
 
     [DataContract]

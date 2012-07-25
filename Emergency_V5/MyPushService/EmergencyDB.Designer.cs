@@ -117,6 +117,22 @@ namespace EmergencyService
             }
         }
         private ObjectSet<Friendship> _Friendships;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Notification> Notifications
+        {
+            get
+            {
+                if ((_Notifications == null))
+                {
+                    _Notifications = base.CreateObjectSet<Notification>("Notifications");
+                }
+                return _Notifications;
+            }
+        }
+        private ObjectSet<Notification> _Notifications;
 
         #endregion
         #region AddTo Methods
@@ -143,6 +159,14 @@ namespace EmergencyService
         public void AddToFriendships(Friendship friendship)
         {
             base.AddObject("Friendships", friendship);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Notifications EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToNotifications(Notification notification)
+        {
+            base.AddObject("Notifications", notification);
         }
 
         #endregion
@@ -687,6 +711,281 @@ namespace EmergencyService
         private global::System.Boolean _Status;
         partial void OnStatusChanging(global::System.Boolean value);
         partial void OnStatusChanged();
+
+        #endregion
+    
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="EmergencyDBModel", Name="Notification")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Notification : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Notification object.
+        /// </summary>
+        /// <param name="notificationID">Initial value of the NotificationID property.</param>
+        /// <param name="clientID">Initial value of the ClientID property.</param>
+        /// <param name="friendID">Initial value of the FriendID property.</param>
+        public static Notification CreateNotification(global::System.Int32 notificationID, global::System.Int32 clientID, global::System.Int32 friendID)
+        {
+            Notification notification = new Notification();
+            notification.NotificationID = notificationID;
+            notification.ClientID = clientID;
+            notification.FriendID = friendID;
+            return notification;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 NotificationID
+        {
+            get
+            {
+                return _NotificationID;
+            }
+            set
+            {
+                if (_NotificationID != value)
+                {
+                    OnNotificationIDChanging(value);
+                    ReportPropertyChanging("NotificationID");
+                    _NotificationID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("NotificationID");
+                    OnNotificationIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _NotificationID;
+        partial void OnNotificationIDChanging(global::System.Int32 value);
+        partial void OnNotificationIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ClientID
+        {
+            get
+            {
+                return _ClientID;
+            }
+            set
+            {
+                OnClientIDChanging(value);
+                ReportPropertyChanging("ClientID");
+                _ClientID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ClientID");
+                OnClientIDChanged();
+            }
+        }
+        private global::System.Int32 _ClientID;
+        partial void OnClientIDChanging(global::System.Int32 value);
+        partial void OnClientIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 FriendID
+        {
+            get
+            {
+                return _FriendID;
+            }
+            set
+            {
+                OnFriendIDChanging(value);
+                ReportPropertyChanging("FriendID");
+                _FriendID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("FriendID");
+                OnFriendIDChanged();
+            }
+        }
+        private global::System.Int32 _FriendID;
+        partial void OnFriendIDChanging(global::System.Int32 value);
+        partial void OnFriendIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Latitude
+        {
+            get
+            {
+                return _Latitude;
+            }
+            set
+            {
+                OnLatitudeChanging(value);
+                ReportPropertyChanging("Latitude");
+                _Latitude = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Latitude");
+                OnLatitudeChanged();
+            }
+        }
+        private global::System.String _Latitude;
+        partial void OnLatitudeChanging(global::System.String value);
+        partial void OnLatitudeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Longitude
+        {
+            get
+            {
+                return _Longitude;
+            }
+            set
+            {
+                OnLongitudeChanging(value);
+                ReportPropertyChanging("Longitude");
+                _Longitude = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Longitude");
+                OnLongitudeChanged();
+            }
+        }
+        private global::System.String _Longitude;
+        partial void OnLongitudeChanging(global::System.String value);
+        partial void OnLongitudeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String NotificationStatus
+        {
+            get
+            {
+                return _NotificationStatus;
+            }
+            set
+            {
+                OnNotificationStatusChanging(value);
+                ReportPropertyChanging("NotificationStatus");
+                _NotificationStatus = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("NotificationStatus");
+                OnNotificationStatusChanged();
+            }
+        }
+        private global::System.String _NotificationStatus;
+        partial void OnNotificationStatusChanging(global::System.String value);
+        partial void OnNotificationStatusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String NotificationChannelStatus
+        {
+            get
+            {
+                return _NotificationChannelStatus;
+            }
+            set
+            {
+                OnNotificationChannelStatusChanging(value);
+                ReportPropertyChanging("NotificationChannelStatus");
+                _NotificationChannelStatus = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("NotificationChannelStatus");
+                OnNotificationChannelStatusChanged();
+            }
+        }
+        private global::System.String _NotificationChannelStatus;
+        partial void OnNotificationChannelStatusChanging(global::System.String value);
+        partial void OnNotificationChannelStatusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String DeviceConnectionStatus
+        {
+            get
+            {
+                return _DeviceConnectionStatus;
+            }
+            set
+            {
+                OnDeviceConnectionStatusChanging(value);
+                ReportPropertyChanging("DeviceConnectionStatus");
+                _DeviceConnectionStatus = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("DeviceConnectionStatus");
+                OnDeviceConnectionStatusChanged();
+            }
+        }
+        private global::System.String _DeviceConnectionStatus;
+        partial void OnDeviceConnectionStatusChanging(global::System.String value);
+        partial void OnDeviceConnectionStatusChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ErrorMessage
+        {
+            get
+            {
+                return _ErrorMessage;
+            }
+            set
+            {
+                OnErrorMessageChanging(value);
+                ReportPropertyChanging("ErrorMessage");
+                _ErrorMessage = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("ErrorMessage");
+                OnErrorMessageChanged();
+            }
+        }
+        private global::System.String _ErrorMessage;
+        partial void OnErrorMessageChanging(global::System.String value);
+        partial void OnErrorMessageChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> Datetime
+        {
+            get
+            {
+                return _Datetime;
+            }
+            set
+            {
+                OnDatetimeChanging(value);
+                ReportPropertyChanging("Datetime");
+                _Datetime = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Datetime");
+                OnDatetimeChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _Datetime;
+        partial void OnDatetimeChanging(Nullable<global::System.DateTime> value);
+        partial void OnDatetimeChanged();
 
         #endregion
     

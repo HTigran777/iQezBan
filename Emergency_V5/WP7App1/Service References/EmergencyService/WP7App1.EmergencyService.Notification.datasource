@@ -5,6 +5,6 @@
     Renaming the file extension or editing the content of this file may   
     cause the file to be unrecognizable by the program.
 -->
-<GenericObjectDataSource DisplayName="ClientData" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
-   <TypeInfo>WP7App1.EmergencyService.ClientData</TypeInfo>
+<GenericObjectDataSource DisplayName="Notification" Version="1.0" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+   <TypeInfo>WP7App1.EmergencyService.Notification</TypeInfo>
 </GenericObjectDataSource>

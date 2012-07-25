@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://miasin.somee.com/MyPushService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/EmergencyService" />
-  <xs:import schemaLocation="http://miasin.somee.com/MyPushService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-  <xs:import schemaLocation="http://miasin.somee.com/MyPushService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://localhost/MyPushService/MyPushService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/EmergencyService" />
+  <xs:import schemaLocation="http://localhost/MyPushService/MyPushService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost/MyPushService/MyPushService.svc?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:element name="ClientRegistration">
     <xs:complexType>
       <xs:sequence>
@@ -161,6 +161,32 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/EmergencyService" minOccurs="0" name="GetFriendsListResult" nillable="true" type="q11:ArrayOfClientData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveNotificationHistory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/EmergencyService" minOccurs="0" name="historyData" nillable="true" type="q12:HistoryData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveNotificationHistoryResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNotificationHistory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/EmergencyService" minOccurs="0" name="historyData" nillable="true" type="q13:HistoryData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetNotificationHistoryResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/EmergencyService" minOccurs="0" name="GetNotificationHistoryResult" nillable="true" type="q14:ArrayOfNotification" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
