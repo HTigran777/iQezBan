@@ -680,5 +680,19 @@ namespace EmergencyService
                 return dictionaryToReturn;
             }
         }
+
+        public void ClientLogOut(string deviceId)
+        {
+            using (EmergencyDBEntities context = new EmergencyDBEntities())
+            {
+                var device = (from d in context.Devices
+                              where d.DeviceID == deviceId
+                              select d).FirstOrDefault();
+
+                context.Devices.DeleteObject(device);
+                context.SaveChanges();
+            }
+        }
+
     }
 }
