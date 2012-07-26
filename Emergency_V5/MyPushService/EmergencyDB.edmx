@@ -57,8 +57,9 @@
           <Property Name="NotificationStatus" Type="varchar" MaxLength="50" />
           <Property Name="NotificationChannelStatus" Type="varchar" MaxLength="50" />
           <Property Name="DeviceConnectionStatus" Type="varchar" MaxLength="50" />
-          <Property Name="ErrorMessage" Type="varchar" MaxLength="50" />
+          <Property Name="ErrorMessage" Type="varchar(max)" />
           <Property Name="Datetime" Type="datetime" />
+          <Property Name="DeviceID" Type="varchar" Nullable="false" MaxLength="100" />
         </EntityType>
         <Association Name="FK_Devices_Clients">
           <End Role="Clients" Type="EmergencyDBModel.Store.Clients" Multiplicity="1" />
@@ -142,8 +143,9 @@
           <Property Type="String" Name="NotificationStatus" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="NotificationChannelStatus" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="DeviceConnectionStatus" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Type="String" Name="ErrorMessage" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="ErrorMessage" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="DateTime" Name="Datetime" />
+          <Property Type="String" Name="DeviceID" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -179,6 +181,7 @@
           <EntitySetMapping Name="Notifications">
             <EntityTypeMapping TypeName="EmergencyDBModel.Notification">
               <MappingFragment StoreEntitySet="Notifications">
+                <ScalarProperty Name="DeviceID" ColumnName="DeviceID" />
                 <ScalarProperty Name="Datetime" ColumnName="Datetime" />
                 <ScalarProperty Name="ErrorMessage" ColumnName="ErrorMessage" />
                 <ScalarProperty Name="DeviceConnectionStatus" ColumnName="DeviceConnectionStatus" />
@@ -220,7 +223,7 @@
           <ConnectorPoint PointX="3" PointY="1.9901432291666668" />
         </AssociationConnector>
         <EntityTypeShape EntityType="EmergencyDBModel.Friendship" Width="1.5" PointX="5.5" PointY="1" Height="1.7879850260416657" />
-        <EntityTypeShape EntityType="EmergencyDBModel.Notification" Width="1.5" PointX="7.875" PointY="1" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="EmergencyDBModel.Notification" Width="1.5" PointX="7.875" PointY="1" Height="3.1340950520833335" />
       </Diagram>
     </Diagrams>
   </Designer>

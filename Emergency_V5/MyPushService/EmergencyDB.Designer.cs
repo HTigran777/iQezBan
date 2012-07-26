@@ -732,12 +732,14 @@ namespace EmergencyService
         /// <param name="notificationID">Initial value of the NotificationID property.</param>
         /// <param name="clientID">Initial value of the ClientID property.</param>
         /// <param name="friendID">Initial value of the FriendID property.</param>
-        public static Notification CreateNotification(global::System.Int32 notificationID, global::System.Int32 clientID, global::System.Int32 friendID)
+        /// <param name="deviceID">Initial value of the DeviceID property.</param>
+        public static Notification CreateNotification(global::System.Int32 notificationID, global::System.Int32 clientID, global::System.Int32 friendID, global::System.String deviceID)
         {
             Notification notification = new Notification();
             notification.NotificationID = notificationID;
             notification.ClientID = clientID;
             notification.FriendID = friendID;
+            notification.DeviceID = deviceID;
             return notification;
         }
 
@@ -986,6 +988,30 @@ namespace EmergencyService
         private Nullable<global::System.DateTime> _Datetime;
         partial void OnDatetimeChanging(Nullable<global::System.DateTime> value);
         partial void OnDatetimeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String DeviceID
+        {
+            get
+            {
+                return _DeviceID;
+            }
+            set
+            {
+                OnDeviceIDChanging(value);
+                ReportPropertyChanging("DeviceID");
+                _DeviceID = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("DeviceID");
+                OnDeviceIDChanged();
+            }
+        }
+        private global::System.String _DeviceID;
+        partial void OnDeviceIDChanging(global::System.String value);
+        partial void OnDeviceIDChanged();
 
         #endregion
     

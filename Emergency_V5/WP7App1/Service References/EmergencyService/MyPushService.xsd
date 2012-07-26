@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/EmergencyService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/EmergencyService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://localhost/MyPushService/MyPushService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://miasin.somee.com/MyPushService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:complexType name="ClientData">
     <xs:sequence>
       <xs:element minOccurs="0" name="Age" type="xs:int" />
@@ -40,6 +40,7 @@
       <xs:element minOccurs="0" name="ClientID" type="xs:int" />
       <xs:element minOccurs="0" name="DateTime" nillable="true" type="xs:dateTime" />
       <xs:element minOccurs="0" name="DeviceConnectionStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeviceID" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="ErrorMessage" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="FriendID" type="xs:int" />
       <xs:element minOccurs="0" name="Latitude" nillable="true" type="xs:string" />

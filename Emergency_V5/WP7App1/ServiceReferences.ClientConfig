@@ -9,7 +9,7 @@
             </basicHttpBinding>
         </bindings>
         <client>
-            <endpoint address="http://localhost/MyPushService/MyPushService.svc"
+            <endpoint address="http://miasin.somee.com/MyPushService.svc"
                 binding="basicHttpBinding" bindingConfiguration="BasicHttpBinding_IMyPushService"
                 contract="EmergencyService.IMyPushService" name="BasicHttpBinding_IMyPushService" />
         </client>

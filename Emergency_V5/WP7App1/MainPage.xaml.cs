@@ -19,6 +19,7 @@ using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 using System.Device.Location;
 using Microsoft.Phone.Controls.Maps;
+using System.Windows.Data;
 
 namespace WP7App1
 {
@@ -34,6 +35,7 @@ namespace WP7App1
         private CountDown reEnable = new CountDown(100);
         public ObservableCollection<ItemViewModel> myRequests = new ObservableCollection<ItemViewModel>();
         public ObservableCollection<AlarmItem> alarmsList = new ObservableCollection<AlarmItem>();
+        public CollectionViewSource alarmsHistorySource = new CollectionViewSource();
         private bool alarmMode = false;
         private bool? CanUseLocation = null;
         private bool? CanRecieveNotifications = null;
@@ -96,7 +98,7 @@ namespace WP7App1
             }
 
             myRequests.CollectionChanged += (sender, args) => { Requests.ItemsSource = myRequests; requestBlock.Visibility = myRequests.Count > 0 ? Visibility.Visible : Visibility.Collapsed; };
-            //alarmsList.CollectionChanged += (sender, args) => { alarms.ItemsSource = alarmsList; alarmsHistory.Visibility = alarmsList.Count > 0 ? Visibility.Visible : Visibility.Collapsed; };
+           // alarmsList.CollectionChanged += (sender, args) =>{};
 
             client.SendSosNotificationsCompleted += new EventHandler<SendSosNotificationsCompletedEventArgs>(client_SendSosNotificationsCompleted);
             client.SearchFriendsCompleted += new EventHandler<SearchFriendsCompletedEventArgs>(client_SearchFriendsCompleted);
@@ -120,7 +122,8 @@ namespace WP7App1
         /// </summary>
         private void StackPanel_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            TurnONAlarm((Point)(sender as StackPanel).Tag);
+            var s = (((sender as StackPanel).Children[0] as StackPanel).Children[0] as TextBlock).Text + " " + (((sender as StackPanel).Children[0] as StackPanel).Children[1] as TextBlock).Text;
+            TurnONAlarm((Point)(sender as StackPanel).Tag, s);
         }
 
         /// <summary>
@@ -155,12 +158,13 @@ namespace WP7App1
         void TurnOffAlarm()
         {
             AlarmMode = false;
+            pushPinText.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         /// <summary>
         /// Turns on alarm mode: showes map; pin to location
         /// </summary>
-        void TurnONAlarm(Point alarmPos)
+        void TurnONAlarm(Point alarmPos, string sender)
         {
             //40.123661, 44.477149 my home
             AlarmMode = true;
@@ -168,6 +172,8 @@ namespace WP7App1
             googlemap.ZoomLevel = 16;
             alarmPin.Location = new GeoCoordinate(alarmPos.X, alarmPos.Y);
             alarmPin.Visibility = Visibility.Visible;
+            pushPinText.Text = sender;
+            pushPinText.Visibility = System.Windows.Visibility.Visible;
         }
 
         /// <summary>
@@ -184,7 +190,7 @@ namespace WP7App1
         void LoadSettings()
         {
             Requests.ItemsSource = myRequests;
-            alarms.ItemsSource = alarmsList;
+            alarmsHistorySource.Source = alarmsList;
             requestBlock.Visibility = myRequests.Count > 0 ?Visibility.Visible : Visibility.Collapsed;
             //alarmsHistory.Visibility = alarmsList.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
             googlemap.Visibility = Visibility.Visible;
@@ -405,8 +411,8 @@ namespace WP7App1
                 //MessageBox.Show("Latitude:" + receivedLatitudeSting + "\nLongitude:" + receivedLongitudeSting);
                 receivedLatitude = Convert.ToDouble(receivedLatitudeSting);
                 receivedLongitude = Convert.ToDouble(receivedLongitudeSting);
-                client.GetNotificationHistoryAsync(username);
-                TurnONAlarm(new Point(receivedLatitude, receivedLongitude));
+                client.GetNotificationHistoryAsync(username, IsolatedStorageSettings.ApplicationSettings["DeviceId"].ToString());
+                TurnONAlarm(new Point(receivedLatitude, receivedLongitude), "");
             }
         }
 
@@ -461,7 +467,7 @@ namespace WP7App1
                                     select c).FirstOrDefault();
                 items.Remove(itemToDelete);
                 Contacts.ItemsSource = items;
-                MessageBox.Show("UserID:\n" + (sender as MenuItem).Tag);
+                //MessageBox.Show("UserID:\n" + (sender as MenuItem).Tag);
             }
         }
 
@@ -509,7 +515,7 @@ namespace WP7App1
             //Here goes code that adds selected user to your friends list
             //The user ID stored in MenuItem.Tag as shown below:
             client.AddFriendAsync(username, (sender as MenuItem).Tag.ToString());
-            MessageBox.Show("UserID:\n" + (sender as MenuItem).Tag);
+            //MessageBox.Show("UserID:\n" + (sender as MenuItem).Tag);
         }
 
         /// <summary>
@@ -523,6 +529,8 @@ namespace WP7App1
             logBox.Text = string.Empty;
             passBox.Password = string.Empty;
             //Here goes code thats logs out current profile
+            alarmsList.Clear();
+            myRequests.Clear();
             client.ClientLogOutAsync(IsolatedStorageSettings.ApplicationSettings["DeviceId"].ToString());
 
             if (IsolatedStorageSettings.ApplicationSettings.Contains("Username") && IsolatedStorageSettings.ApplicationSettings.Contains("Password"))
@@ -796,7 +804,10 @@ namespace WP7App1
             if (rightFirstName)
                 client.ChangeProfileFieldAsync(new ClientData { Username = username, FirstName = profFName.Text });
             else
+            {
                 profFName.Text = _proffname;
+                editProfFName_Click(this, null);
+            }
         }
 
         /// <summary>
@@ -810,6 +821,7 @@ namespace WP7App1
             cancelFName.Visibility = System.Windows.Visibility.Collapsed;
             profFName.IsReadOnly = true;
             profFName.Text = _proffname;
+            profileValidationTextBlock.Text = "";
         }
         #endregion
 
@@ -844,7 +856,10 @@ namespace WP7App1
             if (rightLastName)
                 client.ChangeProfileFieldAsync(new ClientData { Username = username, LastName = profLName.Text });
             else
+            {
                 profLName.Text = _proflname;
+                editProfLName_Click(this, null);
+            }
         }
 
         /// <summary>
@@ -858,6 +873,7 @@ namespace WP7App1
             cancelLName.Visibility = System.Windows.Visibility.Collapsed;
             profLName.IsReadOnly = true;
             profLName.Text = _proflname;
+            profileValidationTextBlock.Text = "";
         }
         #endregion
 
@@ -937,7 +953,10 @@ namespace WP7App1
             if (rightEmail)
                 client.ChangeProfileFieldAsync(new ClientData { Username = username, Email = profEMail.Text });
             else
+            {
                 profEMail.Text = _profemail;
+                editProfEMail_Click(this, null);
+            }
         }
 
         /// <summary>
@@ -951,6 +970,7 @@ namespace WP7App1
             cancelEMail.Visibility = System.Windows.Visibility.Collapsed;
             profEMail.IsReadOnly = true;
             profEMail.Text = _profemail;
+            profileValidationTextBlock.Text = "";
         }
         #endregion
 
@@ -985,7 +1005,10 @@ namespace WP7App1
             if (rightDateOfBirth)
                 client.ChangeProfileFieldAsync(new ClientData { Username = username, Age = int.Parse(profDOB.Text) });
             else
+            {
                 profDOB.Text = _profdob;
+                editProfDOB_Click(this, null);
+            }
         }
 
         /// <summary>
@@ -999,6 +1022,7 @@ namespace WP7App1
             cancelDOB.Visibility = System.Windows.Visibility.Collapsed;
             profDOB.IsReadOnly = true;
             profDOB.Text = _profdob;
+            profileValidationTextBlock.Text = "";
         }
         #endregion
 
@@ -1447,7 +1471,7 @@ namespace WP7App1
 
                 client.CheckFriendshipsStatusAsync(username);
                 client.GetFriendsListAsync(username);
-                client.GetNotificationHistoryAsync(username);
+                client.GetNotificationHistoryAsync(username, IsolatedStorageSettings.ApplicationSettings["DeviceId"].ToString());
 
                 NotificationManager manager = new NotificationManager();
                 manager.Username = e.Result.Username;
@@ -1576,9 +1600,9 @@ namespace WP7App1
                 start = end + 19;
                 value = message[2].Substring(start, (message[2].Length - start));
                 double receivedLongitude = Convert.ToDouble(value);
-                TurnONAlarm(new Point(receivedLatitude, receivedLongitude));
-                MessageBox.Show("Received " + message[0] + " from " + message[1]);
-                client.GetNotificationHistoryAsync(username);
+                TurnONAlarm(new Point(receivedLatitude, receivedLongitude), message[1]);
+                //MessageBox.Show("Received " + message[0] + " from " + message[1]);
+                client.GetNotificationHistoryAsync(username, IsolatedStorageSettings.ApplicationSettings["DeviceId"].ToString());
             });
         }
 
@@ -1587,6 +1611,7 @@ namespace WP7App1
         /// </summary>
         void client_GetNotificationHistoryCompleted(object sender, GetNotificationHistoryCompletedEventArgs e)
         {
+            alarmsList.Clear();
             var resultList = e.Result.ToList();
             foreach (var result in resultList)
             {
@@ -1594,6 +1619,9 @@ namespace WP7App1
                 double receivedLongitude = Convert.ToDouble(result.Value.Longitude);
                 alarmsList.Add(new AlarmItem() { FirstName = result.Key.FirstName, LastName = result.Key.LastName, AlarmLocation = new Point(receivedLatitude, receivedLongitude), DateOfAlarm = result.Value.DateTime.Value });
             }
+            alarmsHistorySource.SortDescriptions.Clear();
+            alarmsHistorySource.SortDescriptions.Add(new System.ComponentModel.SortDescription("DateOfAlarm", System.ComponentModel.ListSortDirection.Descending));
+            alarms.ItemsSource = alarmsHistorySource.View;
             //alarms.ItemsSource = alarmsList;
             //alarms.Visibility = System.Windows.Visibility.Visible;
             //alarmsHistory.Visibility = System.Windows.Visibility.Visible;

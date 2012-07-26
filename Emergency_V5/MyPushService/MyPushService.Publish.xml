@@ -2,8 +2,8 @@
 <publishData>
   <publishProfile publishUrl="ftp://miasin.somee.com/www.miasin.somee.com" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="Profile1" publishMethod="FTP" replaceMatchingFiles="True" userName="mikejan" savePWD="True" userPWD="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA+ET6up9IzEqXq6wJmN0zcQAAAAACAAAAAAADZgAAwAAAABAAAAAdXxmXDoopgqJK5ZYfTAF6AAAAAASAAACgAAAAEAAAAM1nmDjUddasQ9Hvey1UFjYYAAAAmhf0O+iWz2I7Bwy11Pxb58L9NpXR+914FAAAAGXBI7tWdUe64qrnQu7e6F+Pq2MU" SelectedForPublish="True">
     <file relUrl="MyPushService.svc" publishTime="07/04/2012 02:23:48" />
-    <file relUrl="bin/MyPushService.pdb" publishTime="07/23/2012 17:40:24" />
-    <file relUrl="bin/MyPushService.dll" publishTime="07/23/2012 17:40:24" />
-    <file relUrl="Web.config" publishTime="07/13/2012 02:01:07" />
+    <file relUrl="bin/MyPushService.pdb" publishTime="07/26/2012 13:19:06" />
+    <file relUrl="bin/MyPushService.dll" publishTime="07/26/2012 13:19:06" />
+    <file relUrl="Web.config" publishTime="07/26/2012 13:06:10" />
   </publishProfile>
 </publishData>

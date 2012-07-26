@@ -52,7 +52,7 @@ namespace EmergencyService
         string ChangeProfileField(ClientData client);
 
         [OperationContract]
-        Dictionary<ClientData, HistoryData> GetNotificationHistory(string UserName);
+        Dictionary<ClientData, HistoryData> GetNotificationHistory(string username, string deviceId);
 
         void SaveNotificationHistory(HistoryData historyData);
 
@@ -86,6 +86,8 @@ namespace EmergencyService
         public int ClientID { get; set; }
         [DataMember]
         public int FriendID { get; set; }
+        [DataMember]
+        public string DeviceID { get; set; }
         [DataMember]
         public string Latitude { get; set; }
         [DataMember]

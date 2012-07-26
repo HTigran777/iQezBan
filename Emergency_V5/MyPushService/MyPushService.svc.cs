@@ -156,18 +156,18 @@ namespace EmergencyService
                                select c);
                 foreach (var cl in clients)
                 {
-                    List<string> uriStrings;
+                    List<Device> uriStrings;
                     using (EmergencyDBEntities context2 = new EmergencyDBEntities())
                     {
                         uriStrings = (from d in context2.Devices
                                       where d.ClientID == cl.ClientID
-                                      select d.DeviceUrl).ToList<string>();
+                                      select d).ToList();
                     }
                     if (uriStrings.Count != 0)
                     {
                         foreach (var uriString in uriStrings)
                         {
-                            Uri uri = new Uri(uriString);
+                            Uri uri = new Uri(uriString.DeviceUrl);
                             byte[] payload = new byte[0];
 
                             var request = (HttpWebRequest)WebRequest.Create(uri);
@@ -191,23 +191,31 @@ namespace EmergencyService
                                 notificationStatus = response.Headers["X-NotificationStatus"];
                                 notificationChannelStatus = response.Headers["X-SubscriptionStatus"];
                                 deviceConnectionStatus = response.Headers["X-DeviceConnectionStatus"];
-                                SaveNotificationHistory(new HistoryData {ClientID = sender.ClientID,
-                                                                            FriendID = cl.ClientID,
-                                                                            Longitude = longitude.ToString(),
-                                                                            Latitude = latitude.ToString(),
-                                                                            NotificationChannelStatus = notificationChannelStatus,
-                                                                            NotificationStatus = notificationStatus,
-                                                                            DeviceConnectionStatus = deviceConnectionStatus,
-                                                                            DateTime = DateTime.Now });
+                                SaveNotificationHistory(new HistoryData
+                                {
+                                    ClientID = sender.ClientID,
+                                    FriendID = cl.ClientID,
+                                    Longitude = longitude.ToString(),
+                                    Latitude = latitude.ToString(),
+                                    NotificationChannelStatus = notificationChannelStatus,
+                                    NotificationStatus = notificationStatus,
+                                    DeviceConnectionStatus = deviceConnectionStatus,
+                                    DateTime = DateTime.Now,
+                                    DeviceID = uriString.DeviceID
+                                });
                             }
                             catch (Exception ex)
                             {
-                                SaveNotificationHistory(new HistoryData {ClientID = sender.ClientID,
-                                                                            FriendID = cl.ClientID,
-                                                                            Longitude = longitude.ToString(),
-                                                                            Latitude = latitude.ToString(),
-                                                                            DateTime = DateTime.Now,
-                                                                            ErrorMessage = ex.Message });
+                                SaveNotificationHistory(new HistoryData
+                                {
+                                    ClientID = sender.ClientID,
+                                    FriendID = cl.ClientID,
+                                    Longitude = longitude.ToString(),
+                                    Latitude = latitude.ToString(),
+                                    DateTime = DateTime.Now,
+                                    ErrorMessage = ex.Message,
+                                    DeviceID = uriString.DeviceID
+                                });
                             }//return new List<string> { "Device is not connected!", ex.Message }; }
                         }
                     }
@@ -649,21 +657,22 @@ namespace EmergencyService
         {
             using (EmergencyDBEntities context = new EmergencyDBEntities())
             {
-                context.Notifications.AddObject(new Notification { ClientID = historyData.ClientID, FriendID = historyData.FriendID, Latitude = historyData.Latitude, Longitude = historyData.Longitude, Datetime = historyData.DateTime, DeviceConnectionStatus = historyData.DeviceConnectionStatus, ErrorMessage = historyData.ErrorMessage, NotificationChannelStatus = historyData.NotificationChannelStatus, NotificationStatus = historyData.NotificationStatus });
+                context.Notifications.AddObject(new Notification { DeviceID = historyData.DeviceID, ClientID = historyData.ClientID, FriendID = historyData.FriendID, Latitude = historyData.Latitude, Longitude = historyData.Longitude, Datetime = historyData.DateTime, DeviceConnectionStatus = historyData.DeviceConnectionStatus, ErrorMessage = historyData.ErrorMessage, NotificationChannelStatus = historyData.NotificationChannelStatus, NotificationStatus = historyData.NotificationStatus });
                 context.SaveChanges();
             }
         }
 
-        public Dictionary<ClientData, HistoryData> GetNotificationHistory(string username)
+        public Dictionary<ClientData, HistoryData> GetNotificationHistory(string username, string deviceId)
         {
             using (EmergencyDBEntities context = new EmergencyDBEntities())
             {
                 Dictionary<ClientData, HistoryData> dictionaryToReturn = new Dictionary<ClientData, HistoryData>();
-                var id = (from c in context.Clients
+                var friendId = (from c in context.Clients
                           where c.Username == username
                           select c.ClientID).FirstOrDefault();
+
                 var notifications = (from c in context.Notifications
-                                     where c.FriendID == id && c.NotificationStatus =="Received" && c.NotificationChannelStatus =="Active" && c.DeviceConnectionStatus == "Connected"
+                                     where c.FriendID == friendId && c.DeviceID == deviceId && c.NotificationStatus == "Received" && c.NotificationChannelStatus == "Active" && c.DeviceConnectionStatus == "Connected"
                                      select c);
                 
                 foreach (var notification in notifications)

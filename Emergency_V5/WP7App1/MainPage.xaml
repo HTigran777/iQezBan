@@ -454,7 +454,8 @@
                     <StackPanel Orientation="Vertical">
                         <ListBox x:Name="alarms"
                                  Margin="0,0,-12,0"
-                                 ItemsSource="{Binding alarmsList}">
+                                 ItemsSource="{Binding alarmsHistorySource.View}"
+                                 >
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Margin="0,0,0,5"
@@ -588,7 +589,9 @@
 
                         <my:Pushpin x:Name="alarmPin"
                                     Background="Red"
-                                    Tap="alarmPin_Tap" />
+                                    Tap="alarmPin_Tap">
+                            <TextBlock x:Name="pushPinText" Foreground="Black" Visibility="Collapsed"/>
+                        </my:Pushpin>
                     </my:Map>
                 </StackPanel>
             </Border>
@@ -620,12 +623,12 @@
                                          From="0"
                                          Storyboard.TargetName="changePass_Border"
                                          Storyboard.TargetProperty="Height"
-                                         To="370" />
+                                         To="410" />
                     </Storyboard>
                     <Storyboard x:Name="ChangePassDispandAnimation_Hide" Completed="ChangePassDispandAnimation_Hide_Completed">
                         <DoubleAnimation BeginTime="0:0:0.0"
                                          Duration="0:0:0.20"
-                                         From="370"
+                                         From="410"
                                          Storyboard.TargetName="changePass_Border"
                                          Storyboard.TargetProperty="Height"
                                          To="0" />
@@ -640,7 +643,7 @@
                     <Storyboard x:Name="ChangePassDispandAnimation_Black" Completed="ChangePassDispandAnimation_Black_Completed">
                         <DoubleAnimation BeginTime="0:0:0.0"
                                          Duration="0:0:0.20"
-                                         From="370"
+                                         From="410"
                                          Storyboard.TargetName="changePass_Border"
                                          Storyboard.TargetProperty="Height"
                                          To="0" />
@@ -824,18 +827,18 @@
                                                  From="0"
                                                  Storyboard.TargetName="animPanel2"
                                                  Storyboard.TargetProperty="Height"
-                                                 To="730" />
+                                                 To="750" />
                             </Storyboard>
                             <Storyboard x:Name="regDispandAnimation">
                                 <DoubleAnimation BeginTime="0:0:0.0"
                                                  Duration="0:0:0.20"
-                                                 From="420"
+                                                 From="750"
                                                  Storyboard.TargetName="animPanel2"
                                                  Storyboard.TargetProperty="Height"
                                                  To="0" />
                                 <DoubleAnimation BeginTime="0:0:0.0"
                                                  Duration="0:0:0.20"
-                                                 From="730"
+                                                 From="420"
                                                  Storyboard.TargetName="animPanel2"
                                                  Storyboard.TargetProperty="Width"
                                                  To="0" />
@@ -845,8 +848,9 @@
                         <StackPanel Width="400" Orientation="Vertical">
                             <TextBlock x:Name="errTextBlock"
                                        Width="400"
-                                       FontSize="28"
-                                       Foreground="Red" />
+                                       FontSize="22"
+                                       Foreground="Red"
+                                       TextWrapping="Wrap"/>
                         </StackPanel>
 
                         <StackPanel Width="400" Orientation="Vertical">
