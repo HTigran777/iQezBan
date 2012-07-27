@@ -20,15 +20,15 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://miasin.somee.com/MyPushService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://emergencycall.somee.com/MyPushService.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="MyPushService.xsd" MetadataType="Schema" ID="4c008630-89cd-44a3-ab6e-9a690e712cd4" SourceId="1" SourceUrl="http://miasin.somee.com/MyPushService.svc?xsd=xsd2" />
-    <MetadataFile FileName="MyPushService1.xsd" MetadataType="Schema" ID="765934e6-8c58-411f-8c2f-76375e209623" SourceId="1" SourceUrl="http://miasin.somee.com/MyPushService.svc?xsd=xsd1" />
-    <MetadataFile FileName="MyPushService2.xsd" MetadataType="Schema" ID="fa824f68-9beb-444f-9513-28e6a7e90fc4" SourceId="1" SourceUrl="http://miasin.somee.com/MyPushService.svc?xsd=xsd0" />
-    <MetadataFile FileName="MyPushService3.xsd" MetadataType="Schema" ID="c15dbc34-223a-4281-941b-916dabad9865" SourceId="1" SourceUrl="http://miasin.somee.com/MyPushService.svc?xsd=xsd3" />
-    <MetadataFile FileName="MyPushService.disco" MetadataType="Disco" ID="661218f1-f935-432e-a2e8-c7d003895e19" SourceId="1" SourceUrl="http://miasin.somee.com/MyPushService.svc?disco" />
-    <MetadataFile FileName="MyPushService.wsdl" MetadataType="Wsdl" ID="8f66dbfa-3694-4dd6-8859-4f2cfff5fec4" SourceId="1" SourceUrl="http://miasin.somee.com/MyPushService.svc?wsdl" />
+    <MetadataFile FileName="MyPushService1.wsdl" MetadataType="Wsdl" ID="d59a40d9-9e9d-4e3a-a59c-d04f9d949d96" SourceId="1" SourceUrl="http://emergencycall.somee.com/MyPushService.svc?wsdl" />
+    <MetadataFile FileName="MyPushService11.disco" MetadataType="Disco" ID="37b895b6-5329-41d6-bab0-4e2476be0f67" SourceId="1" SourceUrl="http://emergencycall.somee.com/MyPushService.svc?disco" />
+    <MetadataFile FileName="MyPushService41.xsd" MetadataType="Schema" ID="723c26f0-fb1a-4003-aef9-93a67832d5f9" SourceId="1" SourceUrl="http://emergencycall.somee.com/MyPushService.svc?xsd=xsd3" />
+    <MetadataFile FileName="MyPushService42.xsd" MetadataType="Schema" ID="5eb1651b-9dac-4b7b-818f-fe1ab98e7424" SourceId="1" SourceUrl="http://emergencycall.somee.com/MyPushService.svc?xsd=xsd2" />
+    <MetadataFile FileName="MyPushService43.xsd" MetadataType="Schema" ID="7d0fb032-86e1-4351-a69b-020d3580c491" SourceId="1" SourceUrl="http://emergencycall.somee.com/MyPushService.svc?xsd=xsd1" />
+    <MetadataFile FileName="MyPushService44.xsd" MetadataType="Schema" ID="a881407b-f2ce-4015-9231-e710d0b6f0da" SourceId="1" SourceUrl="http://emergencycall.somee.com/MyPushService.svc?xsd=xsd0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

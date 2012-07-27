@@ -13,7 +13,7 @@ namespace WP7App1
         private string _profileemail = string.Empty;
         private string _profiledateofbirth = string.Empty;
         private string _profilepassword = string.Empty;
-
+        
         public MainPageViewModel()
         {
             this.MyContacts = new ObservableCollection<ItemViewModel>();

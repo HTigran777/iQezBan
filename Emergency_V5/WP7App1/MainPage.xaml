@@ -32,6 +32,7 @@
     </phone:PhoneApplicationPage.Resources>
 
     <Grid x:Name="LayoutRoot" Background="Transparent">
+        <MediaElement x:Name="media" />
         <Grid>
             <controls:Panorama x:Name="myPano" Title="sos caller">
                 <controls:Panorama.Background>
@@ -53,7 +54,11 @@
 
                 <controls:PanoramaItem Header="Profile">
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Name="profileValidationTextBlock" FontSize="22" Width="400" TextWrapping="Wrap" Foreground="Red" />
+                        <TextBlock Name="profileValidationTextBlock"
+                                   Width="400"
+                                   FontSize="22"
+                                   Foreground="Red"
+                                   TextWrapping="Wrap" />
                         <StackPanel Orientation="Horizontal">
                             <Image Width="150"
                                    Height="150"
@@ -178,47 +183,6 @@
                                 </StackPanel>
                                 <!--  My Last-Name Block #**********************# END #**********************#  -->
 
-                                <!--  My UserName Block #**********************# START #**********************#  -->
-                                <!--
-                                    <StackPanel Orientation="Horizontal">
-                                    <StackPanel Orientation="Vertical">
-                                    <TextBlock Margin="20, 0, 0, -20" Text="Username" />
-                                    <TextBox x:Name="profUName"
-                                    Width="330"
-                                    Margin="10, 10, 0, 0"
-                                    FontSize="30"
-                                    Foreground="Black"
-                                    IsReadOnly="True"
-                                    Text="{Binding ProfileUserName,
-                                    Mode=TwoWay}" />
-                                    </StackPanel>
-                                    
-                                    <Button x:Name="editProfUName"
-                                    Width="90"
-                                    Height="80"
-                                    Margin="-23, 16, 0, 0"
-                                    Background="{StaticResource editBrush}"
-                                    Click="editProfUName_Click" />
-                                    
-                                    <Button x:Name="acceptUName"
-                                    Width="90"
-                                    Height="80"
-                                    Margin="-23, 16, 0, 0"
-                                    Background="{StaticResource acceptBrush}"
-                                    Click="acceptUName_Click"
-                                    Visibility="Collapsed" />
-                                    
-                                    <Button x:Name="cancelUName"
-                                    Width="90"
-                                    Height="80"
-                                    Margin="-20, 16, 0, 0"
-                                    Background="{StaticResource cancelBrush}"
-                                    Click="cancelUName_Click"
-                                    Visibility="Collapsed" />
-                                    </StackPanel>
-                                -->
-                                <!--  My UserName Block #**********************# END #**********************#  -->
-
                                 <!--  My EMail Block #**********************# START #**********************#  -->
                                 <StackPanel Orientation="Horizontal">
                                     <StackPanel Orientation="Vertical">
@@ -303,45 +267,54 @@
                 </controls:PanoramaItem>
 
                 <controls:PanoramaItem Header="Contacts">
-                    <ListBox x:Name="Contacts"
-                             Margin="0,0,-12,0"
-                             ItemsSource="{Binding MyContacts,
-                                                   Mode=TwoWay}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="0,0,0,5"
-                                            MouseLeave="StackPanel_MouseLeave"
-                                            MouseLeftButtonDown="StackPanel_MouseLeftButtonDown"
-                                            MouseLeftButtonUp="StackPanel_MouseLeave"
-                                            Orientation="Horizontal">
-                                    <toolkit:ContextMenuService.ContextMenu>
-                                        <toolkit:ContextMenu>
-                                            <toolkit:MenuItem Click="MenuItem_Click"
-                                                              Header="Remove"
-                                                              Tag="{Binding UserName}" />
-                                            <toolkit:MenuItem Click="MenuItem_Click_6"
-                                                              Header="Profile"
-                                                              Tag="{Binding UserName}" />
-                                        </toolkit:ContextMenu>
-                                    </toolkit:ContextMenuService.ContextMenu>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock x:Name="noFriendsText"
+                                   Margin="10, 0, 0, 0"
+                                   FontSize="30"
+                                   Foreground="LightGray"
+                                   Text="You have no contacts yet."
+                                   Visibility="Collapsed" />
+                        <ListBox x:Name="Contacts"
+                                 Height="480"
+                                 Margin="0,0,-12,0"
+                                 ItemsSource="{Binding MyContacts,
+                                                       Mode=TwoWay}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="0,0,0,5"
+                                                MouseLeave="StackPanel_MouseLeave"
+                                                MouseLeftButtonDown="StackPanel_MouseLeftButtonDown"
+                                                MouseLeftButtonUp="StackPanel_MouseLeave"
+                                                Orientation="Horizontal">
+                                        <toolkit:ContextMenuService.ContextMenu>
+                                            <toolkit:ContextMenu>
+                                                <toolkit:MenuItem Click="MenuItem_Click"
+                                                                  Header="Remove"
+                                                                  Tag="{Binding UserName}" />
+                                                <toolkit:MenuItem Click="MenuItem_Click_6"
+                                                                  Header="Profile"
+                                                                  Tag="{Binding UserName}" />
+                                            </toolkit:ContextMenu>
+                                        </toolkit:ContextMenuService.ContextMenu>
 
-                                    <Image Width="100"
-                                           Height="100"
-                                           Margin="12, 0, 9, 0"
-                                           Source="Images/defaultAva.jpg" />
-                                    <StackPanel Width="311">
-                                        <TextBlock Style="{StaticResource PhoneTextExtraLargeStyle}"
-                                                   Text="{Binding FirstName}"
-                                                   TextWrapping="Wrap" />
-                                        <TextBlock Margin="12,-6,12,0"
-                                                   Style="{StaticResource PhoneTextSubtleStyle}"
-                                                   Text="{Binding LastName}"
-                                                   TextWrapping="Wrap" />
+                                        <Image Width="100"
+                                               Height="100"
+                                               Margin="12, 0, 9, 0"
+                                               Source="Images/defaultAva.jpg" />
+                                        <StackPanel Width="311">
+                                            <TextBlock Style="{StaticResource PhoneTextExtraLargeStyle}"
+                                                       Text="{Binding FirstName}"
+                                                       TextWrapping="Wrap" />
+                                            <TextBlock Margin="12,-6,12,0"
+                                                       Style="{StaticResource PhoneTextSubtleStyle}"
+                                                       Text="{Binding LastName}"
+                                                       TextWrapping="Wrap" />
+                                        </StackPanel>
                                     </StackPanel>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
                 </controls:PanoramaItem>
 
                 <controls:PanoramaItem Header="Find friends">
@@ -450,12 +423,21 @@
                     </StackPanel>
                 </controls:PanoramaItem>
 
-                <controls:PanoramaItem x:Name="alarmsHistory" Header="History" Visibility="Visible">
+                <controls:PanoramaItem x:Name="alarmsHistory"
+                                       Header="History"
+                                       Visibility="Visible">
                     <StackPanel Orientation="Vertical">
+                        <TextBlock x:Name="noHistoryText"
+                                   Margin="10, 0, 0, 0"
+                                   FontSize="30"
+                                   Foreground="LightGray"
+                                   Text="You have no alarms yet."
+                                   Visibility="Collapsed" />
                         <ListBox x:Name="alarms"
+                                 Height="480"
                                  Margin="0,0,-12,0"
                                  ItemsSource="{Binding alarmsHistorySource.View}"
-                                 >
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Margin="0,0,0,5"
@@ -495,20 +477,6 @@
                 <controls:PanoramaItem Header="Settings">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Margin="0, 20, 0, 0" Orientation="Horizontal">
-                            <toolkit:ToggleSwitch x:Name="tgLocation"
-                                                  Checked="tgLocation_Checked"
-                                                  Header="Use my location                           "
-                                                  Unchecked="tgLocation_Checked" />
-                        </StackPanel>
-
-                        <StackPanel Orientation="Horizontal">
-                            <toolkit:ToggleSwitch x:Name="tgNotific"
-                                                  Checked="tgNotific_Checked"
-                                                  Header="Recieve notifications                    "
-                                                  Unchecked="tgNotific_Checked" />
-                        </StackPanel>
-
-                        <StackPanel Margin="0, 20, 0, 0" Orientation="Horizontal">
                             <TextBlock Margin="10, 5, 0, 0"
                                        FontSize="35"
                                        Text="Button timer" />
@@ -520,6 +488,36 @@
                                 <toolkit:ListPickerItem Content="60 ms" />
                                 <toolkit:ListPickerItem Content="100 ms" />
                             </toolkit:ListPicker>
+                        </StackPanel>
+
+                        <StackPanel Margin="0, 20, 0, 0" Orientation="Horizontal">
+                            <TextBlock Margin="10, 5, 0, 0"
+                                       FontSize="35"
+                                       Text="Alarm sound" />
+                            <toolkit:ListPicker x:Name="alarmSoundPick"
+                                                Width="100"
+                                                Margin="90, 0, 0, 0"
+                                                SelectionChanged="alarmSoundPick_SelectionChanged">
+                                <toolkit:ListPickerItem Content="Track 1" />
+                                <toolkit:ListPickerItem Content="Track 2" />
+                                <toolkit:ListPickerItem Content="Track 3" />
+                                <toolkit:ListPickerItem Content="Track 4" />
+                                <toolkit:ListPickerItem Content="Track 5" />
+                            </toolkit:ListPicker>
+                        </StackPanel>
+
+                        <StackPanel Margin="0, 20, 0, 0" Orientation="Horizontal">
+                            <toolkit:ToggleSwitch x:Name="tgLocation"
+                                                  Checked="tgLocation_Checked"
+                                                  Header="Use my location                           "
+                                                  Unchecked="tgLocation_Checked" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <toolkit:ToggleSwitch x:Name="tgNotific"
+                                                  Checked="tgNotific_Checked"
+                                                  Header="Recieve notifications                    "
+                                                  Unchecked="tgNotific_Checked" />
                         </StackPanel>
                     </StackPanel>
                 </controls:PanoramaItem>
@@ -590,7 +588,9 @@
                         <my:Pushpin x:Name="alarmPin"
                                     Background="Red"
                                     Tap="alarmPin_Tap">
-                            <TextBlock x:Name="pushPinText" Foreground="Black" Visibility="Collapsed"/>
+                            <TextBlock x:Name="pushPinText"
+                                       Foreground="Black"
+                                       Visibility="Collapsed" />
                         </my:Pushpin>
                     </my:Map>
                 </StackPanel>
@@ -656,8 +656,12 @@
                     </Storyboard>
                 </Border.Resources>
                 <StackPanel Orientation="Vertical">
-                    <TextBlock x:Name="passchangeError" Foreground="Red" FontSize="22" Visibility="Visible" TextWrapping="Wrap"/>
-                    
+                    <TextBlock x:Name="passchangeError"
+                               FontSize="22"
+                               Foreground="Red"
+                               TextWrapping="Wrap"
+                               Visibility="Visible" />
+
                     <StackPanel Orientation="Vertical">
                         <TextBlock Margin="15, 0, 0, -10" Text="Old password: " />
                         <PasswordBox x:Name="oldPassText"
@@ -850,7 +854,7 @@
                                        Width="400"
                                        FontSize="22"
                                        Foreground="Red"
-                                       TextWrapping="Wrap"/>
+                                       TextWrapping="Wrap" />
                         </StackPanel>
 
                         <StackPanel Width="400" Orientation="Vertical">
@@ -916,7 +920,10 @@
                                     Background="Black"
                                     Click="Button_Click_5"
                                     Content="Register" />
-                            <Button Width="200" Background="Black" Click="Button_Click_4" Content="Cancel" />
+                            <Button Width="200"
+                                    Background="Black"
+                                    Click="Button_Click_4"
+                                    Content="Cancel" />
                         </StackPanel>
                     </StackPanel>
                 </Border>

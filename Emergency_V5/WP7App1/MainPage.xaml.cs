@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Windows;
@@ -47,6 +48,11 @@ namespace WP7App1
         bool rightEmail = false;
         bool rightDateOfBirth = false;
 
+        private enum AlarmModes
+        {
+            SoundON,
+            SoundOFF
+        };
         public bool AlarmMode
         {
             get { return alarmMode; }
@@ -98,7 +104,12 @@ namespace WP7App1
             }
 
             myRequests.CollectionChanged += (sender, args) => { Requests.ItemsSource = myRequests; requestBlock.Visibility = myRequests.Count > 0 ? Visibility.Visible : Visibility.Collapsed; };
-           // alarmsList.CollectionChanged += (sender, args) =>{};
+            alarmsList.CollectionChanged += (sender, args) =>
+                                                {
+                                                    noHistoryText.Visibility = alarmsList.Count > 0
+                                                                                   ? Visibility.Collapsed
+                                                                                   : Visibility.Visible;
+                                                };
 
             client.SendSosNotificationsCompleted += new EventHandler<SendSosNotificationsCompletedEventArgs>(client_SendSosNotificationsCompleted);
             client.SearchFriendsCompleted += new EventHandler<SearchFriendsCompletedEventArgs>(client_SearchFriendsCompleted);
@@ -123,7 +134,7 @@ namespace WP7App1
         private void StackPanel_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             var s = (((sender as StackPanel).Children[0] as StackPanel).Children[0] as TextBlock).Text + " " + (((sender as StackPanel).Children[0] as StackPanel).Children[1] as TextBlock).Text;
-            TurnONAlarm((Point)(sender as StackPanel).Tag, s);
+            TurnONAlarm((Point)(sender as StackPanel).Tag, s, AlarmModes.SoundOFF);
         }
 
         /// <summary>
@@ -132,6 +143,39 @@ namespace WP7App1
         private void StackPanel_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
         {
             (sender as StackPanel).Background = Resources["AeroWhite5"] as Brush;
+        }
+
+        /// <summary>
+        /// Alarm sound picker selection changed 
+        /// </summary>
+        private void alarmSoundPick_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (alarmSoundPick != null)IsolatedStorageSettings.ApplicationSettings["alarmSoundPicker"] = alarmSoundPick.SelectedIndex.ToString();
+        }
+
+        /// <summary>
+        /// Play active alarm sound: LOOP
+        /// </summary>
+        void PlaySound(int index)
+        {
+            switch (index)
+            {
+                case 0: media.Source = new Uri("aSound/Track1.mp3", UriKind.Relative); break;
+                case 1: media.Source = new Uri("aSound/Track2.mp3", UriKind.Relative); break;
+                case 2: media.Source = new Uri("aSound/Track3.mp3", UriKind.Relative); break;
+                case 3: media.Source = new Uri("aSound/Track4.mp3", UriKind.Relative); break;
+                case 4: media.Source = new Uri("aSound/Track5.mp3", UriKind.Relative); break;
+            }
+            media.Volume = 255;
+            media.Play();
+        }
+
+        /// <summary>
+        /// Stops Alarm sound
+        /// </summary>
+        void StopSound()
+        {
+            media.Stop();
         }
 
         /// <summary>
@@ -159,14 +203,16 @@ namespace WP7App1
         {
             AlarmMode = false;
             pushPinText.Visibility = System.Windows.Visibility.Collapsed;
+            media.Stop();
         }
 
         /// <summary>
         /// Turns on alarm mode: showes map; pin to location
         /// </summary>
-        void TurnONAlarm(Point alarmPos, string sender)
+        void TurnONAlarm(Point alarmPos, string sender, AlarmModes mode)
         {
             //40.123661, 44.477149 my home
+            if (mode == AlarmModes.SoundON) PlaySound(alarmSoundPick.SelectedIndex);
             AlarmMode = true;
             googlemap.Center = new GeoCoordinate(alarmPos.X, alarmPos.Y);
             googlemap.ZoomLevel = 16;
@@ -192,7 +238,6 @@ namespace WP7App1
             Requests.ItemsSource = myRequests;
             alarmsHistorySource.Source = alarmsList;
             requestBlock.Visibility = myRequests.Count > 0 ?Visibility.Visible : Visibility.Collapsed;
-            //alarmsHistory.Visibility = alarmsList.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
             googlemap.Visibility = Visibility.Visible;
             radioStreet.IsChecked = true;
 
@@ -205,34 +250,34 @@ namespace WP7App1
             #endregion
 
             #region Load Location button state
-            if (IsolatedStorageSettings.ApplicationSettings.Contains("toggleLocation"))
-            {
-                tgLocation.IsChecked = IsolatedStorageSettings.ApplicationSettings["toggleLocation"].ToString() == "ON"
+            if (!IsolatedStorageSettings.ApplicationSettings.Contains("toggleLocation")) IsolatedStorageSettings.ApplicationSettings["toggleLocation"] = "ON";
+            tgLocation.IsChecked = IsolatedStorageSettings.ApplicationSettings["toggleLocation"].ToString() == "ON"
                                            ? true
                                            : false;
-            }
-            else
-            {
-                IsolatedStorageSettings.ApplicationSettings["toggleLocation"] = "OFF";
-                tgLocation.IsChecked = false;
-            }
             CanUseLocation = tgLocation.IsChecked;
             #endregion
 
             #region Load Notification button state
-            if (IsolatedStorageSettings.ApplicationSettings.Contains("toggleNotific"))
-            {
-                tgNotific.IsChecked = IsolatedStorageSettings.ApplicationSettings["toggleNotific"].ToString() == "ON"
+            if (!IsolatedStorageSettings.ApplicationSettings.Contains("toggleNotific")) IsolatedStorageSettings.ApplicationSettings["toggleNotific"] = "ON";
+            tgNotific.IsChecked = IsolatedStorageSettings.ApplicationSettings["toggleNotific"].ToString() == "ON"
                                            ? true
                                            : false;
-            }
-            else
-            {
-                IsolatedStorageSettings.ApplicationSettings["toggleNotific"] = "OFF";
-                tgNotific.IsChecked = false;
-            }
             CanRecieveNotifications = tgNotific.IsChecked;
             #endregion
+
+            #region Load Alarm sound settings
+
+            if (!IsolatedStorageSettings.ApplicationSettings.Contains("alarmSoundPicker")) IsolatedStorageSettings.ApplicationSettings["alarmSoundPicker"] = "2";
+            alarmSoundPick.SelectedIndex = Convert.ToInt32(IsolatedStorageSettings.ApplicationSettings["alarmSoundPicker"]);
+
+            #endregion
+
+            Contacts.LayoutUpdated += (sender, args) =>
+                                     {
+                                         noFriendsText.Visibility = Contacts.Items.Count > 0
+                                                                        ? Visibility.Collapsed
+                                                                        : Visibility.Visible;
+                                     };
 
             //TurnONAlarm(new Point(40.123661, 44.477149));
         }
@@ -412,7 +457,7 @@ namespace WP7App1
                 receivedLatitude = Convert.ToDouble(receivedLatitudeSting);
                 receivedLongitude = Convert.ToDouble(receivedLongitudeSting);
                 client.GetNotificationHistoryAsync(username, IsolatedStorageSettings.ApplicationSettings["DeviceId"].ToString());
-                TurnONAlarm(new Point(receivedLatitude, receivedLongitude), "");
+                TurnONAlarm(new Point(receivedLatitude, receivedLongitude), "", AlarmModes.SoundOFF);
             }
         }
 
@@ -560,15 +605,7 @@ namespace WP7App1
             sosButton.Source = new BitmapImage(new Uri("SOS_Button/alarmNormal.png", UriKind.Relative));
             ButtonTimer.ResetTimer();
         }
-
-        /// <summary>
-        /// Fide LoginBlock GRID when "Login block" 's dispand animation finiches 
-        /// </summary>
-        private void DispandAnimation_Completed(object sender, EventArgs e)
-        {
-            //LoginBlock.Visibility = System.Windows.Visibility.Collapsed;
-        }
-
+        
         /// <summary>
         /// Starting SOS button release timer
         /// </summary>
@@ -765,7 +802,15 @@ namespace WP7App1
         /// </summary>
         private void passBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter) Button_Click_2(this, null);
+            if (e.Key == Key.Enter)
+            {
+                if (savePass.IsChecked != true) 
+                { 
+                    if (MessageBox.Show("Do you want to save your Login and password for the next time?", "Save password", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                    savePass.IsChecked = true; 
+                }
+                Button_Click_2(this, null);
+            }
         }
 
         /// <summary>
@@ -1600,7 +1645,7 @@ namespace WP7App1
                 start = end + 19;
                 value = message[2].Substring(start, (message[2].Length - start));
                 double receivedLongitude = Convert.ToDouble(value);
-                TurnONAlarm(new Point(receivedLatitude, receivedLongitude), message[1]);
+                TurnONAlarm(new Point(receivedLatitude, receivedLongitude), message[1], AlarmModes.SoundON);
                 //MessageBox.Show("Received " + message[0] + " from " + message[1]);
                 client.GetNotificationHistoryAsync(username, IsolatedStorageSettings.ApplicationSettings["DeviceId"].ToString());
             });
